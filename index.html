@@ -1,0 +1,1735 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#090b0b" />
+<title>Práctica β</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="icons/icon-180.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Práctica β" />
+<style>
+:root{--bg:#090b0b;--card:#151818;--card2:#1d2121;--line:#282e2e;--muted:#909898;--text:#f7f9f9;--accent:#00F0FF;--danger:#ff655f;--safe:max(12px,env(safe-area-inset-bottom));font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);overscroll-behavior:none;-webkit-overflow-scrolling:auto}body{position:fixed;inset:0;overflow:hidden}button,input,select,textarea{font:inherit}.app{position:fixed;inset:0;margin:0 auto;width:min(100%,520px);height:100dvh;max-width:520px;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;background:radial-gradient(circle at 50% -15%,#0b1f2a 0,#090b0b 32%);padding-bottom:0}.screen{display:none;min-height:0;padding:calc(22px + env(safe-area-inset-top)) 18px calc(96px + env(safe-area-inset-bottom))}.screen.active{display:block}
+@media (display-mode: standalone){.screen{padding-top:calc(26px + env(safe-area-inset-top))}}.title{font-size:34px;font-weight:800;letter-spacing:-1px;margin:4px 0 18px}.eyebrow{font-size:14px;color:var(--muted);text-transform:capitalize}.card{background:var(--card);border:1px solid #202525;border-radius:18px;padding:15px}.section-title{font-size:18px;font-weight:750;margin:24px 0 12px}.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:10px 0 24px}.day{text-align:center;font-size:11px;color:var(--muted)}.day b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;margin:7px auto 5px;color:#fff;font-size:14px;font-weight:600}.day.today b{background:var(--accent);color:#00131f}.day i{display:block;width:4px;height:4px;border-radius:50%;background:var(--accent);margin:auto;opacity:0}.day.done i{opacity:1}.ring-wrap{display:grid;place-items:center;margin:8px 0 24px}.ring{width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--accent) calc(var(--p)*1%),#202525 0);transform:rotate(-90deg);position:relative}.ring:after{content:"";position:absolute;inset:14px;border-radius:50%;background:#0b0e0e}.inside{z-index:2;text-align:center;transform:rotate(90deg)}.inside .big{font-size:25px;font-weight:800}.inside .small{font-size:13px;color:var(--muted);margin-top:4px}.stats3,.stats2{display:grid;gap:9px}.stats3{grid-template-columns:repeat(3,1fr)}.stats2{grid-template-columns:repeat(2,1fr)}.mini{background:var(--card);border:1px solid #1d2222;border-radius:15px;padding:13px;min-height:72px}.mini span{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}.mini strong{font-size:16px}.mini.accent strong{color:var(--accent)}.session{display:flex;align-items:flex-start;gap:12px}.session+.session{margin-top:10px}.dot{width:38px;height:38px;flex:0 0 auto;background:var(--accent);border-radius:50%;display:grid;place-items:center;color:#00131f;box-shadow:0 0 0 1px #ffffff0f inset}.cat-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:color-mix(in srgb,var(--cat) 16%,transparent);color:var(--cat);border:1px solid color-mix(in srgb,var(--cat) 32%,transparent)}.cat-badge:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat)}.main{flex:1;min-width:0}.main h4{margin:0 0 4px;font-size:16px}.main p{margin:2px 0;color:var(--muted);font-size:13px}.tempo-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.chip{padding:4px 8px;border-radius:999px;background:#202626;color:#cfd6d6;font-size:11px}.variant-groups{display:grid;gap:8px;margin-top:9px}.variant-group{background:#1b2020;border:1px solid #252b2b;border-radius:12px;padding:9px 10px}.variant-name{font-size:12px;font-weight:800;color:#00F0FF;margin-bottom:7px}.variant-blocks{display:flex;flex-wrap:wrap;gap:6px}.tempo-chip-rich{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:#232929;border:1px solid #2d3434;font-size:11px}.tempo-bpm{color:#B69CFF;font-weight:800}.tempo-sep{color:#626c6c}.tempo-time{color:#FFBF69;font-weight:750}.chev{color:var(--muted);font-size:20px}.empty{color:var(--muted);font-size:14px;line-height:1.5}.primary,.secondary,.danger{border:0;border-radius:14px;padding:13px 16px;font-weight:750}.primary{background:var(--accent);color:#00131f}.primary:disabled{opacity:.4}.secondary{background:var(--card2);color:#fff}.danger{background:rgba(255,101,95,.13);color:var(--danger);border:1px solid rgba(255,101,95,.22)}.wide{width:100%}.seg{background:var(--card);border-radius:12px;padding:3px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:14px}.seg button{border:0;background:transparent;color:var(--muted);padding:8px;border-radius:9px}.seg button.active{background:#363c3c;color:#fff}.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric-row.two{grid-template-columns:repeat(2,1fr);margin-top:8px}.metric{background:var(--card);padding:13px;border-radius:14px}.metric small{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.metric b{font-size:16px}.bars{height:190px;display:flex;gap:9px;align-items:flex-end;padding:16px 4px 2px;border-bottom:1px solid var(--line)}.barcol{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:7px}.bars.dense{gap:2px;padding-left:0;padding-right:0}.bar{width:70%;background:linear-gradient(var(--accent),#009AA5);border-radius:6px 6px 2px 2px;min-height:2px}.barcol span{font-size:11px;color:var(--muted)}.cat-row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.cat-row:last-child{border-bottom:0}.c{width:9px;height:9px;border-radius:50%;background:var(--cat,var(--accent));box-shadow:0 0 10px color-mix(in srgb,var(--cat,var(--accent)) 28%,transparent)}.grow{flex:1}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.calendar-head button{background:transparent;border:0;color:#fff;font-size:22px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 6px}.calendar .dow,.calendar .cell{text-align:center}.calendar .dow{font-size:11px;color:var(--muted);padding:2px 0 7px}.calendar .cell{-webkit-appearance:none;appearance:none;justify-self:center;width:38px;height:42px;padding:0;border:0;background:transparent;color:#f7f9f9;display:grid;place-items:center;position:relative;border-radius:0;font-size:14px;font-weight:500;line-height:1;isolation:isolate}.calendar .cell.has:after{content:"";position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent)}.calendar .cell.selected{color:#fff;font-weight:700}.calendar .cell.selected:before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,240,255,.24);border:1px solid rgba(0,240,255,.34);box-shadow:0 0 14px rgba(0,240,255,.08);pointer-events:none}.calendar .cell.has:after{z-index:1}.calendar .cell:active{opacity:.72}.more-row{display:flex;align-items:center;gap:13px;padding:16px 2px;border-bottom:1px solid var(--line)}.account-status{display:flex;align-items:center;gap:13px;padding:16px 2px;border-bottom:1px solid var(--line)}.account-email{font-size:12px;color:var(--muted);margin-top:4px;word-break:break-all}.account-action-danger strong{color:#ff747d}.account-note{font-size:12px;line-height:1.45;color:var(--muted);margin:9px 4px 0}.more-row:last-child{border-bottom:0}.more-row .ic{width:26px;text-align:center;color:var(--accent)}.exercise-card{padding:14px 0;border-bottom:1px solid var(--line)}.exercise-card:last-child{border-bottom:0}.exercise-card h4{margin:0 0 5px}.exercise-meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px}.nav{position:fixed;z-index:90;left:50%;bottom:max(6px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(500px,calc(100% - 20px));display:grid;grid-template-columns:1fr 1fr 54px 1fr 1fr;align-items:center;gap:3px;padding:5px;background:rgba(24,26,26,.94);backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);border:1px solid rgba(255,255,255,.10);border-radius:31px;box-shadow:0 12px 34px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.05);overflow:hidden}.nav-indicator{position:absolute;z-index:0;top:5px;left:0;height:54px;border-radius:25px;background:linear-gradient(180deg,rgba(66,70,70,.96),rgba(49,53,53,.96));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 2px 8px rgba(0,0,0,.14);pointer-events:none;transition:transform .34s cubic-bezier(.22,.85,.32,1),width .34s cubic-bezier(.22,.85,.32,1)}.nav button{position:relative;z-index:1;height:54px;border:0;background:transparent;color:#a6adad;font-size:10px;padding:5px 4px;border-radius:25px;transition:color .22s ease,transform .18s ease}.nav button.active{color:var(--accent)}.nav button:active{transform:scale(.97)}.ni{font-size:19px;display:block;margin-bottom:4px}.nav #addBtn{display:flex;align-items:center;justify-content:center;padding:0;background:transparent;box-shadow:none}.plus{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#00F0FF 0%,#00D8FF 52%,#00B8FF 100%);color:#00131f;display:flex;align-items:center;justify-content:center;margin:0;border:1px solid rgba(255,255,255,.18);box-shadow:0 6px 16px #0006,0 4px 16px rgba(0,216,255,.15),inset 0 1px 0 rgba(255,255,255,.24);font-size:0;line-height:1}.plus:before{content:"+";display:block;font-size:25px;font-weight:500;line-height:1;transform:translateY(-.5px)}.modal{position:fixed;z-index:120;inset:0;background:#090b0b;display:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch;padding-bottom:calc(30px + var(--safe))}.session-form{padding-bottom:150px}.floating-save-wrap{position:fixed;z-index:150;left:50%;bottom:calc(18px + env(safe-area-inset-bottom) + var(--keyboard-offset,0px));transform:translateX(-50%);width:min(488px,calc(100% - 32px));pointer-events:none;transition:bottom .16s ease}.floating-save{pointer-events:auto;width:100%;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:15px 18px;background:linear-gradient(145deg,#00F0FF 0%,#00D8FF 52%,#00B8FF 100%);color:#00131f;font-weight:800;font-size:16px;box-shadow:0 12px 32px rgba(0,0,0,.42),0 5px 22px rgba(0,216,255,.22),inset 0 1px 0 rgba(255,255,255,.25)}.floating-save:active{transform:scale(.985)}.modal.open{display:block}body:has(.modal.open) .nav{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(16px);transition:opacity .16s ease,transform .16s ease}.topbar{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:82px 1fr 82px;align-items:center;background:rgba(9,11,11,.94);backdrop-filter:blur(20px);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid #171b1b}.topbar h2{text-align:center;font-size:17px;margin:0}.topbar button{border:0;background:transparent;color:var(--accent);padding:8px}.topbar button:first-child{color:#fff;text-align:left}.form{padding:18px}.field{margin-bottom:15px}.field label{display:block;color:var(--muted);font-size:12px;margin:0 0 7px 4px}.field input,.field select,.field textarea{width:100%;border:1px solid #242929;background:var(--card);color:#fff;border-radius:14px;padding:14px;outline:none}.field textarea{resize:vertical;min-height:90px}.inline2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.difficulty{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.difficulty button{height:42px;border:0;border-radius:12px;background:var(--card2);color:#fff}.difficulty button.active{background:var(--accent);color:#00131f;font-weight:800}.tempo-box{background:var(--card);border:1px solid #222828;border-radius:16px;padding:12px}.tempo-row{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(72px,.7fr) minmax(72px,.7fr) 42px;gap:7px;align-items:center;margin-bottom:8px}.tempo-row.no-variants{grid-template-columns:minmax(80px,1fr) minmax(80px,1fr) 42px}.tempo-row.no-variants .block-variant{display:none}.tempo-row select,.tempo-row input{width:100%;min-width:0;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:12px;padding:11px 9px;outline:none}.block-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.block-actions button{width:100%}.variant-inline{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.variant-inline select{min-width:0}.variant-inline .secondary{white-space:nowrap;padding:13px 12px}.inline-variant-editor{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-top:8px}.inline-variant-editor[hidden]{display:none}.inline-variant-editor input{width:100%;min-width:0;border:1px solid #242929;background:var(--card);color:#fff;border-radius:12px;padding:12px;outline:none}.inline-variant-editor button{padding:12px 11px;border-radius:12px;border:0;font-weight:750}.variant-editor-row{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;margin-bottom:8px}.variant-editor-row input{width:100%;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:12px;padding:12px;outline:none}.variant-editor-row button{height:42px;border:0;border-radius:12px;background:#292f2f;color:#fff;font-size:20px}.tempo-row:last-child{margin-bottom:0}.tempo-row input{width:100%;border:1px solid #2a3030;background:#101313;color:#fff;border-radius:11px;padding:11px}.remove{border:0;background:#2a1b1b;color:var(--danger);width:42px;height:42px;border-radius:11px}.tempo-summary{font-size:12px;color:var(--muted);margin-top:10px}.tempo-summary.warn{color:#ffb35c}.total{display:flex;justify-content:space-between;align-items:center}.total b{color:var(--accent)}.toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,20px);background:#f5f5f5;color:#111;padding:11px 15px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:200}.toast.show{opacity:1;transform:translate(-50%,0)}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.detail-grid .mini{min-height:auto}.backline{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;margin-bottom:14px;cursor:pointer}.muted{color:var(--muted)}.seg.two{grid-template-columns:1fr 1fr}.seg.no-gap{margin-bottom:0}.hidden-file{display:none}.circle5{display:block;width:100%;max-width:320px;margin:0 auto;touch-action:manipulation}.circle5 text{font-weight:700;fill:#f7f9f9;pointer-events:none}.circle5 g{cursor:pointer}.key-title{text-align:center;font-size:20px;font-weight:800;margin:6px 0 2px}.key-notes{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.5px}.degree-chips{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.degree-chips button{height:44px;border:1px solid #2a3030;border-radius:12px;background:var(--card2);color:#6f7878;font-weight:800;opacity:.55}.degree-chips button.on{opacity:1;color:#00131f;background:var(--deg);border-color:transparent}.preset-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.preset-row button{border:0;border-radius:11px;background:#202626;color:#cfd6d6;padding:9px 4px;font-size:12px}.fretboard{display:block;max-width:none}.fret-scroll{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding:10px 4px}.progress{height:8px;border-radius:99px;background:#202626;overflow:hidden;margin:10px 0 8px}.progress i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .3s}.song-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.song-row:last-child{border-bottom:0}.song-row .grow{min-width:0}.song-row strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.icon-btn{border:0;background:#202626;color:#cfd6d6;width:40px;height:40px;border-radius:12px;font-size:16px;flex:0 0 auto}.transport{display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;justify-items:center;margin:8px 0 4px}.play-btn{width:64px;height:64px;border-radius:50%;border:0;background:linear-gradient(145deg,#00F0FF,#00B8FF);color:#00131f;font-size:24px;font-weight:800}.range{width:100%;accent-color:var(--accent)}.time-row{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}.bpm-big{font-size:34px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}.bpm-row{display:grid;grid-template-columns:48px 1fr 48px;gap:10px;align-items:center}.bpm-row button,.mini-btns button{border:0;border-radius:12px;background:var(--card2);color:#fff;height:44px;font-weight:800}.mini-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.stem-row{display:grid;grid-template-columns:10px 76px 1fr 38px 38px;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.stem-row:last-child{border-bottom:0}.stem-row button{height:34px;border:0;border-radius:10px;background:#202626;color:#909898;font-weight:800;font-size:12px}.stem-row button.on{background:var(--accent);color:#00131f}.stem-row button.mute.on{background:#ff655f;color:#fff}.orig-bpm{display:flex;align-items:center;gap:8px}.orig-bpm input{width:80px;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:10px;padding:8px;text-align:center}.orig-bpm button{border:0;border-radius:10px;background:#202626;color:#cfd6d6;padding:9px 10px;font-size:12px}#sessionModal{z-index:125}.exercise-row{display:grid;grid-template-columns:1fr 52px;gap:8px}.lib-btn{position:relative;border:1px solid #242929;border-radius:14px;background:var(--card2);color:var(--accent);display:grid;place-items:center;font-size:20px;overflow:hidden}.field .lib-btn select{position:absolute;inset:0;width:100%;height:100%;opacity:0;padding:0;border:0}.chip-row{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px;scrollbar-width:none}.chip-row::-webkit-scrollbar{display:none}.chip-btn{flex:0 0 auto;border:1px solid #2a3030;background:#1b2020;color:#cfd6d6;border-radius:999px;padding:8px 13px;font-size:13px;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chip-btn:active{background:#263030}.chip-btn.on{background:rgba(0,240,255,.16);border-color:rgba(0,240,255,.45);color:var(--accent)}.chip-label{font-size:11px;color:var(--muted);margin:10px 4px 0}.more-details{margin:0 0 15px}.more-details summary{list-style:none;cursor:pointer;color:var(--accent);font-size:14px;font-weight:650;padding:6px 4px 14px}.more-details summary::-webkit-details-marker{display:none}.more-details[open] summary{color:var(--muted)}.quick-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}.quick{border:1px solid #1d2222;background:var(--card);color:#fff;border-radius:15px;padding:12px 6px;display:grid;justify-items:center;gap:6px;font-size:12px;font-weight:650}.quick i{font-style:normal;font-size:19px;color:var(--accent)}.quick:active{transform:scale(.97)}.mini-player{position:fixed;z-index:95;left:50%;bottom:calc(max(6px,env(safe-area-inset-bottom)) + 74px);transform:translateX(-50%);width:min(500px,calc(100% - 20px));display:grid;grid-template-columns:1fr 46px 38px;gap:6px;align-items:center;padding:6px 6px 6px 14px;background:rgba(24,26,26,.96);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);border:1px solid rgba(0,240,255,.22);border-radius:20px;box-shadow:0 10px 28px rgba(0,0,0,.45)}.mini-player[hidden]{display:none}body:has(.modal.open) .mini-player{z-index:130;bottom:calc(10px + env(safe-area-inset-bottom))}body:has(#sessionModal.open) .mini-player{display:none}body.has-mini .screen{padding-bottom:calc(160px + env(safe-area-inset-bottom))}body.has-mini .modal{padding-bottom:calc(90px + var(--safe))}.mini-info{min-width:0;border:0;background:transparent;color:#fff;text-align:left;padding:4px 0}.mini-info strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini-info span{display:block;font-size:11px;color:var(--accent);margin-top:2px;font-variant-numeric:tabular-nums}.mini-play{width:46px;height:46px;border-radius:50%;border:0;background:linear-gradient(145deg,#00F0FF,#00B8FF);color:#00131f;font-size:17px;font-weight:800}.loop-btn{margin-top:10px;font-variant-numeric:tabular-nums}.loop-btn.on{background:rgba(0,240,255,.16);color:var(--accent)}.mini-x{width:38px;height:38px;border:0;border-radius:12px;background:#202626;color:#909898;font-size:18px}
+</style>
+</head>
+<body>
+<div class="app">
+  <section id="home" class="screen active"></section>
+  <section id="stats" class="screen"></section>
+  <section id="history" class="screen"></section>
+  <section id="more" class="screen"></section>
+</div>
+
+<nav class="nav">
+  <div class="nav-indicator" aria-hidden="true"></div>
+  <button data-tab="home" class="active"><span class="ni">⌂</span>Inicio</button>
+  <button data-tab="stats"><span class="ni">▥</span>Estadísticas</button>
+  <button id="addBtn"><span class="plus">+</span></button>
+  <button data-tab="history"><span class="ni">◷</span>Historial</button>
+  <button data-tab="more"><span class="ni">≡</span>Más</button>
+</nav>
+
+<div id="sessionModal" class="modal">
+  <div class="topbar"><button id="cancelSession">Cancelar</button><h2 id="sessionModalTitle">Nueva práctica</h2><button aria-hidden="true" tabindex="-1"></button></div>
+  <div class="form session-form">
+    <div class="field">
+      <label>Ejercicio</label>
+      <div class="exercise-row">
+        <input id="exerciseName" list="exerciseList" placeholder="Escribe o elige de la biblioteca" autocomplete="off"/>
+        <div class="lib-btn" aria-hidden="true">≡<select id="exercisePicker" aria-label="Elegir de la biblioteca"><option value="">Elegir de la biblioteca…</option></select></div>
+      </div>
+      <datalist id="exerciseList"></datalist>
+      <div id="recentWrap"><div class="chip-label">Repetir lo último de…</div><div id="recentChips" class="chip-row"></div></div>
+    </div>
+    <div class="field"><label>Instrumento</label><div id="instrumentSeg" class="seg two no-gap"></div></div>
+    <div class="field"><label>Categoría</label><select id="category"></select></div>
+    <div class="field">
+      <label>Minutos de práctica</label>
+      <input id="practiceMinutes" type="number" min="1" step="5" value="15" inputmode="numeric" />
+      <div class="chip-row" id="minutePresets"><button type="button" class="chip-btn" data-min="15">15 min</button><button type="button" class="chip-btn" data-min="30">30 min</button><button type="button" class="chip-btn" data-min="45">45 min</button><button type="button" class="chip-btn" data-min="60">60 min</button><button type="button" class="chip-btn" data-min="90">90 min</button></div>
+    </div>
+
+    <div class="field">
+      <label>Bloques de práctica</label>
+      <div class="tempo-box">
+        <div id="tempoRows"></div>
+        <div class="block-actions">
+          <button id="addTempo" class="secondary" type="button">+ Añadir bloque</button>
+          <button id="addInlineVariant" class="secondary" type="button">+ Nueva variante</button>
+        </div>
+        <div id="inlineVariantEditor" class="inline-variant-editor" hidden>
+          <input id="inlineVariantName" type="text" placeholder="Ej. Vibrato, Bending en 1ª…" autocomplete="off">
+          <button id="saveInlineVariant" class="primary" type="button">Añadir</button>
+          <button id="cancelInlineVariant" class="secondary" type="button">Cancelar</button>
+        </div>
+        <div id="tempoSummary" class="tempo-summary">Sin bloques de práctica</div>
+      </div>
+      <div class="empty" style="font-size:12px;margin:7px 4px 0">Basta con el BPM. Variante y minutos son opcionales.</div>
+    </div>
+
+    <div class="field"><label>Dificultad</label><div id="difficulty" class="difficulty"></div></div>
+    <details id="moreDetails" class="more-details">
+      <summary>+ Calentamiento, fecha y notas</summary>
+      <div class="field"><label>Calentamiento</label><select id="warmup"></select></div>
+      <div class="field"><label>Min. calentamiento</label><input id="warmupMinutes" type="number" min="0" step="5" value="0" inputmode="numeric" /></div>
+      <div class="field"><label>Fecha y hora</label><input id="date" type="datetime-local" /></div>
+      <div class="field"><label>Notas</label><textarea id="notes" placeholder="Qué has trabajado, sensaciones, objetivos para la próxima vez…"></textarea></div>
+    </details>
+    <div class="card total"><span>Tiempo total</span><b id="totalPreview">15 min</b></div>
+  </div>
+  <div class="floating-save-wrap" id="sessionSaveFloat">
+    <button id="saveSession" class="floating-save" type="button">Guardar práctica</button>
+  </div>
+</div>
+
+<div id="detailModal" class="modal"></div>
+<div id="toolModal" class="modal"></div>
+<div id="exerciseModal" class="modal"></div>
+<div id="miniPlayer" class="mini-player" hidden>
+  <button id="miniOpen" class="mini-info" type="button"><strong id="miniTitle"></strong><span id="miniSub"></span></button>
+  <button id="miniPlay" class="mini-play" type="button" aria-label="Reproducir o pausar">▶</button>
+  <button id="miniClose" class="mini-x" type="button" aria-label="Cerrar canción">×</button>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const categories=['Escalas','Acordes','Técnica','Improvisación','Repertorio','Calentamiento'];
+const categoryColors={Escalas:'#4EEE7C',Acordes:'#FFD166','Técnica':'#4DA3FF','Improvisación':'#B276FF',Repertorio:'#FF6B7A',Calentamiento:'#FF9F43'};
+const catColor=c=>categoryColors[c]||'#9AA2A2';
+const warmups=['Sin calentamiento','Movilidad','Cromáticos','Digitación','Independencia de dedos','Técnica','Estiramientos suaves','Personalizado'];
+// PREVIEW=true usa claves aisladas y no registra Service Worker. Poner false SOLO al publicar.
+const PREVIEW=false;
+const SESSIONS_KEY=PREVIEW?'practica_preview_sessions':'practica_sessions_v2';
+const EXERCISES_KEY=PREVIEW?'practica_preview_exercises':'practica_exercises_v2';
+const GOALS_KEY=PREVIEW?'practica_preview_goals':'practica_goals_v1';
+const defaultGoals={dailyMinutes:120,weeklyDays:5,weeklyMinutes:600};
+const goals=()=>{
+  try{
+    const raw={...defaultGoals,...JSON.parse(localStorage.getItem(GOALS_KEY)||'{}')};
+    raw.dailyMinutes=Math.max(15,+raw.dailyMinutes||120);
+    raw.weeklyDays=Math.min(7,Math.max(1,+raw.weeklyDays||5));
+    raw.weeklyMinutes=Math.round(raw.dailyMinutes*raw.weeklyDays);
+    return raw;
+  }catch{
+    return {...defaultGoals};
+  }
+};
+const saveGoals=g=>{
+  const clean={
+    dailyMinutes:Math.max(15,+g.dailyMinutes||120),
+    weeklyDays:Math.min(7,Math.max(1,+g.weeklyDays||5))
+  };
+  clean.weeklyMinutes=Math.round(clean.dailyMinutes*clean.weeklyDays);
+  localStorage.setItem(GOALS_KEY,JSON.stringify(clean));
+};
+const instruments=['Guitarra','Bajo'];
+const instrumentOf=s=>s?.instrument==='Bajo'?'Bajo':'Guitarra';
+let instrument='Guitarra', statInstrument='all';
+let difficulty=3, statPeriod='week', viewMonth=new Date(), selectedDate=new Date(), editingSessionId=null;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const uuid=()=>crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`;
+let sessionStore=(()=>{try{return JSON.parse(localStorage.getItem(SESSIONS_KEY)||'[]')}catch{return[]}})();
+let exerciseStore=(()=>{try{return JSON.parse(localStorage.getItem(EXERCISES_KEY)||'[]')}catch{return[]}})();
+
+const sessions=()=>[...sessionStore].sort((a,b)=>new Date(b.date)-new Date(a.date));
+const exercises=()=>[...exerciseStore].sort((a,b)=>a.name.localeCompare(b.name,'es'));
+
+const saveSessions=a=>{
+  sessionStore=[...a];
+  try{localStorage.setItem(SESSIONS_KEY,JSON.stringify(sessionStore))}catch{}
+};
+const saveExercises=a=>{
+  exerciseStore=[...a];
+  try{localStorage.setItem(EXERCISES_KEY,JSON.stringify(exerciseStore))}catch{}
+};
+const fmt=m=>{m=Math.max(0,Math.round(m||0));const h=Math.floor(m/60),r=m%60;return h?(r?`${h} h ${r} min`:`${h} h`):`${r} min`};
+const startDay=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+const isoDay=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const sameDay=(a,b)=>isoDay(new Date(a))===isoDay(new Date(b));
+const sessionExercise=s=>exercises().find(e=>e.id===s.exerciseId)||{id:s.exerciseId||'',name:s.exerciseName||'Sin nombre',category:s.category||'Otros'};
+
+function migrateV1(){
+  if(PREVIEW||localStorage.getItem(SESSIONS_KEY))return;
+  try{
+    const old=JSON.parse(localStorage.getItem('practica_sessions_v1')||'[]');
+    if(!old.length)return;
+    const ex=[]; const byName={};
+    const upgraded=old.map(s=>{
+      const key=(s.topic||'Sin nombre').trim().toLowerCase();
+      let e=byName[key];
+      if(!e){
+        e={
+          id:uuid(),
+          name:(s.topic||'Sin nombre').trim(),
+          category:s.category||'Técnica',
+          variants:[],
+          createdAt:s.date||new Date().toISOString()
+        };
+        byName[key]=e;
+        ex.push(e);
+      }
+      return {
+        ...s,
+        exerciseId:e.id,
+        exerciseName:e.name,
+        category:e.category,
+        variantId:'',
+        variantName:'',
+        tempoBlocks:[]
+      };
+    });
+    saveExercises(ex);
+    saveSessions(upgraded);
+  }catch{}
+}
+
+function ensureExercise(name,category){
+  const clean=name.trim(); const all=exercises();
+  let e=all.find(x=>x.name.toLowerCase()===clean.toLowerCase());
+  if(e){ if(category&&e.category!==category){e.category=category;saveExercises(all)} return e; }
+  e={id:uuid(),name:clean,category,variants:[],createdAt:new Date().toISOString()}; all.push(e);saveExercises(all);return e;
+}
+
+function renderAll(){renderHome();renderStats();renderHistory();renderMore();refreshExerciseDatalist();refreshExercisePicker()}
+
+function renderHome(){
+  const a=sessions(), now=new Date(), today=a.filter(s=>sameDay(s.date,now));
+  const todayMin=today.reduce((n,s)=>n+(+s.practiceMinutes||0),0), goal=Math.max(1,+goals().dailyMinutes||120);
+  const weekStart=new Date(now); weekStart.setDate(now.getDate()-((now.getDay()+6)%7)); weekStart.setHours(0,0,0,0);
+  const weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+7);
+  const monthStart=new Date(now.getFullYear(),now.getMonth(),1), monthEnd=new Date(now.getFullYear(),now.getMonth()+1,1);
+  const sum=(from,to)=>a.filter(s=>new Date(s.date)>=from&&new Date(s.date)<to).reduce((n,s)=>n+(+s.practiceMinutes||0),0);
+  const days=new Set(a.map(s=>isoDay(new Date(s.date)))); let streak=0,c=startDay(now); if(!days.has(isoDay(c))){c.setDate(c.getDate()-1)} while(days.has(isoDay(c))){streak++;c.setDate(c.getDate()-1)}
+  const weekDays=Array.from({length:7},(_,i)=>{const d=new Date(weekStart);d.setDate(d.getDate()+i);return d});
+  const latest=today.length?today:a.slice(0,3);
+  $('#home').innerHTML=`
+    <div class="eyebrow">${now.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}</div><div class="title">Hoy</div>
+    <div class="week">${weekDays.map(d=>`<div class="day ${sameDay(d,now)?'today':''} ${days.has(isoDay(d))?'done':''}">${d.toLocaleDateString('es-ES',{weekday:'narrow'})}<b>${d.getDate()}</b><i></i></div>`).join('')}</div>
+    <div class="ring-wrap"><div class="ring" style="--p:${Math.min(100,todayMin/goal*100)}"><div class="inside"><div class="big">${fmt(todayMin)}</div><div class="small">de práctica</div><div class="small">Objetivo: ${fmt(goal)}</div></div></div></div>
+    <div class="stats3"><div class="mini"><span>Esta semana</span><strong>${fmt(sum(weekStart,weekEnd))}</strong></div><div class="mini accent"><span>Racha</span><strong>${streak} días</strong></div><div class="mini"><span>Este mes</span><strong>${fmt(sum(monthStart,monthEnd))}</strong></div></div>
+    <div class="quick-row">
+      ${a.length?`<button class="quick" id="quickRepeat" type="button"><i>↻</i>Repetir última</button>`:`<button class="quick" id="quickNew" type="button"><i>+</i>Nueva práctica</button>`}
+      <button class="quick" id="quickSong" type="button"><i>♫</i>${player?'Continuar canción':'Con canción'}</button>
+      <button class="quick" id="quickScales" type="button"><i>◈</i>Escalas</button>
+    </div>
+    <div class="section-title">${today.length?'Prácticas de hoy':'Últimas prácticas'}</div>
+    ${latest.length?latest.map(sessionCard).join(''):`<div class="card empty">Todavía no hay prácticas. Pulsa + para registrar la primera.</div>`}`;
+  bindSessionCards();
+  if($('#quickRepeat'))$('#quickRepeat').onclick=()=>repeatSession(a[0].id);
+  if($('#quickNew'))$('#quickNew').onclick=()=>openSessionModal();
+  $('#quickSong').onclick=()=>openStems(player?.song.id);
+  $('#quickScales').onclick=openScales;
+}
+
+function sessionCard(s){
+  const e=sessionExercise(s),blocks=s.tempoBlocks||[],legacyVariant=variantNameForSession(s,e);
+
+  const groups=[];
+  const byKey=new Map();
+
+  blocks.forEach((b,index)=>{
+    const variant=blockVariantName(b,e)||legacyVariant||'';
+    const key=variant?(b.variantId||`name:${variant.toLowerCase()}`):'__no_variant__';
+
+    if(!byKey.has(key)){
+      const group={key,name:variant,blocks:[],firstIndex:index};
+      byKey.set(key,group);
+      groups.push(group);
+    }
+    byKey.get(key).blocks.push(b);
+  });
+
+  return `<div class="card session" data-session="${esc(s.id)}">
+    <div class="dot" style="background:${catColor(e.category)}">♪</div>
+    <div class="main">
+      <h4>${esc(e.name)}</h4>
+      <p><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span> · ${instrumentOf(s)} · ${fmt(s.practiceMinutes)}</p>
+      ${s.warmupMinutes?`<p>Calentamiento · ${fmt(s.warmupMinutes)}</p>`:''}
+      ${groups.length?`<div class="variant-groups">${groups.map(g=>`
+        <div class="variant-group">
+          ${g.name?`<div class="variant-name">${esc(g.name)}</div>`:''}
+          <div class="variant-blocks">
+            ${g.blocks.map(b=>`
+              <span class="tempo-chip-rich">
+                <span class="tempo-bpm">${b.bpm} BPM</span>
+                ${b.minutes!=null&&+b.minutes>0?`<span class="tempo-sep">·</span><span class="tempo-time">${fmt(b.minutes)}</span>`:''}
+              </span>`).join('')}
+          </div>
+        </div>`).join('')}</div>`:''}
+    </div>
+    <div class="chev">›</div>
+  </div>`;
+}
+function bindSessionCards(){$$('[data-session]').forEach(el=>el.onclick=()=>openSessionDetail(el.dataset.session))}
+
+// STATS-START
+const sumMin=list=>list.reduce((n,s)=>n+(+s.practiceMinutes||0),0);
+const dayDiff=(a,b)=>Math.round((startDay(b)-startDay(a))/864e5);
+function bestStreak(daySet){
+  let best=0,cur=0,prev=null;
+  [...daySet].sort().forEach(k=>{const d=new Date(k+'T00:00');cur=prev&&dayDiff(prev,d)===1?cur+1:1;best=Math.max(best,cur);prev=d});
+  return best;
+}
+function currentStreak(daySet,now=new Date()){
+  let n=0,c=startDay(now);if(!daySet.has(isoDay(c)))c.setDate(c.getDate()-1);
+  while(daySet.has(isoDay(c))){n++;c.setDate(c.getDate()-1)}
+  return n;
+}
+// Máximo BPM por sesión (opcionalmente solo de una variante), ordenado por fecha ascendente.
+function bpmSeries(list,e,variant=''){
+  return list.map(s=>{
+    const legacy=variantNameForSession(s,e);
+    const bpms=(s.tempoBlocks||[]).filter(b=>!variant||(blockVariantName(b,e)||legacy)===variant).map(b=>+b.bpm).filter(b=>b>0);
+    return bpms.length?{date:new Date(s.date),bpm:Math.max(...bpms)}:null;
+  }).filter(Boolean).sort((a,b)=>a.date-b.date);
+}
+// STATS-END
+let statExercise='',statVariant='';
+
+function periodRange(period,now,offset=0){
+  let from,to;
+  if(period==='week'){from=startDay(now);from.setDate(from.getDate()-((now.getDay()+6)%7)+7*offset);to=new Date(from);to.setDate(to.getDate()+7)}
+  if(period==='month'){from=new Date(now.getFullYear(),now.getMonth()+offset,1);to=new Date(now.getFullYear(),now.getMonth()+offset+1,1)}
+  if(period==='year'){from=new Date(now.getFullYear()+offset,0,1);to=new Date(now.getFullYear()+offset+1,0,1)}
+  return [from,to];
+}
+
+function bpmChart(series){
+  if(series.length<2)return '';
+  const W=320,H=150,l=34,r=10,t=12,b=24,min=Math.min(...series.map(x=>x.bpm)),max=Math.max(...series.map(x=>x.bpm));
+  const lo=Math.max(0,min-5),hi=max+5,x=i=>l+i*(W-l-r)/(series.length-1),y=v=>t+(hi-v)*(H-t-b)/(hi-lo);
+  const pts=series.map((p,i)=>`${x(i).toFixed(1)},${y(p.bpm).toFixed(1)}`).join(' ');
+  const dl=d=>d.toLocaleDateString('es-ES',{day:'numeric',month:'short'});
+  return `<svg viewBox="0 0 ${W} ${H}" style="display:block;width:100%" role="img" aria-label="Evolución de BPM">
+    ${[min,max].map(v=>`<line x1="${l}" x2="${W-r}" y1="${y(v)}" y2="${y(v)}" stroke="#282e2e" stroke-dasharray="3 4"/><text x="${l-6}" y="${y(v)}" text-anchor="end" dominant-baseline="central" font-size="10" fill="#909898">${v}</text>`).join('')}
+    <polyline points="${pts}" fill="none" stroke="#00F0FF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${series.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.bpm)}" r="3.5" fill="#00F0FF"/>`).join('')}
+    <text x="${l}" y="${H-6}" font-size="10" fill="#909898">${dl(series[0].date)}</text>
+    <text x="${W-r}" y="${H-6}" text-anchor="end" font-size="10" fill="#909898">${dl(series[series.length-1].date)}</text>
+  </svg>`;
+}
+
+function heatmap(a,now){
+  const g=Math.max(1,goals().dailyMinutes),byDay={};
+  a.forEach(s=>{const k=isoDay(new Date(s.date));byDay[k]=(byDay[k]||0)+(+s.practiceMinutes||0)});
+  const [weekStart]=periodRange('week',now),first=new Date(weekStart);first.setDate(first.getDate()-7*11);
+  const cells=[];
+  for(let w=0;w<12;w++)for(let d=0;d<7;d++){
+    const day=new Date(first);day.setDate(first.getDate()+w*7+d);
+    const m=byDay[isoDay(day)]||0,lvl=day>now?-1:m<=0?0:m<g*.34?1:m<g*.67?2:m<g?3:4;
+    cells.push(`<rect x="${20+w*24}" y="${d*20}" width="18" height="16" rx="4" fill="${lvl<0?'transparent':lvl?`rgba(0,240,255,${[0,.22,.45,.7,1][lvl]})`:'#202525'}"><title>${day.toLocaleDateString('es-ES')} · ${fmt(m)}</title></rect>`);
+  }
+  return `<svg viewBox="0 0 310 140" style="display:block;width:100%" role="img" aria-label="Mapa de constancia, últimas 12 semanas">
+    ${['L','X','V','D'].map((l,i)=>`<text x="6" y="${i*40+8}" dominant-baseline="central" font-size="10" fill="#909898">${l}</text>`).join('')}${cells.join('')}</svg>
+    <div class="time-row" style="margin-top:6px"><span>Hace 12 semanas</span><span>Menos ▢ → más ■ del objetivo</span></div>`;
+}
+
+function renderStats(){
+  const all=sessions().filter(s=>statInstrument==='all'||instrumentOf(s)===statInstrument),now=new Date(),g=goals();
+  const [from,to]=periodRange(statPeriod,now),[pFrom,pTo]=periodRange(statPeriod,now,-1);
+  const inRange=(x,f,t)=>{const d=new Date(x.date);return d>=f&&d<t};
+  const f=all.filter(s=>inRange(s,from,to)),prev=all.filter(s=>inRange(s,pFrom,pTo));
+  const practice=sumMin(f),warm=f.reduce((n,s)=>n+(+s.warmupMinutes||0),0),prevPractice=sumMin(prev);
+  const daySet=new Set(f.map(s=>isoDay(new Date(s.date)))),days=daySet.size,allDays=new Set(all.map(s=>isoDay(new Date(s.date))));
+  const elapsed=Math.max(1,dayDiff(from,now<to?now:new Date(to-1))+1);
+  const byDay={};f.forEach(s=>{const k=isoDay(new Date(s.date));byDay[k]=(byDay[k]||0)+(+s.practiceMinutes||0)});
+  const goalDays=Object.values(byDay).filter(m=>m>=g.dailyMinutes).length;
+  const prevName={week:'semana anterior',month:'mes anterior',year:'año anterior'}[statPeriod];
+  const delta=prevPractice?Math.round((practice-prevPractice)/prevPractice*100):null;
+  const bestDay=Object.entries(byDay).sort((a,b)=>b[1]-a[1])[0];
+
+  let labelCount=[];
+  if(statPeriod==='week')labelCount=Array.from({length:7},(_,i)=>{const d=new Date(from);d.setDate(d.getDate()+i);return [d.toLocaleDateString('es-ES',{weekday:'narrow'}),d]});
+  if(statPeriod==='month')labelCount=Array.from({length:new Date(now.getFullYear(),now.getMonth()+1,0).getDate()},(_,i)=>[String(i+1),new Date(now.getFullYear(),now.getMonth(),i+1)]);
+  if(statPeriod==='year')labelCount=Array.from({length:12},(_,i)=>[new Date(now.getFullYear(),i,1).toLocaleDateString('es-ES',{month:'narrow'}),new Date(now.getFullYear(),i,1)]);
+  const bars=statPeriod==='year'?labelCount.map(([l,d])=>[l,sumMin(f.filter(s=>new Date(s.date).getMonth()===d.getMonth()))]):labelCount.map(([l,d])=>[l,sumMin(f.filter(s=>sameDay(s.date,d)))]);
+  const max=Math.max(1,...bars.map(x=>x[1]));
+
+  const cat=Object.fromEntries(categories.map(c=>[c,0]));f.forEach(s=>{const e=sessionExercise(s);cat[e.category]=(cat[e.category]||0)+(+s.practiceMinutes||0)});
+  const catSorted=Object.entries(cat).sort((a,b)=>b[1]-a[1]),neglected=practice?catSorted[catSorted.length-1][0]:'';
+  const exTotals={};f.forEach(s=>{const e=sessionExercise(s);exTotals[e.id]=exTotals[e.id]||{name:e.name,total:0,count:0};exTotals[e.id].total+=+s.practiceMinutes||0;exTotals[e.id].count++});
+  const weekday=Array(7).fill(0);all.forEach(s=>weekday[(new Date(s.date).getDay()+6)%7]+=+s.practiceMinutes||0);const wdMax=Math.max(1,...weekday);
+  const warmCount={};f.filter(s=>+s.warmupMinutes>0).forEach(s=>warmCount[s.warmup]=(warmCount[s.warmup]||0)+1);
+  const topWarm=Object.entries(warmCount).sort((a,b)=>b[1]-a[1])[0];
+  const diffAvg=f.length?(f.reduce((n,s)=>n+(+s.difficulty||3),0)/f.length).toFixed(1):'—';
+
+  // Progreso por ejercicio
+  const practiced=exercises().filter(e=>all.some(s=>s.exerciseId===e.id));
+  const lastOf=e=>Math.max(...all.filter(s=>s.exerciseId===e.id).map(s=>+new Date(s.date)));
+  if(!practiced.some(e=>e.id===statExercise)){statExercise=[...practiced].sort((a,b)=>lastOf(b)-lastOf(a))[0]?.id||'';statVariant=''}
+  const ex=practiced.find(e=>e.id===statExercise),exSessions=ex?all.filter(s=>s.exerciseId===ex.id):[];
+  const variantNames=ex?[...new Set(exSessions.flatMap(s=>(s.tempoBlocks||[]).map(b=>blockVariantName(b,ex)||variantNameForSession(s,ex)).filter(Boolean)))]:[];
+  if(!variantNames.includes(statVariant))statVariant='';
+  const series=ex?bpmSeries(exSessions,ex,statVariant):[];
+  const variantRows=ex?variantNames.map(v=>{
+    const ss=exSessions.filter(s=>(s.tempoBlocks||[]).some(b=>(blockVariantName(b,ex)||variantNameForSession(s,ex))===v));
+    const mins=ss.reduce((n,s)=>n+(s.tempoBlocks||[]).filter(b=>(blockVariantName(b,ex)||variantNameForSession(s,ex))===v).reduce((m,b)=>m+(b.minutes==null?0:+b.minutes||0),0),0);
+    const top=bpmSeries(ss,ex,v);
+    return {v,count:ss.length,mins,max:top.length?Math.max(...top.map(x=>x.bpm)):null,last:ss.length?new Date(Math.max(...ss.map(s=>+new Date(s.date)))):null};
+  }):[];
+  const forgotten=practiced.map(e=>({e,days:dayDiff(new Date(lastOf(e)),now)})).filter(x=>x.days>=14).sort((a,b)=>b.days-a.days).slice(0,5);
+
+  const metric=(label,value,sub='')=>`<div class="metric"><small>${label}</small><b>${value}</b>${sub?`<div class="muted" style="font-size:11px;margin-top:5px">${sub}</div>`:''}</div>`;
+  $('#stats').innerHTML=`<div class="title">Estadísticas</div>
+    <div class="seg">${[['all','Todos'],['Guitarra','Guitarra'],['Bajo','Bajo']].map(([k,l])=>`<button data-stat-instrument="${k}" class="${statInstrument===k?'active':''}">${l}</button>`).join('')}</div>
+    <div class="seg">${[['week','Semana'],['month','Mes'],['year','Año']].map(([k,l])=>`<button data-period="${k}" class="${statPeriod===k?'active':''}">${l}</button>`).join('')}</div>
+    <div class="metric-row">${metric('Práctica',fmt(practice),delta==null?'':`<span style="color:${delta>=0?'#4EEE7C':'#ff655f'}">${delta>=0?'▲':'▼'} ${Math.abs(delta)}%</span> vs ${prevName}`)}${metric('Calentamientos',fmt(warm))}${metric('Total',fmt(practice+warm))}</div>
+    <div class="metric-row two">${metric('Días practicados',`${days} <span class="muted" style="font-size:12px">de ${elapsed}</span>`)}${metric('Media por día practicado',fmt(days?Math.round(practice/days):0),`Media diaria: ${fmt(Math.round(practice/elapsed))}`)}</div>
+    <div class="metric-row two">${metric('Objetivo diario cumplido',`${goalDays} ${goalDays===1?'día':'días'}`,`${Math.round(goalDays/elapsed*100)}% de los días`)}${metric('Mejor día',bestDay?fmt(bestDay[1]):'—',bestDay?new Date(bestDay[0]+'T00:00').toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}):'')}</div>
+    <div class="section-title">Tiempo de práctica</div><div class="card"><div class="bars ${bars.length>12?'dense':''}">${bars.map(([l,v],i)=>`<div class="barcol"><div class="bar" style="height:${Math.max(2,v/max*150)}px"></div><span>${bars.length>12&&i&&(i+1)%5?'&nbsp;':l}</span></div>`).join('')}</div></div>
+
+    <div class="section-title">Progreso por ejercicio</div>
+    ${ex?`<div class="card">
+      <div class="field" style="margin-bottom:10px"><select id="statExercise">${practiced.map(e=>`<option value="${esc(e.id)}" ${e.id===statExercise?'selected':''}>${esc(e.name)}</option>`).join('')}</select></div>
+      ${variantNames.length?`<div class="field" style="margin-bottom:10px"><select id="statVariant"><option value="">Todas las variantes</option>${variantNames.map(v=>`<option ${v===statVariant?'selected':''}>${esc(v)}</option>`).join('')}</select></div>`:''}
+      <div class="stats3">
+        <div class="mini"><span>BPM inicial</span><strong>${series[0]?.bpm??'—'}</strong></div>
+        <div class="mini accent"><span>BPM actual</span><strong>${series.at(-1)?.bpm??'—'}</strong></div>
+        <div class="mini"><span>BPM máx.</span><strong>${series.length?Math.max(...series.map(x=>x.bpm)):'—'}</strong></div>
+      </div>
+      ${series.length>1?`<div class="muted" style="font-size:12px;margin:10px 2px">${series.at(-1).bpm-series[0].bpm>=0?'+':''}${series.at(-1).bpm-series[0].bpm} BPM desde la primera sesión registrada</div>${bpmChart(series)}`:`<div class="empty" style="font-size:12px;margin-top:10px">${series.length?'Registra más sesiones con BPM para ver la evolución.':'Este ejercicio no tiene bloques con BPM.'}</div>`}
+      <div class="stats3" style="margin-top:12px">
+        <div class="mini"><span>Tiempo</span><strong>${fmt(sumMin(exSessions))}</strong></div>
+        <div class="mini"><span>Sesiones</span><strong>${exSessions.length}</strong></div>
+        <div class="mini"><span>Dificultad</span><strong>${(exSessions.reduce((n,s)=>n+(+s.difficulty||3),0)/exSessions.length).toFixed(1)}</strong></div>
+      </div>
+      ${variantRows.length?`<div style="margin-top:10px">${variantRows.map(r=>`<div class="cat-row"><div class="grow"><strong>${esc(r.v)}</strong><div class="muted" style="font-size:12px;margin-top:4px">${r.count} ${r.count===1?'sesión':'sesiones'}${r.last?` · última ${r.last.toLocaleDateString('es-ES')}`:''}</div></div><span style="text-align:right">${r.max?`<span class="tempo-bpm">${r.max} BPM</span>`:''}${r.mins?`<div class="tempo-time" style="font-size:12px;margin-top:3px">${fmt(r.mins)}</div>`:''}</span></div>`).join('')}</div>`:''}
+    </div>`:'<div class="card empty">Registra prácticas para ver tu progreso.</div>'}
+
+    <div class="section-title">Constancia</div>
+    <div class="stats3"><div class="mini accent"><span>Racha actual</span><strong>${currentStreak(allDays,now)} días</strong></div><div class="mini"><span>Mejor racha</span><strong>${bestStreak(allDays)} días</strong></div><div class="mini"><span>Días totales</span><strong>${allDays.size}</strong></div></div>
+    <div class="card" style="margin-top:9px">${heatmap(all,now)}</div>
+    <div class="card" style="margin-top:9px"><div class="muted" style="font-size:12px;margin-bottom:4px">Por día de la semana (histórico)</div><div class="bars" style="height:120px">${weekday.map((v,i)=>`<div class="barcol"><div class="bar" style="height:${Math.max(2,v/wdMax*85)}px"></div><span>${'LMXJVSD'[i]}</span></div>`).join('')}</div></div>
+
+    <div class="section-title">Por categoría</div><div class="card">${practice?catSorted.map(([k,v])=>`<div class="cat-row"><div class="c" style="--cat:${catColor(k)}"></div><div class="grow">${esc(k)}</div><span>${fmt(v)} · ${Math.round(v/practice*100)}%</span></div>`).join('')+`<div class="empty" style="font-size:12px;margin-top:8px">Más descuidada: <strong style="color:${catColor(neglected)}">${esc(neglected)}</strong></div>`:'<div class="empty">Sin datos todavía.</div>'}</div>
+
+    <div class="section-title">Por ejercicio</div><div class="card">${Object.values(exTotals).sort((a,b)=>b.total-a.total).slice(0,8).map(x=>`<div class="cat-row"><div class="grow">${esc(x.name)}<div class="muted" style="font-size:12px;margin-top:3px">${x.count} ${x.count===1?'sesión':'sesiones'} · media ${fmt(x.total/x.count)}</div></div><span>${fmt(x.total)}</span></div>`).join('')||'<div class="empty">Sin datos todavía.</div>'}</div>
+    ${forgotten.length?`<div class="section-title">Sin practicar hace tiempo</div><div class="card">${forgotten.map(x=>`<div class="cat-row"><div class="c" style="--cat:${catColor(x.e.category)}"></div><div class="grow">${esc(x.e.name)}</div><span class="muted">hace ${x.days} días</span></div>`).join('')}</div>`:''}
+
+    <div class="section-title">Calentamiento y dificultad</div>
+    <div class="stats2"><div class="mini"><span>Calentamiento sobre práctica</span><strong>${practice?Math.round(warm/practice*100):0}%</strong></div><div class="mini"><span>Más usado</span><strong style="font-size:14px">${topWarm?esc(topWarm[0]):'—'}</strong></div><div class="mini"><span>Calentamiento medio</span><strong>${fmt(f.filter(s=>+s.warmupMinutes>0).length?warm/f.filter(s=>+s.warmupMinutes>0).length:0)}</strong></div><div class="mini"><span>Dificultad media</span><strong>${diffAvg}${diffAvg==='—'?'':'/5'}</strong></div></div>`;
+  $$('[data-period]').forEach(b=>b.onclick=()=>{statPeriod=b.dataset.period;renderStats()});
+  $$('[data-stat-instrument]').forEach(b=>b.onclick=()=>{statInstrument=b.dataset.statInstrument;renderStats()});
+  if($('#statExercise'))$('#statExercise').onchange=e=>{statExercise=e.target.value;statVariant='';renderStats()};
+  if($('#statVariant'))$('#statVariant').onchange=e=>{statVariant=e.target.value;renderStats()};
+}
+
+function renderHistory(){
+  const a=sessions(),y=viewMonth.getFullYear(),m=viewMonth.getMonth(),first=new Date(y,m,1),daysIn=new Date(y,m+1,0).getDate(),leading=(first.getDay()+6)%7;
+  const cells=[...Array(leading).fill(null),...Array.from({length:daysIn},(_,i)=>new Date(y,m,i+1))];
+  const selected=a.filter(s=>sameDay(s.date,selectedDate));
+  $('#history').innerHTML=`<div class="title">Historial</div><div class="card"><div class="calendar-head"><button id="prevMonth">‹</button><strong>${first.toLocaleDateString('es-ES',{month:'long',year:'numeric'})}</strong><button id="nextMonth">›</button></div><div class="calendar">${['L','M','X','J','V','S','D'].map(x=>`<div class="dow">${x}</div>`).join('')}${cells.map(d=>d?`<button class="cell ${a.some(s=>sameDay(s.date,d))?'has':''} ${sameDay(d,selectedDate)?'selected':''}" data-day="${isoDay(d)}">${d.getDate()}</button>`:'<div></div>').join('')}</div></div>
+  <div class="section-title">${selectedDate.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}</div>${selected.length?selected.map(sessionCard).join(''):'<div class="card empty">No hay prácticas este día.</div>'}`;
+  $('#prevMonth').onclick=()=>{viewMonth=new Date(y,m-1,1);selectedDate=new Date(y,m-1,1);renderHistory()};$('#nextMonth').onclick=()=>{viewMonth=new Date(y,m+1,1);selectedDate=new Date(y,m+1,1);renderHistory()};
+  $$('[data-day]').forEach(b=>b.onclick=()=>{const [yy,mm,dd]=b.dataset.day.split('-').map(Number);selectedDate=new Date(yy,mm-1,dd);renderHistory()});bindSessionCards();
+}
+
+function renderMore(){
+  const a=sessions(),ex=exercises(),g=goals(),now=new Date();
+  const weekStart=new Date(now);weekStart.setDate(now.getDate()-((now.getDay()+6)%7));weekStart.setHours(0,0,0,0);
+  const weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+7);
+  const weekSessions=a.filter(x=>new Date(x.date)>=weekStart&&new Date(x.date)<weekEnd);
+  const weekMinutes=weekSessions.reduce((n,x)=>n+(+x.practiceMinutes||0),0);
+  const weekDays=new Set(weekSessions.map(x=>isoDay(new Date(x.date)))).size;
+
+  $('#more').innerHTML=`
+    <div class="title">Más</div>
+
+    <div class="card">
+      <div class="more-row" id="openExercises">
+        <div class="ic">▤</div>
+        <div class="grow"><strong>Ejercicios guardados</strong><div class="muted" style="font-size:12px;margin-top:3px">${ex.length} ejercicios</div></div>
+        <div>›</div>
+      </div>
+      <div class="more-row" id="openGoals">
+        <div class="ic">◎</div>
+        <div class="grow"><strong>Objetivos</strong><div class="muted" style="font-size:12px;margin-top:3px">${weekDays}/${g.weeklyDays} días · ${fmt(weekMinutes)}/${fmt(g.weeklyMinutes)}</div></div>
+        <div>›</div>
+      </div>
+      <div class="more-row" id="openCategories">
+        <div class="ic">☰</div>
+        <div class="grow">Categorías</div>
+        <div>›</div>
+      </div>
+    </div>
+
+    <div class="section-title">Herramientas</div>
+    <div class="card">
+      <div class="more-row" id="openScales">
+        <div class="ic">◈</div>
+        <div class="grow"><strong>Escalas</strong><div class="muted" style="font-size:12px;margin-top:3px">Círculo de quintas y mástil</div></div>
+        <div>›</div>
+      </div>
+
+      <div class="more-row" id="openStems">
+        <div class="ic">♫</div>
+        <div class="grow"><strong>Separador de pistas</strong><div class="muted" style="font-size:12px;margin-top:3px">Separa una canción y practica a otro BPM</div></div>
+        <div>›</div>
+      </div>
+    </div>
+
+    <div class="section-title">Copia de seguridad</div>
+    <div class="card">
+      <div class="more-row" id="exportBackup">
+        <div class="ic">⇩</div>
+        <div class="grow"><strong>Exportar copia</strong><div class="muted" style="font-size:12px;margin-top:3px">${lastBackupText()}</div></div>
+        <div>›</div>
+      </div>
+      <div class="more-row" id="importBackup">
+        <div class="ic">⇧</div>
+        <div class="grow"><strong>Importar copia</strong><div class="muted" style="font-size:12px;margin-top:3px">Sustituye los datos de este dispositivo</div></div>
+        <div>›</div>
+      </div>
+      <input id="importBackupFile" class="hidden-file" type="file" accept="application/json,.json">
+    </div>
+
+    <div class="section-title">Cuenta</div>
+    <div class="card">
+      <div class="account-status">
+        <div class="ic">◉</div>
+        <div class="grow">
+          <strong>Cloudflare Access</strong>
+          <div id="accessAccountEmail" class="account-email">Comprobando sesión…</div>
+        </div>
+      </div>
+
+      <div class="more-row" id="changeCloudflareAccount">
+        <div class="ic">↔</div>
+        <div class="grow">
+          <strong>Cambiar cuenta</strong>
+          <div class="muted" style="font-size:12px;margin-top:3px">Cerrar Cloudflare y entrar con otro correo</div>
+        </div>
+        <div>›</div>
+      </div>
+
+      <div class="more-row account-action-danger" id="logoutCloudflareAccess">
+        <div class="ic">↪</div>
+        <div class="grow">
+          <strong>Cerrar sesión</strong>
+          <div class="muted" style="font-size:12px;margin-top:3px">Cerrar solamente la sesión de Práctica</div>
+        </div>
+        <div>›</div>
+      </div>
+    </div>
+
+    <div class="account-note">
+      Cerrar sesión o cambiar de cuenta no borra las prácticas guardadas en este dispositivo.
+    </div>
+
+    <div class="section-title">Resumen de biblioteca</div>
+    <div class="stats2">
+      <div class="mini"><span>Ejercicios</span><strong>${ex.length}</strong></div>
+      <div class="mini"><span>Prácticas</span><strong>${a.length}</strong></div>
+    </div>`;
+
+  $('#openExercises').onclick=openExerciseLibrary;
+  $('#openGoals').onclick=openGoals;
+  $('#openCategories').onclick=openCategories;
+  $('#openScales').onclick=openScales;
+  $('#openStems').onclick=openStems;
+  $('#exportBackup').onclick=exportBackup;
+  $('#importBackup').onclick=()=>$('#importBackupFile').click();
+  $('#importBackupFile').onchange=e=>importBackup(e.target.files[0]);
+  $('#logoutCloudflareAccess').onclick=logoutAccessSession;
+  $('#changeCloudflareAccount').onclick=changeCloudflareAccount;
+  loadAccessIdentity();
+}
+
+const BACKUP_KEY=PREVIEW?'practica_preview_last_backup':'practica_last_backup';
+function lastBackupText(){
+  const t=localStorage.getItem(BACKUP_KEY);
+  if(!t)return 'Nunca exportada';
+  const days=Math.floor((Date.now()-new Date(t))/864e5);
+  return `Última: ${new Date(t).toLocaleDateString('es-ES')}${days>=7?` · hace ${days} días`:''}`;
+}
+async function exportBackup(){
+  const data={app:'practica',format:1,exportedAt:new Date().toISOString(),sessions:sessionStore,exercises:exerciseStore,goals:goals(),customScales};
+  const name=`practica-backup-${isoDay(new Date())}.json`;
+  const file=new File([JSON.stringify(data,null,1)],name,{type:'application/json'});
+  try{
+    // En iPhone, compartir permite "Guardar en Archivos"; si no existe, descarga normal.
+    if(navigator.canShare&&navigator.canShare({files:[file]}))await navigator.share({files:[file],title:name});
+    else{const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+  }catch(err){if(err?.name==='AbortError')return;return toast('No se pudo exportar')}
+  localStorage.setItem(BACKUP_KEY,new Date().toISOString());renderMore();toast('Copia exportada');
+}
+function parseBackup(text){
+  const d=JSON.parse(text);
+  if(d?.app!=='practica'||!Array.isArray(d.sessions)||!Array.isArray(d.exercises))throw new Error('formato');
+  if(!d.sessions.every(s=>s&&s.id&&!isNaN(new Date(s.date))))throw new Error('sesiones');
+  if(!d.exercises.every(e=>e&&e.id&&typeof e.name==='string'))throw new Error('ejercicios');
+  return d;
+}
+async function importBackup(file){
+  $('#importBackupFile').value='';
+  if(!file)return;
+  let d;
+  try{d=parseBackup(await file.text())}catch{return toast('Archivo de copia no válido')}
+  if(!confirm(`¿Importar ${d.sessions.length} prácticas y ${d.exercises.length} ejercicios? Se sustituirán los datos actuales de este dispositivo.`))return;
+  saveExercises(d.exercises);saveSessions(d.sessions);if(d.goals)saveGoals(d.goals);
+  if(Array.isArray(d.customScales))saveCustomScales(d.customScales.filter(validCustomScale));
+  renderAll();toast('Copia importada');
+}
+
+async function loadAccessIdentity(){
+  const el=$('#accessAccountEmail');
+  if(!el)return;
+  try{
+    const res=await fetch('/cdn-cgi/access/get-identity',{
+      credentials:'include',
+      cache:'no-store'
+    });
+    if(!res.ok)throw new Error('identity');
+    const data=await res.json();
+    el.textContent=data?.email||data?.name||'Sesión iniciada';
+  }catch{
+    el.textContent='Sesión iniciada';
+  }
+}
+
+function logoutAccessSession(){
+  if(!confirm('¿Cerrar la sesión de Práctica? Tus prácticas guardadas en este dispositivo no se borrarán.'))return;
+  window.location.assign('/cdn-cgi/access/logout');
+}
+
+async function changeCloudflareAccount(){
+  if(!confirm('¿Cambiar de cuenta? Se cerrará la sesión de Práctica y también la sesión de Cloudflare. Después vuelve a abrir Práctica e inicia sesión con el otro correo.'))return;
+
+  try{
+    await fetch('/cdn-cgi/access/logout',{
+      credentials:'include',
+      cache:'no-store'
+    });
+  }catch{}
+
+  window.location.assign('https://dash.cloudflare.com/oauth2/logout');
+}
+
+function openGoals(){
+  const g=goals(),a=sessions(),now=new Date();
+  const weekStart=new Date(now);weekStart.setDate(now.getDate()-((now.getDay()+6)%7));weekStart.setHours(0,0,0,0);
+  const weekEnd=new Date(weekStart);weekEnd.setDate(weekEnd.getDate()+7);
+  const ws=a.filter(x=>new Date(x.date)>=weekStart&&new Date(x.date)<weekEnd);
+  const weekMinutes=ws.reduce((n,x)=>n+(+x.practiceMinutes||0),0),weekDays=new Set(ws.map(x=>isoDay(new Date(x.date)))).size;
+  const todayMinutes=a.filter(x=>sameDay(x.date,now)).reduce((n,x)=>n+(+x.practiceMinutes||0),0);
+  const pct=(v,t)=>Math.min(100,Math.round(v/Math.max(1,t)*100));
+  const dailyHours=Math.max(.25,(+g.dailyMinutes||120)/60);
+  const calculatedWeekly=Math.round(dailyHours*60*(+g.weeklyDays||5));
+  const m=$('#exerciseModal');
+  m.innerHTML=`<div class="topbar"><button id="closeGoals">Cerrar</button><h2>Objetivos</h2><button id="saveGoalsBtn">Guardar</button></div><div class="form">
+    <div class="section-title" style="margin-top:0">Progreso actual</div>
+    <div class="card">
+      <div class="cat-row"><div class="grow"><strong>Hoy</strong><div class="muted" style="font-size:12px;margin-top:4px">${fmt(todayMinutes)} de ${fmt(g.dailyMinutes)}</div></div><strong style="color:var(--accent)">${pct(todayMinutes,g.dailyMinutes)}%</strong></div>
+      <div class="cat-row"><div class="grow"><strong>Días esta semana</strong><div class="muted" style="font-size:12px;margin-top:4px">${weekDays} de ${g.weeklyDays} días</div></div><strong style="color:var(--accent)">${pct(weekDays,g.weeklyDays)}%</strong></div>
+      <div class="cat-row"><div class="grow"><strong>Tiempo esta semana</strong><div class="muted" style="font-size:12px;margin-top:4px">${fmt(weekMinutes)} de ${fmt(calculatedWeekly)}</div></div><strong style="color:var(--accent)">${pct(weekMinutes,calculatedWeekly)}%</strong></div>
+    </div>
+
+    <div class="section-title">Configurar</div>
+    <div class="field">
+      <label>Objetivo diario de práctica (horas)</label>
+      <input id="goalDailyHours" type="number" min="0.25" max="12" step="0.25" value="${Number(dailyHours.toFixed(2))}">
+    </div>
+    <div class="field">
+      <label>Días de práctica por semana</label>
+      <input id="goalDays" type="number" min="1" max="7" step="1" value="${g.weeklyDays}">
+    </div>
+
+    <div class="card" style="margin-top:8px">
+      <div class="cat-row" style="border-bottom:0">
+        <div class="grow">
+          <strong>Objetivo semanal</strong>
+          <div id="weeklyFormula" class="muted" style="font-size:12px;margin-top:5px"></div>
+        </div>
+        <strong id="weeklyGoalPreview" style="color:var(--accent)">${fmt(calculatedWeekly)}</strong>
+      </div>
+    </div>
+
+    <div class="empty" style="margin-top:12px">El objetivo semanal se calcula automáticamente a partir de tus horas diarias × los días que quieras practicar.</div>
+  </div>`;
+
+  m.classList.add('open');
+
+  const updateWeeklyGoal=()=>{
+    const hours=Math.max(.25,+$('#goalDailyHours').value||2);
+    const days=Math.min(7,Math.max(1,+$('#goalDays').value||5));
+    const weekly=Math.round(hours*60*days);
+    $('#weeklyGoalPreview').textContent=fmt(weekly);
+    $('#weeklyFormula').textContent=`${String(hours).replace('.',',')} h × ${days} ${days===1?'día':'días'}`;
+  };
+
+  $('#goalDailyHours').oninput=updateWeeklyGoal;
+  $('#goalDays').oninput=updateWeeklyGoal;
+  updateWeeklyGoal();
+
+  $('#closeGoals').onclick=()=>m.classList.remove('open');
+  $('#saveGoalsBtn').onclick=()=>{
+    const hours=Math.max(.25,+$('#goalDailyHours').value||2);
+    const days=Math.min(7,Math.max(1,+$('#goalDays').value||5));
+    const dailyMinutes=Math.round(hours*60);
+    const weeklyMinutes=Math.round(dailyMinutes*days);
+    const ng={dailyMinutes,weeklyDays:days,weeklyMinutes};
+    saveGoals(ng);m.classList.remove('open');renderAll();toast('Objetivos guardados');
+  };
+}
+
+function openCategories(){const m=$('#exerciseModal');m.innerHTML=`<div class="topbar"><button id="closeCategories">Cerrar</button><h2>Categorías</h2><button></button></div><div class="form"><div class="card">${categories.map(c=>`<div class="cat-row"><div class="c" style="--cat:${catColor(c)}"></div><div class="grow">${esc(c)}</div><span class="cat-badge" style="--cat:${catColor(c)}">${esc(c)}</span></div>`).join('')}</div><div class="empty" style="margin-top:12px">Cada categoría conserva este color en el historial, ejercicios y estadísticas.</div></div>`;m.classList.add('open');$('#closeCategories').onclick=()=>m.classList.remove('open')}
+
+function updateKeyboardOffset(){
+  const root=document.documentElement;
+  if(!window.visualViewport){root.style.setProperty('--keyboard-offset','0px');return}
+  const vv=window.visualViewport;
+  const hidden=Math.max(0,window.innerHeight-vv.height-vv.offsetTop);
+  root.style.setProperty('--keyboard-offset',`${hidden}px`);
+}
+function localDateTimeValue(iso){
+  const d=new Date(iso), pad=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function openSessionModal(sessionId=null,focus=true){
+  resetForm();
+
+  // onclick handlers receive a PointerEvent automatically. Only an actual
+  // string ID is allowed to switch the form into edit mode.
+  editingSessionId=typeof sessionId==='string'&&sessionId.trim()?sessionId:null;
+
+  $('#sessionModal').classList.add('open');
+  $('#sessionModalTitle').textContent=editingSessionId?'Editar práctica':'Nueva práctica';
+  $('#saveSession').textContent=editingSessionId?'Guardar cambios':'Guardar práctica';
+
+  $('#recentWrap').hidden=!!editingSessionId||!$('#recentChips').children.length;
+  if(editingSessionId){
+    const s=sessions().find(x=>x.id===editingSessionId);
+    if(s){fillSessionForm(s,true);$('#date').value=localDateTimeValue(s.date)}
+  }
+
+  updateKeyboardOffset();
+  if(!editingSessionId&&!sessionFromPlayer&&focus)setTimeout(()=>$('#exerciseName').focus(),120)
+}
+// Copia una práctica en el formulario. keepNotes=false para repetirla (la fecha queda en "ahora").
+function fillSessionForm(s,keepNotes){
+  const e=sessionExercise(s);
+  refreshExercisePicker();
+  $('#exercisePicker').value=e.id||'';
+  $('#exerciseName').value=e.name||'';
+  $('#category').value=e.category||categories[0];
+  $('#warmup').value=s.warmup||warmups[0];
+  $('#warmupMinutes').value=+s.warmupMinutes||0;
+  $('#practiceMinutes').value=+s.practiceMinutes||15;
+  $('#notes').value=keepNotes?s.notes||'':'';
+  difficulty=+s.difficulty||3;renderDifficulty();
+  instrument=instrumentOf(s);renderInstrument();
+  $('#tempoRows').innerHTML='';
+  (s.tempoBlocks||[]).forEach(b=>addTempoRow(b.bpm,b.minutes,b.variantId||s.variantId||'',b.variantName||s.variantName||''));
+  refreshTempoVariantSelects();
+  $('#moreDetails').open=+$('#warmupMinutes').value>0||!!$('#notes').value;
+  syncPresetChips();updateTotal();
+}
+function repeatSession(id){
+  const s=sessions().find(x=>x.id===id);if(!s)return;
+  openSessionModal(null,false);fillSessionForm(s,false);
+  $('#sessionModal').scrollTop=0;
+  toast('Copiada con la fecha de hoy');
+}
+function renderRecentChips(){
+  const seen=new Set(),recent=[];
+  for(const s of sessions()){if(seen.has(s.exerciseId))continue;seen.add(s.exerciseId);recent.push(s);if(recent.length===6)break}
+  $('#recentChips').innerHTML=recent.map(s=>`<button type="button" class="chip-btn" data-recent="${esc(s.id)}">${esc(sessionExercise(s).name)}</button>`).join('');
+  $$('[data-recent]').forEach(b=>b.onclick=()=>{fillSessionForm(sessions().find(x=>x.id===b.dataset.recent),false);$$('[data-recent]').forEach(x=>x.classList.toggle('on',x===b))});
+}
+function syncPresetChips(){$$('[data-min]').forEach(b=>b.classList.toggle('on',+b.dataset.min===+$('#practiceMinutes').value))}
+function closeSessionModal(){
+  sessionFromPlayer=false;
+  $('#sessionModal').classList.remove('open');
+  editingSessionId=null;
+  document.documentElement.style.setProperty('--keyboard-offset','0px')
+}
+function showInlineVariantEditor(){
+  const name=$('#exerciseName').value.trim();
+  if(!name)return toast('Primero elige o escribe un ejercicio');
+
+  const e=ensureExercise(name,$('#category').value);
+  refreshExerciseDatalist();
+  refreshExercisePicker();
+  $('#exercisePicker').value=e.id;
+  $('#exerciseName').value=e.name;
+  $('#category').value=e.category;
+  refreshTempoVariantSelects();
+
+  $('#inlineVariantEditor').hidden=false;
+  $('#inlineVariantName').value='';
+  setTimeout(()=>$('#inlineVariantName').focus(),60);
+}
+function hideInlineVariantEditor(){
+  $('#inlineVariantEditor').hidden=true;
+  $('#inlineVariantName').value='';
+}
+function saveVariantOnTheFly(){
+  const exerciseId=$('#exercisePicker').value;
+  const clean=$('#inlineVariantName').value.trim();
+  if(!exerciseId)return toast('Elige primero un ejercicio');
+  if(!clean)return toast('Escribe un nombre para la variante');
+
+  const all=exercises(),stored=all.find(x=>x.id===exerciseId);
+  if(!stored)return toast('No se ha encontrado el ejercicio');
+
+  stored.variants=Array.isArray(stored.variants)?stored.variants:[];
+  let variant=stored.variants.find(v=>v.name.toLowerCase()===clean.toLowerCase());
+
+  if(!variant){
+    variant={id:uuid(),name:clean};
+    stored.variants.push(variant);
+    saveExercises(all);
+  }
+
+  refreshTempoVariantSelects();
+
+  // Si hay un último bloque sin variante, seleccionamos automáticamente la recién creada.
+  const rows=$$('#tempoRows .tempo-row');
+  const last=rows[rows.length-1];
+  if(last){
+    const sel=last.querySelector('.block-variant');
+    if(sel&&!sel.value)sel.value=variant.id;
+  }
+
+  hideInlineVariantEditor();
+  toast('Variante añadida');
+}
+function refreshExerciseDatalist(){$('#exerciseList').innerHTML=exercises().map(e=>`<option value="${esc(e.name)}">${esc(e.category)}</option>`).join('')}
+function refreshExercisePicker(){const p=$('#exercisePicker');if(!p)return;const current=p.value;p.innerHTML='<option value="">Elegir de la biblioteca…</option>'+exercises().map(e=>`<option value="${esc(e.id)}">${esc(e.name)} · ${esc(e.category)}</option>`).join('');if([...p.options].some(o=>o.value===current))p.value=current}
+function exerciseVariants(e){return Array.isArray(e?.variants)?e.variants.filter(v=>v&&v.id&&v.name):[]}
+function blockVariantName(block,e){
+  if(block?.variantId){
+    const v=exerciseVariants(e).find(v=>v.id===block.variantId);
+    if(v)return v.name;
+  }
+  return block?.variantName||'';
+}
+function variantNameForSession(s,e=sessionExercise(s)){
+  // Compatibilidad con prácticas antiguas de una sola variante.
+  if(s.variantId){
+    const v=exerciseVariants(e).find(v=>v.id===s.variantId);
+    if(v)return v.name;
+  }
+  return s.variantName||'';
+}
+function variantOptions(exerciseId,selectedId=''){
+  const e=exercises().find(x=>x.id===exerciseId),vars=exerciseVariants(e);
+  return `<option value="">Sin variante</option>`+vars.map(v=>`<option value="${esc(v.id)}" ${v.id===selectedId?'selected':''}>${esc(v.name)}</option>`).join('');
+}
+function refreshTempoVariantSelects(){
+  const exerciseId=$('#exercisePicker')?.value||'';
+  const e=exercises().find(x=>x.id===exerciseId);
+  const hasVariants=exerciseVariants(e).length>0;
+  $$('#tempoRows .tempo-row').forEach(row=>{
+    const sel=row.querySelector('.block-variant');
+    if(!sel)return;
+    const current=sel.value;
+    sel.innerHTML=variantOptions(exerciseId,current);
+    if([...sel.options].some(o=>o.value===current))sel.value=current;
+    row.classList.toggle('no-variants',!hasVariants);
+  });
+}
+function chooseExercise(){
+  hideInlineVariantEditor();
+  const id=$('#exercisePicker').value;
+  if(!id){refreshTempoVariantSelects();return}
+  const e=exercises().find(x=>x.id===id);if(!e)return;
+  $('#exerciseName').value=e.name;$('#category').value=e.category;
+  refreshTempoVariantSelects()
+}
+function syncExerciseCategory(){
+  const name=$('#exerciseName').value.trim().toLowerCase(),e=exercises().find(x=>x.name.toLowerCase()===name);
+  if(e){
+    $('#category').value=e.category;
+    $('#exercisePicker').value=e.id;
+  }else{
+    $('#exercisePicker').value='';
+  }
+  refreshTempoVariantSelects()
+}
+function renderInstrument(){$('#instrumentSeg').innerHTML=instruments.map(x=>`<button type="button" data-instrument="${x}" class="${instrument===x?'active':''}">${x}</button>`).join('');$$('[data-instrument]').forEach(b=>b.onclick=()=>{instrument=b.dataset.instrument;renderInstrument()})}
+function renderDifficulty(){$('#difficulty').innerHTML=[1,2,3,4,5].map(n=>`<button type="button" data-diff="${n}" class="${difficulty===n?'active':''}">${n}</button>`).join('');$$('[data-diff]').forEach(b=>b.onclick=()=>{difficulty=+b.dataset.diff;renderDifficulty()})}
+function addTempoRow(bpm='',minutes='',variantId='',variantName=''){
+  const exerciseId=$('#exercisePicker')?.value||'';
+  const e=exercises().find(x=>x.id===exerciseId);
+  const hasVariants=exerciseVariants(e).length>0;
+  const row=document.createElement('div');
+  row.className='tempo-row'+(hasVariants?'':' no-variants');
+  row.innerHTML=`
+    <select class="block-variant" aria-label="Variante opcional">${variantOptions(exerciseId,variantId)}</select>
+    <input class="block-bpm" type="number" min="20" max="400" step="1" inputmode="numeric" placeholder="BPM" value="${esc(bpm)}">
+    <input class="block-minutes" type="number" min="1" step="1" inputmode="numeric" placeholder="Min opc." value="${esc(minutes)}">
+    <button type="button" class="remove">×</button>`;
+  const sel=row.querySelector('.block-variant');
+  if(variantId&&[...sel.options].some(o=>o.value===variantId))sel.value=variantId;
+  row.dataset.legacyVariantName=variantName||'';
+  row.querySelector('.remove').onclick=()=>{row.remove();updateTotal()};
+  row.querySelectorAll('input,select').forEach(i=>i.oninput=updateTotal);
+  $('#tempoRows').appendChild(row);
+  updateTotal()
+}
+function getTempoBlocks(){
+  const exerciseId=$('#exercisePicker')?.value||'';
+  const e=exercises().find(x=>x.id===exerciseId);
+  return $$('#tempoRows .tempo-row').map(r=>{
+    const variantId=r.querySelector('.block-variant')?.value||'',
+          v=exerciseVariants(e).find(x=>x.id===variantId),
+          minuteRaw=r.querySelector('.block-minutes')?.value.trim()||'';
+    return {
+      variantId,
+      variantName:v?.name||r.dataset.legacyVariantName||'',
+      bpm:+r.querySelector('.block-bpm')?.value||0,
+      minutes:minuteRaw===''?null:Math.max(0,+minuteRaw||0)
+    }
+  }).filter(x=>x.bpm>0)
+}
+function updateTotal(){
+  const w=$('#warmup').value==='Sin calentamiento'?0:+$('#warmupMinutes').value||0,
+        p=Math.max(0,+$('#practiceMinutes').value||0),
+        blocks=getTempoBlocks(),
+        timedBlocks=blocks.filter(b=>b.minutes!=null&&b.minutes>0),
+        untimedBlocks=blocks.filter(b=>b.minutes==null||b.minutes===0),
+        assigned=timedBlocks.reduce((n,b)=>n+(+b.minutes||0),0);
+  $('#warmupMinutes').disabled=$('#warmup').value==='Sin calentamiento';
+  $('#totalPreview').textContent=fmt(w+p);
+
+  const rem=p-assigned,el=$('#tempoSummary');
+  if(!blocks.length){
+    el.textContent='Sin bloques de práctica';
+    el.classList.remove('warn');
+  }else if(!timedBlocks.length){
+    el.textContent=`${blocks.length} ${blocks.length===1?'tempo registrado':'tempos registrados'} · sin reparto de minutos`;
+    el.classList.remove('warn');
+  }else if(rem>0){
+    el.textContent=`${fmt(assigned)} asignados${untimedBlocks.length?` · ${untimedBlocks.length} ${untimedBlocks.length===1?'bloque sin minutos':'bloques sin minutos'}`:''} · ${fmt(rem)} sin asignar`;
+    el.classList.remove('warn');
+  }else if(rem===0){
+    el.textContent=`${fmt(assigned)} asignados${untimedBlocks.length?` · ${untimedBlocks.length} ${untimedBlocks.length===1?'bloque sin minutos':'bloques sin minutos'}`:''} · práctica completa`;
+    el.classList.remove('warn');
+  }else{
+    el.textContent=`Los bloques con minutos superan la práctica por ${fmt(-rem)}`;
+    el.classList.add('warn');
+  }
+}
+function resetForm(){if($('#inlineVariantEditor'))hideInlineVariantEditor();$('#exerciseName').value='';$('#category').value=categories[0];$('#warmup').value=warmups[0];$('#warmupMinutes').value=0;$('#practiceMinutes').value=15;$('#notes').value='';difficulty=3;instrument=instrumentOf(sessions()[0]);renderInstrument();$('#tempoRows').innerHTML='';$('#date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);renderDifficulty();refreshExerciseDatalist();refreshExercisePicker();$('#exercisePicker').value='';refreshTempoVariantSelects();renderRecentChips();$('#moreDetails').open=false;syncPresetChips();updateTotal()}
+function saveSession(){
+  const fromPlayer=sessionFromPlayer;
+  const name=$('#exerciseName').value.trim();if(!name)return toast('Escribe un ejercicio');
+  const p=Math.max(1,+$('#practiceMinutes').value||0),
+        blocks=getTempoBlocks(),
+        assigned=blocks.reduce((n,b)=>n+(b.minutes==null?0:(+b.minutes||0)),0);
+  if(assigned>p)return toast('Los bloques con minutos superan la duración');
+
+  const e=ensureExercise(name,$('#category').value),
+        w=$('#warmup').value==='Sin calentamiento'?0:+$('#warmupMinutes').value||0,
+        d=$('#date').value?new Date($('#date').value):new Date(),
+        a=sessions();
+
+  const data={
+    exerciseId:e.id,exerciseName:e.name,category:e.category,instrument,
+    variantId:'',variantName:'',
+    warmup:$('#warmup').value,warmupMinutes:w,practiceMinutes:p,
+    tempoBlocks:blocks,date:d.toISOString(),difficulty,notes:$('#notes').value.trim()
+  };
+
+  if(editingSessionId){
+    const i=a.findIndex(x=>x.id===editingSessionId);
+    if(i===-1){
+      toast('No se encontró la práctica a editar');
+      return;
+    }
+    a[i]={...a[i],...data};
+    saveSessions(a);
+    closeSessionModal();
+    renderAll();
+    tab('home');
+    requestAnimationFrame(()=>document.querySelector('.app')?.scrollTo({top:0,behavior:'smooth'}));
+    toast('Práctica actualizada');
+  }else{
+    const saved={id:uuid(),...data};
+    a.push(saved);
+    saveSessions(a);
+
+    const confirmed=sessionStore.some(x=>x.id===saved.id);
+    if(!confirmed){
+      toast('No se pudo guardar la práctica');
+      return;
+    }
+
+    closeSessionModal();
+    renderAll();
+    if(fromPlayer&&player){
+      // Se vuelve al reproductor sin cortar la música; el cronómetro empieza de cero.
+      player.practice=new Map();practiceTick();
+      if($('#playBtn'))renderPlayer();
+      syncMini();
+      toast('Práctica guardada');
+      return;
+    }
+    tab('home');
+    requestAnimationFrame(()=>document.querySelector('.app')?.scrollTo({top:0,behavior:'smooth'}));
+    toast('Práctica guardada');
+  }
+}
+
+function openSessionDetail(id){
+  const s=sessions().find(x=>x.id===id);if(!s)return;
+  const e=sessionExercise(s),blocks=s.tempoBlocks||[],legacyVariant=variantNameForSession(s,e),m=$('#detailModal');
+  m.innerHTML=`<div class="topbar"><button id="closeDetail">Cerrar</button><h2>${esc(e.name)}</h2><button id="editSession">Editar</button></div><div class="form">
+    <div class="detail-grid"><div class="mini"><span>Práctica</span><strong>${fmt(s.practiceMinutes)}</strong></div><div class="mini"><span>Fecha</span><strong style="font-size:13px">${new Date(s.date).toLocaleString('es-ES',{day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})}</strong></div></div>
+    <div class="section-title">Detalles</div>
+    <div class="card">
+      <div class="cat-row"><div class="grow">Categoría</div><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span></div>
+      <div class="cat-row"><div class="grow">Instrumento</div><span>${instrumentOf(s)}</span></div>
+      ${s.warmupMinutes?`<div class="cat-row"><div class="grow">Calentamiento</div><span>${esc(s.warmup)} · ${fmt(s.warmupMinutes)}</span></div>`:''}
+      <div class="cat-row"><div class="grow">Dificultad</div><span>${s.difficulty||3}/5</span></div>
+    </div>
+    ${blocks.length?`<div class="section-title">Bloques de práctica</div><div class="card">${blocks.map(b=>{const v=blockVariantName(b,e)||legacyVariant;return `<div class="cat-row"><div class="grow">${v?`<strong>${esc(v)}</strong><div class="muted" style="font-size:12px;margin-top:4px">${b.bpm} BPM</div>`:`<strong>${b.bpm} BPM</strong>`}</div>${b.minutes!=null&&+b.minutes>0?`<span>${fmt(b.minutes)}</span>`:''}</div>`}).join('')}</div>`:''}
+    ${s.notes?`<div class="section-title">Notas</div><div class="card">${esc(s.notes)}</div>`:''}
+    <div class="section-title">Acciones</div>
+    <button id="repeatSession" class="primary wide" style="margin-bottom:10px">↻ Repetir hoy</button>
+    <button id="deleteSession" class="danger wide">Eliminar práctica</button>
+  </div>`;
+  m.classList.add('open');
+  $('#closeDetail').onclick=()=>m.classList.remove('open');
+  $('#editSession').onclick=()=>{
+    m.classList.remove('open');
+    openSessionModal(id);
+  };
+  $('#repeatSession').onclick=()=>{m.classList.remove('open');repeatSession(id)};
+  $('#deleteSession').onclick=()=>{if(confirm('¿Eliminar esta práctica? Se descontará del tiempo del ejercicio y de todas las estadísticas.')){saveSessions(sessions().filter(x=>x.id!==id));m.classList.remove('open');renderAll();toast('Práctica eliminada')}}
+}
+
+const norm=t=>String(t).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+function openExerciseLibrary(){
+  const m=$('#exerciseModal'),a=sessions();
+  const info=exercises().map(e=>{const ss=a.filter(s=>s.exerciseId===e.id);return {e,ss,total:sumMin(ss),last:ss.length?new Date(ss[0].date):null}})
+    .sort((x,y)=>(y.last||0)-(x.last||0)||x.e.name.localeCompare(y.e.name,'es'));
+  m.innerHTML=`<div class="topbar"><button id="closeExercise">Cerrar</button><h2>Ejercicios</h2><button id="createExercise">Crear</button></div><div class="form">
+    ${info.length?`<div class="field"><input id="exerciseSearch" type="search" placeholder="Buscar ejercicio o categoría…" autocomplete="off"></div>
+    <div class="card">${info.map(({e,ss,total,last})=>`<div class="exercise-card" data-exercise="${esc(e.id)}" data-search="${esc(norm(e.name+' '+e.category))}"><h4>${esc(e.name)}</h4><div class="exercise-meta"><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span><span>${fmt(total)}</span><span>${ss.length} ${ss.length===1?'práctica':'prácticas'}</span>${last?`<span>Última: ${last.toLocaleDateString('es-ES')}</span>`:'<span>Sin practicar todavía</span>'}${e.songId?'<span style="color:var(--accent)">♫ Canción</span>':''}</div></div>`).join('')}<div id="noExerciseMatch" class="empty" hidden>Ningún ejercicio coincide.</div></div>`
+    :'<div class="card empty">Todavía no tienes ejercicios. Pulsa “Crear” para añadir el primero.</div>'}
+    <div class="empty" style="font-size:12px;margin:12px 4px 0">Puedes crear ejercicios sin registrar ninguna práctica y elegirlos después en “Nueva práctica”.</div>
+  </div>`;
+  m.classList.add('open');
+  $('#closeExercise').onclick=()=>m.classList.remove('open');
+  $('#createExercise').onclick=openCreateExercise;
+  $$('[data-exercise]').forEach(x=>x.onclick=()=>openExerciseDetail(x.dataset.exercise));
+  if($('#exerciseSearch'))$('#exerciseSearch').oninput=e=>{
+    const q=norm(e.target.value.trim());let any=false;
+    $$('[data-search]').forEach(c=>{c.hidden=!c.dataset.search.includes(q);any=any||!c.hidden});
+    $('#noExerciseMatch').hidden=any;
+  };
+}
+function addVariantEditorRow(containerId,name='',id=''){
+  const box=$(`#${containerId}`);if(!box)return;
+  const row=document.createElement('div');row.className='variant-editor-row';row.dataset.variantId=id||uuid();
+  row.innerHTML=`<input type="text" placeholder="Ej. Vibrato, Bending en 1ª…" value="${esc(name)}"><button type="button">×</button>`;
+  row.querySelector('button').onclick=()=>row.remove();
+  box.appendChild(row)
+}
+function readVariantEditor(containerId){
+  const seen=new Set(),out=[];
+  $$(`#${containerId} .variant-editor-row`).forEach(r=>{
+    const name=r.querySelector('input').value.trim();if(!name)return;
+    const key=name.toLowerCase();if(seen.has(key))return;
+    seen.add(key);out.push({id:r.dataset.variantId||uuid(),name})
+  });
+  return out
+}
+function openCreateExercise(){
+  const m=$('#exerciseModal');
+  m.innerHTML=`<div class="topbar"><button id="cancelCreateExercise">Atrás</button><h2>Nuevo ejercicio</h2><button id="saveNewExercise">Guardar</button></div><div class="form">
+    <div class="field"><label>Nombre</label><input id="newExerciseName" placeholder="Ej. Hotel California" autocomplete="off"></div>
+    <div class="field"><label>Categoría</label><select id="newExerciseCategory">${categories.map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
+    <div class="field"><label>Variantes (opcional)</label><div id="newExerciseVariants"></div><button id="addNewExerciseVariant" class="secondary wide" type="button">+ Añadir variante</button></div>
+    <div class="card empty">Ejemplo: Hotel California → Vibrato, Bending en 1ª. Cromatismos → Desde dedo 1, 2, 3 o 4.</div>
+  </div>`;
+  $('#cancelCreateExercise').onclick=openExerciseLibrary;
+  $('#saveNewExercise').onclick=saveNewExercise;
+  $('#addNewExerciseVariant').onclick=()=>addVariantEditorRow('newExerciseVariants');
+  setTimeout(()=>$('#newExerciseName').focus(),80)
+}
+function saveNewExercise(){
+  const name=$('#newExerciseName').value.trim(),category=$('#newExerciseCategory').value;if(!name)return toast('Escribe un nombre');
+  const all=exercises();if(all.some(e=>e.name.toLowerCase()===name.toLowerCase()))return toast('Ese ejercicio ya existe');
+  all.push({id:uuid(),name,category,variants:readVariantEditor('newExerciseVariants'),createdAt:new Date().toISOString()});
+  saveExercises(all);renderAll();openExerciseLibrary();toast('Ejercicio creado')
+}
+
+function openExerciseDetail(id){
+  const e=exercises().find(x=>x.id===id);if(!e)return;
+  const ss=sessions().filter(s=>s.exerciseId===id).sort((a,b)=>new Date(b.date)-new Date(a.date)),
+        total=ss.reduce((n,s)=>n+(+s.practiceMinutes||0),0),
+        allBlocks=ss.flatMap(s=>s.tempoBlocks||[]),
+        maxBpm=allBlocks.length?Math.max(...allBlocks.map(b=>b.bpm)):null,
+        savedVariants=exerciseVariants(e),
+        variantStats=new Map(),
+        m=$('#exerciseModal');
+
+  savedVariants.forEach(v=>variantStats.set(v.id,{id:v.id,name:v.name,total:0,count:0,sessions:new Set()}));
+  ss.forEach(s=>{
+    const legacy=variantNameForSession(s,e);
+    (s.tempoBlocks||[]).forEach(b=>{
+      const name=blockVariantName(b,e)||legacy;
+      if(!name)return;
+      const key=b.variantId||s.variantId||`legacy:${name.toLowerCase()}`;
+      if(!variantStats.has(key))variantStats.set(key,{id:key,name,total:0,count:0,sessions:new Set()});
+      const x=variantStats.get(key);
+      x.total+=b.minutes==null?0:(+b.minutes||0);
+      x.sessions.add(s.id)
+    })
+  });
+  variantStats.forEach(x=>x.count=x.sessions.size);
+
+  m.innerHTML=`<div class="topbar"><button id="backExercises">Atrás</button><h2>${esc(e.name)}</h2><button id="editExercise">Editar</button></div>
+  <div class="form">
+    <div class="stats3"><div class="mini"><span>Tiempo total</span><strong>${fmt(total)}</strong></div><div class="mini"><span>Prácticas</span><strong>${ss.length}</strong></div><div class="mini"><span>BPM máx.</span><strong>${maxBpm||'—'}</strong></div></div>
+
+    <div class="section-title">Ejercicio</div>
+    <div class="card"><div class="cat-row"><div class="grow">Categoría</div><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span></div></div>
+
+    <div class="section-title">Variantes</div>
+    ${variantStats.size?`<div class="card">${[...variantStats.values()].map(v=>`<div class="cat-row"><div class="grow"><strong>${esc(v.name)}</strong><div class="muted" style="font-size:12px;margin-top:4px">${v.count} ${v.count===1?'práctica':'prácticas'}</div></div><span>${v.total?fmt(v.total):'Sin practicar'}</span></div>`).join('')}</div>`:'<div class="card empty">Este ejercicio todavía no tiene variantes. Puedes crearlas desde Editar.</div>'}
+
+    <div style="margin-top:14px"><button id="quickAdd" class="primary wide">+ Añadir práctica</button></div>
+    ${e.songId?'<div style="margin-top:8px"><button id="playSong" class="secondary wide" type="button">▶ Practicar con la canción</button></div>':''}
+
+    <div class="section-title">Historial</div>
+    ${ss.length?ss.map(sessionCard).join(''):'<div class="card empty">Este ejercicio está guardado, pero todavía no tiene prácticas.</div>'}
+
+    <div class="section-title">Gestionar</div>
+    <button id="deleteExercise" class="danger wide">Eliminar ejercicio</button>
+    <div class="empty" style="margin:9px 4px 0">Eliminar el ejercicio también eliminará todas sus prácticas asociadas y las descontará de las estadísticas.</div>
+  </div>`;
+
+  $('#backExercises').onclick=openExerciseLibrary;
+  $('#editExercise').onclick=()=>openEditExercise(id);
+  $('#quickAdd').onclick=()=>{
+    m.classList.remove('open');openSessionModal();
+    $('#exerciseName').value=e.name;$('#category').value=e.category;
+    refreshExercisePicker();$('#exercisePicker').value=e.id;refreshTempoVariantSelects()
+  };
+  $('#deleteExercise').onclick=()=>deleteSavedExercise(id);
+  if($('#playSong'))$('#playSong').onclick=()=>{m.classList.remove('open');openStems(e.songId)};
+  bindSessionCards()
+}
+
+function openEditExercise(id){
+  const e=exercises().find(x=>x.id===id);if(!e)return;
+  const count=sessions().filter(s=>s.exerciseId===id).length,m=$('#exerciseModal');
+
+  m.innerHTML=`<div class="topbar"><button id="cancelEditExercise">Cancelar</button><h2>Editar ejercicio</h2><button id="saveEditExercise">Guardar</button></div>
+  <div class="form">
+    <div class="field"><label>Nombre</label><input id="editExerciseName" value="${esc(e.name)}" autocomplete="off"></div>
+    <div class="field"><label>Categoría</label><select id="editExerciseCategory">${categories.map(c=>`<option ${c===e.category?'selected':''}>${esc(c)}</option>`).join('')}</select></div>
+    <div class="field"><label>Variantes</label><div id="editExerciseVariants"></div><button id="addEditExerciseVariant" class="secondary wide" type="button">+ Añadir variante</button></div>
+    <div class="card"><div class="cat-row" style="border-bottom:0"><div class="grow"><strong>${count} ${count===1?'práctica asociada':'prácticas asociadas'}</strong><div class="muted" style="font-size:12px;margin-top:5px">Renombrar una variante conserva las prácticas que ya estaban asociadas a ella.</div></div></div></div>
+  </div>`;
+
+  exerciseVariants(e).forEach(v=>addVariantEditorRow('editExerciseVariants',v.name,v.id));
+  $('#addEditExerciseVariant').onclick=()=>addVariantEditorRow('editExerciseVariants');
+  $('#cancelEditExercise').onclick=()=>openExerciseDetail(id);
+  $('#saveEditExercise').onclick=()=>saveEditedExercise(id)
+}
+
+function saveEditedExercise(id){
+  const name=$('#editExerciseName').value.trim(),category=$('#editExerciseCategory').value,variants=readVariantEditor('editExerciseVariants');
+  if(!name)return toast('Escribe un nombre');
+  const all=exercises(),e=all.find(x=>x.id===id);if(!e)return;
+  if(all.some(x=>x.id!==id&&x.name.toLowerCase()===name.toLowerCase()))return toast('Ya existe un ejercicio con ese nombre');
+
+  e.name=name;e.category=category;e.variants=variants;saveExercises(all);
+
+  const variantMap=new Map(variants.map(v=>[v.id,v.name]));
+  saveSessions(sessions().map(s=>{
+    if(s.exerciseId!==id)return s;
+    return {
+      ...s,
+      exerciseName:name,
+      category,
+      variantName:s.variantId&&variantMap.has(s.variantId)?variantMap.get(s.variantId):(s.variantName||''),
+      tempoBlocks:(s.tempoBlocks||[]).map(b=>({
+        ...b,
+        variantName:b.variantId&&variantMap.has(b.variantId)?variantMap.get(b.variantId):(b.variantName||'')
+      }))
+    }
+  }));
+
+  renderAll();openExerciseDetail(id);toast('Ejercicio actualizado')
+}
+
+function deleteSavedExercise(id){
+  const e=exercises().find(x=>x.id===id);if(!e)return;
+  const linked=sessions().filter(s=>s.exerciseId===id);
+  const total=linked.reduce((n,s)=>n+(+s.practiceMinutes||0),0);
+
+  const message=linked.length
+    ? `¿Eliminar “${e.name}”? También se eliminarán ${linked.length} ${linked.length===1?'práctica':'prácticas'} (${fmt(total)}) y se descontarán de todas las estadísticas.`
+    : `¿Eliminar “${e.name}”?`;
+
+  if(!confirm(message))return;
+
+  saveExercises(exercises().filter(x=>x.id!==id));
+  saveSessions(sessions().filter(s=>s.exerciseId!==id));
+
+  renderAll();
+  openExerciseLibrary();
+  toast('Ejercicio eliminado');
+}
+
+// THEORY-START
+const LETTERS=['C','D','E','F','G','A','B'],LETTER_PC=[0,2,4,5,7,9,11];
+const CIRCLE_MAJOR=['C','G','D','A','E','B','F#','Db','Ab','Eb','Bb','F'];
+const CIRCLE_MINOR=['A','E','B','F#','C#','G#','D#','Bb','F','C','G','D'];
+const TUNINGS={Guitarra:['E','A','D','G','B','E'],Bajo:['E','A','D','G']};
+// Cada escala se define por sus grados ('b3', '#4'…): de ellos salen los semitonos y la ortografía
+// (cada grado usa la letra de su número contando desde la tónica).
+const SCALE_GROUPS=[
+  ['Mayor y sus modos',[['major','Mayor (jónica)','1 2 3 4 5 6 7'],['dorian','Dórica','1 2 b3 4 5 6 b7'],['phrygian','Frigia','1 b2 b3 4 5 b6 b7'],['lydian','Lidia','1 2 3 #4 5 6 7'],['mixolydian','Mixolidia','1 2 3 4 5 6 b7'],['minor','Menor natural (eólica)','1 2 b3 4 5 b6 b7'],['locrian','Locria','1 b2 b3 4 b5 b6 b7']]],
+  ['Pentatónicas y blues',[['pentaMajor','Pentatónica mayor','1 2 3 5 6'],['pentaMinor','Pentatónica menor','1 b3 4 5 b7'],['blues','Blues','1 b3 4 b5 5 b7'],['bluesMajor','Blues mayor','1 2 b3 3 5 6'],['pentaSus','Pentatónica suspendida','1 2 4 5 b7']]],
+  ['Menor armónica y sus modos',[['harmonicMinor','Menor armónica','1 2 b3 4 5 b6 7'],['locrianNat6','Locria ♮6','1 b2 b3 4 b5 6 b7'],['ionianSharp5','Jónica ♯5','1 2 3 4 #5 6 7'],['dorianSharp4','Dórica ♯4','1 2 b3 #4 5 6 b7'],['phrygianDominant','Frigia dominante','1 b2 3 4 5 b6 b7'],['lydianSharp2','Lidia ♯2','1 #2 3 #4 5 6 7'],['ultralocrian','Ultralocria','1 b2 b3 b4 b5 b6 bb7']]],
+  ['Menor melódica y sus modos',[['melodicMinor','Menor melódica','1 2 b3 4 5 6 7'],['dorianFlat2','Dórica ♭2','1 b2 b3 4 5 6 b7'],['lydianAugmented','Lidia aumentada','1 2 3 #4 #5 6 7'],['lydianDominant','Lidia dominante','1 2 3 #4 5 6 b7'],['mixolydianFlat6','Mixolidia ♭6','1 2 3 4 5 b6 b7'],['locrianNat2','Locria ♮2','1 2 b3 4 b5 b6 b7'],['altered','Alterada (superlocria)','1 b2 b3 b4 b5 b6 b7']]],
+  ['Bebop',[['bebopDominant','Bebop dominante','1 2 3 4 5 6 b7 7'],['bebopMajor','Bebop mayor','1 2 3 4 5 #5 6 7'],['bebopDorian','Bebop dórica','1 2 b3 3 4 5 6 b7']]],
+  ['Simétricas',[['wholeTone','Tonos enteros','1 2 3 #4 #5 b7'],['dimWholeHalf','Disminuida (tono-semitono)','1 2 b3 4 b5 b6 6 7'],['dimHalfWhole','Disminuida (semitono-tono)','1 b2 #2 3 #4 5 6 b7'],['augmented','Aumentada','1 #2 3 5 #5 7'],['chromatic','Cromática','1 b2 2 b3 3 4 #4 5 b6 6 b7 7']]],
+  ['Otras',[['harmonicMajor','Mayor armónica','1 2 3 4 5 b6 7'],['doubleHarmonic','Doble armónica (árabe)','1 b2 3 4 5 b6 7'],['hungarianMinor','Húngara menor','1 2 b3 #4 5 b6 7'],['hungarianMajor','Húngara mayor','1 #2 3 #4 5 6 b7'],['neapolitanMinor','Napolitana menor','1 b2 b3 4 5 b6 7'],['neapolitanMajor','Napolitana mayor','1 b2 b3 4 5 6 7'],['spanish8','Española de 8 notas','1 b2 #2 3 4 b5 b6 b7'],['persian','Persa','1 b2 3 4 b5 b6 7'],['enigmatic','Enigmática','1 b2 3 #4 #5 #6 7'],['prometheus','Prometeo','1 2 3 #4 6 b7'],['hirajoshi','Hirajoshi','1 2 b3 5 b6'],['inSen','In sen','1 b2 4 5 b7'],['iwato','Iwato','1 b2 4 b5 b7'],['kumoi','Kumoi','1 2 b3 5 6']]]
+];
+const SCALES=SCALE_GROUPS.flatMap(([group,list])=>list.map(([id,name,deg])=>({id,name,group,labels:deg.split(' ')})));
+const CUSTOM_DEGREES=['1','b2','2','b3','3','4','b5','5','b6','6','b7','7'];
+let customScales=[];
+const scaleDef=id=>SCALES.find(s=>s.id===id)||customScales.find(s=>s.id===id)||SCALES[0];
+const degreeStep=l=>{const m=/^(b*|#*)([1-7])$/.exec(l);return m?LETTER_PC[m[2]-1]+(m[1][0]==='#'?1:-1)*m[1].length:NaN};
+const notePc=n=>(LETTER_PC[LETTERS.indexOf(n[0])]+[...n.slice(1)].reduce((x,c)=>x+(c==='#'?1:-1),0)+12)%12;
+function spellLabels(tonic,labels){
+  const l0=LETTERS.indexOf(tonic[0]),pc0=notePc(tonic);
+  return labels.map(lab=>{
+    const l=(l0+ +lab.slice(-1)-1)%7,acc=((pc0+degreeStep(lab)-LETTER_PC[l])%12+18)%12-6;
+    return LETTERS[l]+(acc>0?'#'.repeat(acc):'b'.repeat(-acc));
+  });
+}
+const spellScale=(tonic,mode)=>spellLabels(tonic,scaleDef(mode).labels);
+// THEORY-END
+const SOLFEGE={C:'Do',D:'Re',E:'Mi',F:'Fa',G:'Sol',A:'La',B:'Si'};
+const degreeColor=l=>({'1':'#00F0FF','3':'#FFD166','b3':'#FFD166','5':'#B69CFF','7':'#FF6B7A','b7':'#FF6B7A','bb7':'#FF6B7A'})[l]||'#8A9696';
+const pretty=n=>n.replace(/#/g,'♯').replace(/b/g,'♭');
+const solfege=n=>`${SOLFEGE[n[0]]}${pretty(n.slice(1))}`;
+const spanishName=(n,mode)=>`${solfege(n)} ${mode==='major'?'mayor':'menor'}`;
+const SCALE_PREFS_KEY='practica_scales_prefs';
+let scaleState={tonic:'C',mode:'major',degrees:[true,true,true,true,true,true,true],labels:'degrees',instrument:'Guitarra'};
+try{scaleState={...scaleState,...JSON.parse(localStorage.getItem(SCALE_PREFS_KEY)||'{}')}}catch{}
+const CUSTOM_SCALES_KEY=PREVIEW?'practica_preview_custom_scales':'practica_custom_scales_v1';
+const validCustomScale=s=>!!s&&typeof s.id==='string'&&typeof s.name==='string'&&!!s.name.trim()&&Array.isArray(s.labels)&&s.labels[0]==='1'&&s.labels.length>=3&&s.labels.every(l=>CUSTOM_DEGREES.includes(l))&&new Set(s.labels).size===s.labels.length;
+try{customScales=JSON.parse(localStorage.getItem(CUSTOM_SCALES_KEY)||'[]').filter(validCustomScale)}catch{}
+function saveCustomScales(list){
+  customScales=list;
+  try{localStorage.setItem(CUSTOM_SCALES_KEY,JSON.stringify(list))}catch{toast('No se pudo guardar la escala')}
+}
+let scaleDraft=null; // escala propia en edición: {id|null, name, sel:[índices de CUSTOM_DEGREES]}
+
+function circleSvg(){
+  const cx=160,cy=160,pos=(i,r)=>{const a=(i*30-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)]};
+  const ring=scaleState.ring||(scaleState.mode==='minor'?'minor':'major');
+  const key=(mode,n,i,r,size)=>{
+    const [x,y]=pos(i,r),sel=ring===mode&&scaleState.tonic===n;
+    const label=mode==='major'?pretty(n):pretty(n)+'m';
+    return `<g data-key="${mode}:${n}" role="button" aria-label="${spanishName(n,mode)}">
+      <circle cx="${x}" cy="${y}" r="${size}" fill="${sel?'rgba(0,240,255,.24)':'transparent'}" stroke="${sel?'rgba(0,240,255,.6)':'transparent'}"/>
+      <text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="${mode==='major'?15:12}" ${sel?'style="fill:#00F0FF"':''}>${label}</text></g>`;
+  };
+  return `<svg class="circle5" viewBox="0 0 320 320">
+    <circle cx="160" cy="160" r="150" fill="#151818" stroke="#202525"/>
+    <circle cx="160" cy="160" r="104" fill="#111414" stroke="#202525"/>
+    <circle cx="160" cy="160" r="62" fill="#0b0e0e" stroke="#202525"/>
+    <text x="160" y="152" text-anchor="middle" font-size="11" style="fill:#909898;font-weight:600">Mayores fuera</text>
+    <text x="160" y="170" text-anchor="middle" font-size="11" style="fill:#909898;font-weight:600">Menores dentro</text>
+    ${CIRCLE_MAJOR.map((n,i)=>key('major',n,i,127,21)).join('')}
+    ${CIRCLE_MINOR.map((n,i)=>key('minor',n,i,83,19)).join('')}
+  </svg>`;
+}
+
+// Mástil en horizontal como en una tablatura: cuerda más aguda arriba, cejuela a la izquierda.
+// Más ancho que el móvil: se desliza de lado dentro de su tarjeta.
+function fretboardSvg(){
+  const tuning=TUNINGS[scaleState.instrument]||TUNINGS.Guitarra,frets=15,n=tuning.length;
+  const labels=scaleDef(scaleState.mode).labels,scale=spellScale(scaleState.tonic,scaleState.mode),pcs=scale.map(notePc);
+  const nut=58,fretW=44,top=18,gap=34,W=nut+frets*fretW+16,bottom=top+(n-1)*gap,H=bottom+38;
+  const xOf=f=>f===0?nut-24:nut+(f-.5)*fretW,yOf=i=>bottom-i*gap,mid=(top+bottom)/2;
+  let out=`<svg class="fretboard" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Mástil de ${scaleState.instrument.toLowerCase()}">`;
+  out+=`<rect x="${nut}" y="${top-8}" width="${frets*fretW}" height="${bottom-top+16}" rx="4" fill="#151818"/>`;
+  [3,5,7,9,15].forEach(f=>out+=`<circle cx="${xOf(f)}" cy="${mid}" r="5" fill="#2a3131"/>`);
+  out+=`<circle cx="${xOf(12)}" cy="${mid-gap}" r="5" fill="#2a3131"/><circle cx="${xOf(12)}" cy="${mid+gap}" r="5" fill="#2a3131"/>`;
+  for(let f=1;f<=frets;f++)out+=`<line x1="${nut+f*fretW}" x2="${nut+f*fretW}" y1="${top-8}" y2="${bottom+8}" stroke="#3a4242" stroke-width="2"/>`;
+  out+=`<line x1="${nut}" x2="${nut}" y1="${top-8}" y2="${bottom+8}" stroke="#d9dede" stroke-width="5"/>`;
+  [3,5,7,9,12,15].forEach(f=>out+=`<text x="${xOf(f)}" y="${H-10}" text-anchor="middle" font-size="11" fill="#909898">${f}</text>`);
+  tuning.forEach((t,i)=>{
+    out+=`<text x="8" y="${yOf(i)}" dominant-baseline="central" font-size="11" fill="#909898">${pretty(t)}</text>`;
+    out+=`<line x1="${nut}" x2="${W-16}" y1="${yOf(i)}" y2="${yOf(i)}" stroke="#7d8787" stroke-width="${1+(n-1-i)*.35}"/>`;
+    for(let f=0;f<=frets;f++){
+      const d=pcs.indexOf((notePc(t)+f)%12);
+      if(d<0||!scaleState.degrees[d])continue;
+      const label=pretty(scaleState.labels==='degrees'?labels[d]:scale[d]);
+      out+=`<circle cx="${xOf(f)}" cy="${yOf(i)}" r="13" fill="${degreeColor(labels[d])}" ${f===0?'stroke="#f7f9f9" stroke-width="1.5"':''}/>
+        <text x="${xOf(f)}" y="${yOf(i)}" text-anchor="middle" dominant-baseline="central" font-size="${label.length>2?9:11}" font-weight="800" fill="#00131f">${label}</text>`;
+    }
+  });
+  return out+'</svg>';
+}
+
+function openScales(){
+  const m=$('#toolModal');
+  m.innerHTML=`<div class="topbar"><button id="closeScales">Cerrar</button><h2>Escalas</h2><button aria-hidden="true" tabindex="-1"></button></div><div class="form" id="scalesBody"></div>`;
+  m.classList.add('open');m.scrollTop=0;
+  $('#closeScales').onclick=()=>{scaleDraft=null;m.classList.remove('open')};
+  renderScales();
+}
+// Grados visibles según el último atajo (Todos/Tónica/Tríada/Cuatriada); si se eligieron a mano, todos.
+const presetDegrees=(labels,preset)=>labels.map(l=>(preset||'1234567').includes(l.slice(-1)));
+function setScaleMode(id){
+  const st=scaleState;st.mode=id;
+  if(id==='major'||id==='minor')st.ring=id;
+  st.degrees=presetDegrees(scaleDef(id).labels,st.preset);
+}
+function scaleEditorHtml(){
+  const d=scaleDraft,labels=d.sel.map(i=>CUSTOM_DEGREES[i]);
+  return `<div class="card" style="margin-top:10px">
+    <div class="field"><label>Nombre de la escala</label><input id="csName" maxlength="40" value="${esc(d.name)}" placeholder="Mi escala"></div>
+    <div class="muted" style="font-size:12px;margin:0 4px 8px">Toca los grados que lleva (el 1 siempre está)</div>
+    <div class="degree-chips" style="grid-template-columns:repeat(6,1fr)">${CUSTOM_DEGREES.map((l,i)=>`<button type="button" data-cs="${i}" class="${d.sel.includes(i)?'on':''}" style="--deg:${degreeColor(l)}" aria-pressed="${d.sel.includes(i)}" ${i?'':'disabled'}>${pretty(l)}</button>`).join('')}</div>
+    <div class="key-notes" style="margin:12px 0">${solfege(scaleState.tonic)}: ${spellLabels(scaleState.tonic,labels).map(pretty).join(' · ')}</div>
+    <div class="block-actions"><button type="button" class="secondary" id="csCancel">Cancelar</button><button type="button" class="primary" id="csSave">Guardar</button></div>
+  </div>`;
+}
+function saveScaleDraft(){
+  const d=scaleDraft,name=d.name.trim();
+  if(!name)return toast('Ponle un nombre a la escala');
+  if(d.sel.length<3)return toast('Elige al menos 3 notas');
+  const sc={id:d.id||'custom-'+uuid(),name,labels:d.sel.map(i=>CUSTOM_DEGREES[i])};
+  saveCustomScales(d.id?customScales.map(x=>x.id===d.id?sc:x):[...customScales,sc]);
+  scaleDraft=null;setScaleMode(sc.id);renderScales();toast('Escala guardada');
+}
+function renderScales(){
+  const st=scaleState,def=scaleDef(st.mode),labels=def.labels,scale=spellScale(st.tonic,st.mode);
+  st.mode=def.id;
+  if(st.degrees.length!==labels.length)st.degrees=presetDegrees(labels,st.preset);
+  try{localStorage.setItem(SCALE_PREFS_KEY,JSON.stringify(scaleState))}catch{}
+  const custom=!def.group,seg=(attr,items,cur)=>`<div class="seg two">${items.map(([k,l])=>`<button type="button" ${attr}="${k}" class="${cur===k?'active':''}">${l}</button>`).join('')}</div>`;
+  const fretLeft=$('.fret-scroll')?.scrollLeft||0;
+  const opts=list=>list.map(s=>`<option value="${esc(s.id)}" ${s.id===def.id?'selected':''}>${esc(s.name)}</option>`).join('');
+  $('#scalesBody').innerHTML=`
+    ${seg('data-scale-instrument',[['Guitarra','Guitarra'],['Bajo','Bajo']],st.instrument)}
+    ${circleSvg()}
+    <div class="key-title">${def.id==='major'||def.id==='minor'?`${spanishName(st.tonic,def.id)} · ${pretty(st.tonic)}${def.id==='minor'?'m':''}`:`${solfege(st.tonic)} · ${esc(def.name)}`}</div>
+    <div class="key-notes">${scale.map(pretty).join(' · ')}</div>
+    <div class="section-title">Escala</div>
+    <div class="field" style="margin-bottom:8px"><select id="scaleType" aria-label="Tipo de escala">${SCALE_GROUPS.map(([g])=>`<optgroup label="${g}">${opts(SCALES.filter(s=>s.group===g))}</optgroup>`).join('')}${customScales.length?`<optgroup label="Mis escalas">${opts(customScales)}</optgroup>`:''}</select></div>
+    ${scaleDraft?scaleEditorHtml():`<div class="block-actions" style="${custom?'':'grid-template-columns:1fr'}"><button type="button" class="secondary" id="newScale">+ Crear escala</button>${custom?`<button type="button" class="secondary" id="editScale">Editar</button><button type="button" class="danger" id="delScale" style="grid-column:1/-1">Borrar «${esc(def.name)}»</button>`:''}</div>`}
+    <div class="section-title">Grados visibles</div>
+    <div class="degree-chips">${labels.map((l,i)=>`<button type="button" data-degree="${i}" class="${st.degrees[i]?'on':''}" style="--deg:${degreeColor(l)}" aria-pressed="${st.degrees[i]}">${pretty(l)}</button>`).join('')}</div>
+    <div class="preset-row">
+      <button type="button" data-preset="1234567">Todos</button>
+      <button type="button" data-preset="1">Tónica</button>
+      <button type="button" data-preset="135">Tríada</button>
+      <button type="button" data-preset="1357">Cuatriada</button>
+    </div>
+    <div class="section-title">Mástil</div>
+    ${seg('data-scale-labels',[['degrees','Grados'],['notes','Notas']],st.labels)}
+    <div class="card fret-scroll">${fretboardSvg()}</div>`;
+  $('.fret-scroll').scrollLeft=fretLeft;
+  $$('[data-key]').forEach(g=>g.onclick=()=>{const [ring,n]=g.dataset.key.split(':');st.ring=ring;st.tonic=n;if(st.mode==='major'||st.mode==='minor')st.mode=ring;renderScales()});
+  $('#scaleType').onchange=e=>{setScaleMode(e.target.value);renderScales()};
+  $$('[data-degree]').forEach(b=>b.onclick=()=>{st.preset=null;st.degrees[+b.dataset.degree]=!st.degrees[+b.dataset.degree];renderScales()});
+  $$('[data-preset]').forEach(b=>b.onclick=()=>{st.preset=b.dataset.preset;st.degrees=presetDegrees(labels,st.preset);renderScales()});
+  $$('[data-scale-instrument]').forEach(b=>b.onclick=()=>{st.instrument=b.dataset.scaleInstrument;renderScales()});
+  $$('[data-scale-labels]').forEach(b=>b.onclick=()=>{st.labels=b.dataset.scaleLabels;renderScales()});
+  if(scaleDraft){
+    $('#csName').oninput=e=>scaleDraft.name=e.target.value;
+    $$('[data-cs]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cs,sel=scaleDraft.sel;scaleDraft.sel=sel.includes(i)?sel.filter(x=>x!==i):[...sel,i].sort((x,y)=>x-y);renderScales()});
+    $('#csCancel').onclick=()=>{scaleDraft=null;renderScales()};
+    $('#csSave').onclick=saveScaleDraft;
+    return;
+  }
+  $('#newScale').onclick=()=>{scaleDraft={id:null,name:'',sel:[0,2,4,5,7,9,11]};renderScales();$('#csName').focus()};
+  if(custom){
+    $('#editScale').onclick=()=>{scaleDraft={id:def.id,name:def.name,sel:def.labels.map(l=>CUSTOM_DEGREES.indexOf(l))};renderScales()};
+    $('#delScale').onclick=()=>{if(!confirm(`¿Borrar la escala «${def.name}»?`))return;saveCustomScales(customScales.filter(x=>x.id!==def.id));setScaleMode('major');renderScales()};
+  }
+}
+
+// ---------- Separador de pistas ----------
+const STEM_INFO={drums:['Batería','#FF9F43'],bass:['Bajo','#4DA3FF'],guitar:['Guitarra','#4EEE7C'],piano:['Piano','#FFD166'],vocals:['Voz','#FF6B7A'],other:['Otros','#B276FF']};
+const STEM_ORDER=['guitar','bass','drums','vocals','piano','other'];
+const SONG_DB=PREVIEW?'practica_preview_songs':'practica_songs';
+let separatorJob=null, player=null;
+
+function songStore(mode,fn){
+  return new Promise((ok,ko)=>{
+    const open=indexedDB.open(SONG_DB,1);
+    open.onupgradeneeded=()=>open.result.createObjectStore('songs',{keyPath:'id'});
+    open.onerror=()=>ko(open.error);
+    open.onsuccess=()=>{
+      const db=open.result,tx=db.transaction('songs',mode),req=fn(tx.objectStore('songs'));
+      tx.oncomplete=()=>{db.close();ok(req?.result)};
+      tx.onerror=tx.onabort=()=>{db.close();ko(tx.error)};
+    };
+  });
+}
+const listSongs=()=>songStore('readonly',st=>st.getAll());
+const putSong=song=>songStore('readwrite',st=>st.put(song));
+const removeSong=id=>songStore('readwrite',st=>st.delete(id));
+const fmtClock=sec=>{sec=Math.max(0,Math.floor(sec||0));return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`};
+const fmtMB=b=>`${Math.round(b/1048576)} MB`;
+
+function openStems(songId){
+  const m=$('#toolModal');
+  m.innerHTML=`<div class="topbar"><button id="closeStems">Cerrar</button><h2>Pistas</h2><button aria-hidden="true" tabindex="-1"></button></div><div class="form" id="stemsBody"></div>`;
+  m.classList.add('open');m.scrollTop=0;
+  $('#closeStems').onclick=()=>{m.classList.remove('open');syncMini()};
+  songId?openPlayer(songId):renderSongList();
+}
+
+async function renderSongList(){
+  const body=$('#stemsBody');if(!body)return;
+  let songs=[];try{songs=await listSongs()}catch{}
+  songs.sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+  const est=await (navigator.storage?.estimate?.()||Promise.resolve(null)).catch(()=>null);
+  const job=separatorJob;
+  body.innerHTML=`
+    <button id="pickSong" class="primary wide" type="button" ${job?'disabled':''}>+ Subir canción</button>
+    <input id="songFile" class="hidden-file" type="file" accept="audio/*,.mp3,.m4a,.wav,.aac,.flac">
+    <div class="empty" style="font-size:12px;margin:9px 4px 0">Se separa en 6 pistas (guitarra, bajo, batería, voz, piano y otros) con IA dentro de tu móvil; el audio no sale del dispositivo. La primera vez descarga el modelo (57 MB). Mantén la app abierta mientras procesa.</div>
+    ${job?`<div class="card" style="margin-top:14px"><strong>${esc(job.name)}</strong><div class="progress"><i id="jobBar" style="width:${Math.round(job.value*100)}%"></i></div><div id="jobText" class="muted" style="font-size:12px">${esc(job.text)}</div><button id="cancelJob" class="secondary wide" style="margin-top:10px" type="button">Cancelar</button></div>`:''}
+    <div class="section-title">Canciones</div>
+    ${songs.length?`<div class="card">${songs.map(s=>`<div class="song-row" data-song="${esc(s.id)}"><div class="grow"><strong>${esc(s.name)}</strong><div class="muted" style="font-size:12px;margin-top:3px">${fmtClock(s.frames/44100)} · ${s.bpm?`${s.bpm} BPM · `:''}${fmtMB(s.bytes)}</div></div><button class="icon-btn" data-del-song="${esc(s.id)}" aria-label="Borrar canción">×</button></div>`).join('')}</div>`:'<div class="card empty">Todavía no hay canciones separadas.</div>'}
+    ${est?`<div class="empty" style="font-size:12px;margin:9px 4px 0">Espacio usado por la app: ${fmtMB(est.usage)}</div>`:''}`;
+  $('#pickSong').onclick=()=>$('#songFile').click();
+  $('#songFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)startSeparation(f)};
+  if(job)$('#cancelJob').onclick=cancelSeparation;
+  $$('[data-song]').forEach(r=>r.onclick=e=>{if(!e.target.closest('[data-del-song]'))openPlayer(r.dataset.song)});
+  $$('[data-del-song]').forEach(b=>b.onclick=async()=>{
+    const s=songs.find(x=>x.id===b.dataset.delSong);
+    if(!confirm(`¿Borrar “${s.name}” y sus pistas separadas?`))return;
+    if(player?.song.id===s.id)stopPlayer();
+    await removeSong(s.id);renderSongList();toast('Canción borrada');
+  });
+}
+
+function updateJob(value,text){
+  if(!separatorJob)return;
+  separatorJob.value=value;separatorJob.text=text;
+  const bar=$('#jobBar'),label=$('#jobText');
+  if(bar)bar.style.width=`${Math.round(value*100)}%`;
+  if(label)label.textContent=text;
+}
+
+async function startSeparation(file){
+  const name=file.name.replace(/\.[^.]+$/,'');
+  separatorJob={name,value:0,text:'Leyendo audio…'};
+  renderSongList();
+  try{separatorJob.wakeLock=await navigator.wakeLock?.request('screen')}catch{}
+  let audio;
+  try{audio=await new OfflineAudioContext(2,1,44100).decodeAudioData(await file.arrayBuffer())}
+  catch{finishJob();return toast('No se pudo leer ese audio')}
+  const left=audio.getChannelData(0).slice(),right=(audio.numberOfChannels>1?audio.getChannelData(1):audio.getChannelData(0)).slice();
+  const frames=left.length,worker=new Worker('separator-worker.js');
+  separatorJob.worker=worker;
+  worker.onmessage=async({data})=>{
+    if(data.type==='progress'){
+      if(data.phase==='download')updateJob(data.value*.1,`Descargando modelo… ${Math.round(data.value*100)}%`);
+      else if(data.phase==='prepare')updateJob(.1,'Preparando IA…');
+      else updateJob(.1+data.value*.9,`Separando… ${Math.round(data.value*100)}%${data.eta>5?` · quedan ~${fmtClock(data.eta)}`:''}${data.ep==='wasm'?' · CPU':''}`);
+      return;
+    }
+    worker.terminate();
+    if(data.type==='error'){finishJob();return toast(data.message==='download'||data.message==='hash'?'No se pudo descargar el modelo':'Error al separar la canción')}
+    const stems={};let bytes=0;
+    for(const [k,arr] of Object.entries(data.stems)){stems[k]=new Blob([arr]);bytes+=arr.byteLength}
+    const song={id:uuid(),name,createdAt:new Date().toISOString(),frames,bpm:data.bpm||null,bytes,stems};
+    try{await putSong(song)}catch{finishJob();return toast('No hay espacio para guardar las pistas')}
+    const listShown=!!$('#songFile');
+    finishJob();toast('Canción separada');if(listShown)openPlayer(song.id);
+  };
+  worker.onerror=()=>{finishJob();toast('Error al separar la canción')};
+  worker.postMessage({type:'separate',left,right},[left.buffer,right.buffer]);
+}
+function finishJob(){
+  separatorJob?.worker?.terminate();
+  separatorJob?.wakeLock?.release?.().catch(()=>{});
+  separatorJob=null;
+  if($('#songFile'))renderSongList();
+}
+function cancelSeparation(){
+  if(confirm('¿Cancelar la separación?'))finishJob();
+}
+
+// Mezcla las pistas activas en un WAV para un único <audio>: así el cambio de BPM usa el estirado
+// de tiempo nativo del navegador (preservesPitch) y no cambia el tono.
+function mixToWav(){
+  const p=player,n=p.song.frames*2,buf=new ArrayBuffer(44+n*2),dv=new DataView(buf);
+  const str=(o,t)=>[...t].forEach((c,i)=>dv.setUint8(o+i,c.charCodeAt(0)));
+  str(0,'RIFF');dv.setUint32(4,36+n*2,true);str(8,'WAVE');str(12,'fmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,2,true);
+  const sr=Math.round(44100*p.srcRatio);dv.setUint32(24,sr,true);dv.setUint32(28,sr*4,true);dv.setUint16(32,4,true);dv.setUint16(34,16,true);str(36,'data');dv.setUint32(40,n*2,true);
+  const out=new Int16Array(buf,44),active=STEM_ORDER.map(k=>[p.data[k],stemGain(k)]).filter(([a,g])=>a&&g>0);
+  for(let i=0;i<n;i++){let v=0;for(const [a,g] of active)v+=a[i]*g;out[i]=v>32767?32767:v<-32768?-32768:v}
+  return new Blob([buf],{type:'audio/wav'});
+}
+// Tono: el WAV se declara a 44100·r Hz (suena r veces más agudo y rápido) y playbackRate/r con preservesPitch
+// devuelve el tempo sin tocar el tono. Por eso las posiciones se guardan en segundos de canción.
+const songPos=()=>player.audio.currentTime*player.srcRatio;
+const seekSong=t=>{player.audio.currentTime=t/player.srcRatio};
+const stemGain=k=>player.solo?(player.solo===k?player.vol[k]:0):(player.mute[k]?0:player.vol[k]);
+
+function applyRate(){
+  const p=player,rate=Math.min(1.5,Math.max(.5,p.song.bpm?p.target/p.song.bpm:p.rate));
+  p.audio.defaultPlaybackRate=p.audio.playbackRate=rate/p.srcRatio;
+  p.audio.preservesPitch=true;p.audio.webkitPreservesPitch=true;
+}
+function remix(){
+  const p=player,t=songPos(),playing=!p.audio.paused,old=p.url;
+  p.srcRatio=2**(p.semi/12);
+  p.url=URL.createObjectURL(mixToWav());
+  p.audio.src=p.url;
+  p.audio.onloadedmetadata=()=>{seekSong(t);applyRate();if(playing)p.audio.play().catch(()=>{})};
+  if(old)URL.revokeObjectURL(old);
+}
+
+async function openPlayer(id){
+  if(player?.song.id===id)return renderPlayer();
+  const song=(await listSongs()).find(s=>s.id===id);
+  if(!song){renderSongList();return toast('Esa canción ya no está guardada')}
+  stopPlayer();
+  $('#stemsBody').innerHTML='<div class="card empty">Cargando pistas…</div>';
+  const data={};
+  for(const [k,b] of Object.entries(song.stems))data[k]=new Int16Array(await b.arrayBuffer());
+  player={song,data,audio:new Audio(),url:null,vol:Object.fromEntries(STEM_ORDER.map(k=>[k,1])),mute:{},solo:null,target:song.bpm||100,rate:1,practice:new Map(),lastTick:null,loop:null,semi:0,srcRatio:1};
+  player.audio.ontimeupdate=()=>{checkLoop();const r=$('#seek');if(r&&!r.matches(':active')){const t=songPos();r.value=t;$('#curTime').textContent=fmtClock(t)}};
+  player.audio.onplay=player.audio.onpause=()=>{practiceTick();const b=$('#playBtn');if(b)b.textContent=player.audio.paused?'▶':'❚❚';syncMini();syncPlaybackNotice()};
+  remix();renderPlayer();renderHome();
+}
+
+// ---------- Bucle: 1.er toque = inicio, 2.º = cierra y repite, 3.º = quita ----------
+function loopTap(){
+  const p=player;if(!p)return;
+  const t=songPos();
+  if(!p.loop)p.loop={a:t,b:null};
+  else if(p.loop.b==null){
+    if(t-p.loop.a<0.5)return toast('Avanza un poco más para cerrar el bucle');
+    p.loop.b=t;seekSong(p.loop.a);
+  }else p.loop=null;
+  const b=$('#loopBtn');if(b){b.textContent=loopLabel();b.classList.toggle('on',!!p.loop);b.setAttribute('aria-pressed',!!p.loop)}
+}
+function checkLoop(){
+  const l=player?.loop;
+  if(l?.b==null)return;
+  const t=songPos();
+  if(t>=l.b||t<l.a-0.5)seekSong(l.a);
+}
+const loopLabel=()=>{const l=player.loop;return !l?'⟲ Bucle: marcar inicio':l.b==null?`⟲ Cerrar bucle (desde ${fmtClock(l.a)})`:`⟲ Bucle ${fmtClock(l.a)} – ${fmtClock(l.b)} · quitar`};
+// timeupdate llega cada ~250 ms: el intervalo hace el salto más preciso con la app abierta.
+setInterval(checkLoop,40);
+
+function renderPlayer(){
+  const p=player,s=p.song,dur=s.frames/44100,pct=s.bpm?Math.round(p.target/s.bpm*100):Math.round(p.rate*100);
+  $('#stemsBody').innerHTML=`
+    <div class="backline" id="backSongs">‹ Canciones</div>
+    <div class="title" style="font-size:24px;margin:0 0 12px">${esc(s.name)}</div>
+    <div class="card">
+      <input id="seek" class="range" type="range" min="0" max="${dur}" step="0.1" value="${songPos()||0}" aria-label="Posición">
+      <div class="time-row"><span id="curTime">${fmtClock(songPos())}</span><span>${fmtClock(dur)}</span></div>
+      <div class="transport">
+        <button class="icon-btn" id="back5" aria-label="Atrás 5 segundos">−5s</button>
+        <button class="play-btn" id="playBtn" aria-label="Reproducir o pausar">${p.audio.paused?'▶':'❚❚'}</button>
+        <button class="icon-btn" id="fwd5" aria-label="Adelante 5 segundos">+5s</button>
+      </div>
+      <button id="loopBtn" class="secondary wide loop-btn${p.loop?' on':''}" type="button" aria-pressed="${!!p.loop}">${loopLabel()}</button>
+    </div>
+    <div class="card" style="margin-top:9px">
+      <div class="cat-row" style="border-bottom:0;padding-top:0"><div class="grow"><strong>Práctica en curso</strong><div class="muted" style="font-size:12px;margin-top:4px">Cuenta solo mientras suena, separado por BPM</div></div><strong id="practiceNow" style="color:var(--accent);font-variant-numeric:tabular-nums">${practiceText()}</strong></div>
+      <button id="logPractice" class="primary wide" type="button">Guardar práctica</button>
+    </div>
+    <div class="section-title">Tempo de práctica</div>
+    <div class="card">
+      <div class="orig-bpm"><span class="muted grow" style="font-size:13px">BPM original</span><input id="origBpm" type="number" inputmode="numeric" min="30" max="300" value="${s.bpm||''}" placeholder="—"><button id="halfBpm" type="button">÷2</button><button id="doubleBpm" type="button">×2</button></div>
+      ${s.bpm?`
+      <div class="bpm-row" style="margin-top:14px"><button id="bpmDown" type="button">−</button><div><div class="bpm-big">${Math.round(p.target)}</div><div class="muted" style="text-align:center;font-size:12px">BPM · ${pct}%</div></div><button id="bpmUp" type="button">+</button></div>
+      <input id="bpmRange" class="range" type="range" min="${Math.ceil(s.bpm*.5)}" max="${Math.floor(s.bpm*1.5)}" step="1" value="${Math.round(p.target)}" style="margin-top:12px" aria-label="BPM de práctica">
+      <div class="mini-btns"><button data-pct="0.75" type="button">75%</button><button data-pct="0.9" type="button">90%</button><button data-pct="1" type="button">100%</button></div>`
+      :`<div class="empty" style="font-size:12px;margin-top:10px">No se pudo detectar el BPM. Escríbelo arriba para ajustar el tempo.</div>`}
+    </div>
+    <div class="section-title">Tono</div>
+    <div class="card">
+      <div class="bpm-row"><button id="semiDown" type="button" aria-label="Bajar un semitono">−</button><div><div class="bpm-big">${p.semi>0?'+':''}${p.semi}</div><div class="muted" style="text-align:center;font-size:12px">${p.semi?'semitonos':'tono original'}</div></div><button id="semiUp" type="button" aria-label="Subir un semitono">+</button></div>
+      <div class="empty" style="font-size:12px;margin-top:10px">−1 = afinación en Mi♭. El tempo no cambia.</div>
+    </div>
+    <div class="section-title">Pistas</div>
+    <div class="card">${STEM_ORDER.filter(k=>p.data[k]).map(k=>`<div class="stem-row"><div class="c" style="--cat:${STEM_INFO[k][1]}"></div><span>${STEM_INFO[k][0]}</span><input class="range" type="range" min="0" max="1" step="0.05" value="${p.vol[k]}" data-vol="${k}" aria-label="Volumen ${STEM_INFO[k][0]}"><button data-solo="${k}" class="${p.solo===k?'on':''}" aria-pressed="${p.solo===k}">S</button><button data-mute="${k}" class="mute ${p.mute[k]?'on':''}" aria-pressed="${!!p.mute[k]}">M</button></div>`).join('')}</div>
+    <div class="mini-btns"><button data-mix="all" type="button">Todo</button><button data-mix="guitar" type="button">Sin guitarra</button><button data-mix="bass" type="button">Sin bajo</button></div>
+    <div class="empty" style="font-size:12px;margin:12px 4px 0">S = escuchar solo esa pista · M = silenciarla. Para practicar, quita tu instrumento y toca encima.</div>`;
+  const a=p.audio;
+  $('#backSongs').onclick=()=>renderSongList();
+  $('#logPractice').onclick=logPracticeFromPlayer;
+  $('#playBtn').onclick=()=>{askNoticePermission();a.paused?a.play().catch(()=>toast('No se pudo reproducir')):a.pause()};
+  $('#back5').onclick=()=>seekSong(Math.max(0,songPos()-5));
+  $('#fwd5').onclick=()=>seekSong(Math.min(dur,songPos()+5));
+  $('#loopBtn').onclick=loopTap;
+  $('#seek').oninput=e=>{$('#curTime').textContent=fmtClock(+e.target.value)};
+  $('#seek').onchange=e=>seekSong(+e.target.value);
+  const saveBpm=async bpm=>{s.bpm=bpm>=30&&bpm<=300?Math.round(bpm):null;p.target=s.bpm||100;await putSong(s);applyRate();renderPlayer()};
+  $('#origBpm').onchange=e=>saveBpm(+e.target.value);
+  $('#halfBpm').onclick=()=>s.bpm&&saveBpm(s.bpm/2);
+  $('#doubleBpm').onclick=()=>s.bpm&&saveBpm(s.bpm*2);
+  const setTarget=v=>{practiceTick();p.target=Math.min(s.bpm*1.5,Math.max(s.bpm*.5,v));applyRate();renderPlayer()};
+  if(s.bpm){
+    $('#bpmDown').onclick=()=>setTarget(Math.round(p.target)-1);
+    $('#bpmUp').onclick=()=>setTarget(Math.round(p.target)+1);
+    $('#bpmRange').onchange=e=>setTarget(+e.target.value);
+    $$('[data-pct]').forEach(b=>b.onclick=()=>setTarget(Math.round(s.bpm*+b.dataset.pct)));
+  }
+  const setSemi=v=>{p.semi=Math.max(-6,Math.min(6,v));remix();renderPlayer()};
+  $('#semiDown').onclick=()=>setSemi(p.semi-1);
+  $('#semiUp').onclick=()=>setSemi(p.semi+1);
+  $$('[data-vol]').forEach(r=>r.onchange=()=>{p.vol[r.dataset.vol]=+r.value;remix()});
+  $$('[data-solo]').forEach(b=>b.onclick=()=>{p.solo=p.solo===b.dataset.solo?null:b.dataset.solo;remix();renderPlayer()});
+  $$('[data-mute]').forEach(b=>b.onclick=()=>{p.mute[b.dataset.mute]=!p.mute[b.dataset.mute];remix();renderPlayer()});
+  $$('[data-mix]').forEach(b=>b.onclick=()=>{p.solo=null;p.mute={};if(b.dataset.mix!=='all')p.mute[b.dataset.mix]=true;remix();renderPlayer()});
+}
+
+// ---------- Aviso "Práctica en curso" en la pantalla de bloqueo ----------
+// Se publica al ocultarse la app (al bloquear), no al pulsar play: algunos móviles (Xiaomi) no enseñan en el
+// bloqueo las notificaciones creadas con la pantalla encendida porque las dan por vistas.
+const PLAY_NOTICE_TAG='practica-reproduccion';
+const askNoticePermission=()=>{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{})};
+async function syncPlaybackNotice(){
+  const reg=await navigator.serviceWorker?.getRegistration().catch(()=>null);
+  if(!reg?.showNotification)return;
+  (await reg.getNotifications({tag:PLAY_NOTICE_TAG}).catch(()=>[])).forEach(n=>n.close());
+  const p=player;
+  if(!p||p.audio.paused||document.visibilityState!=='hidden'||Notification.permission!=='granted')return;
+  reg.showNotification('Práctica en curso',{tag:PLAY_NOTICE_TAG,body:`${p.song.name}${p.song.bpm?` · ${Math.round(p.target)} BPM`:''}`,icon:'icons/icon-192.png',badge:'icons/icon-192.png',silent:true}).catch(()=>{});
+}
+document.addEventListener('visibilitychange',syncPlaybackNotice);
+
+// ---------- Modo práctica con canción ----------
+let sessionFromPlayer=false;
+const practiceSeconds=()=>player?[...player.practice.values()].reduce((a,b)=>a+b,0):0;
+const practiceText=()=>fmtClock(practiceSeconds());
+// Acumula el tiempo sonando desde el último tick en el BPM de práctica actual (0 = BPM desconocido).
+function practiceTick(){
+  const p=player;if(!p)return;
+  const now=performance.now();
+  if(p.lastTick!=null){const k=p.song.bpm?Math.round(p.target):0;p.practice.set(k,(p.practice.get(k)||0)+(now-p.lastTick)/1000)}
+  p.lastTick=p.audio.paused?null:now;
+}
+function stopPlayer(){
+  if(!player)return;
+  // Quitar los avisos antes de pausar: el evento 'pause' llega cuando player ya es null.
+  player.audio.onplay=player.audio.onpause=player.audio.ontimeupdate=null;
+  player.audio.pause();if(player.url)URL.revokeObjectURL(player.url);
+  player=null;syncMini();syncPlaybackNotice();renderHome();
+}
+function syncMini(){
+  const m=$('#miniPlayer'),p=player,inPlayer=$('#toolModal').classList.contains('open')&&!!$('#playBtn');
+  const show=!!p&&!inPlayer;
+  m.hidden=!show;document.body.classList.toggle('has-mini',show);
+  const now=$('#practiceNow');if(now&&p)now.textContent=practiceText();
+  if(!show)return;
+  $('#miniTitle').textContent=p.song.name;
+  $('#miniSub').textContent=`${p.song.bpm?`${Math.round(p.target)} BPM · `:''}${practiceText()} de práctica`;
+  $('#miniPlay').textContent=p.audio.paused?'▶':'❚❚';
+}
+function songExercise(song){
+  const all=exercises();
+  let e=all.find(x=>x.songId===song.id)||all.find(x=>x.name.toLowerCase()===song.name.toLowerCase());
+  if(!e){e={id:uuid(),name:song.name,category:'Repertorio',variants:[],createdAt:new Date().toISOString()};all.push(e)}
+  e.songId=song.id;saveExercises(all);
+  return e;
+}
+function logPracticeFromPlayer(){
+  practiceTick();
+  const p=player,secs=practiceSeconds();
+  if(secs<30)return toast('Toca un poco más: aún no hay tiempo de práctica');
+  const e=songExercise(p.song);
+  const blocks=[...p.practice].filter(([bpm,t])=>bpm>0&&t>=15).map(([bpm,t])=>({bpm,minutes:t>=60?Math.round(t/60):''}));
+  const off=STEM_ORDER.filter(k=>p.solo?p.solo!==k:p.mute[k]).map(k=>STEM_INFO[k][0].toLowerCase());
+  sessionFromPlayer=true;
+  openSessionModal();
+  refreshExercisePicker();$('#exercisePicker').value=e.id;chooseExercise();
+  $('#practiceMinutes').value=Math.max(1,Math.round(secs/60));
+  if(p.mute.guitar||p.mute.bass){instrument=p.mute.bass&&!p.mute.guitar?'Bajo':'Guitarra';renderInstrument()}
+  blocks.forEach(b=>addTempoRow(b.bpm,b.minutes));
+  // Los minutos redondeados de los bloques no pueden superar el total.
+  const total=+$('#practiceMinutes').value,assigned=blocks.reduce((n,b)=>n+(+b.minutes||0),0);
+  if(assigned>total)$('#practiceMinutes').value=assigned;
+  $('#notes').value=`Con el separador de pistas${off.length?` (sin ${off.join(', ')})`:''}.`;
+  updateTotal();
+}
+setInterval(()=>{practiceTick();syncMini()},1000);
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1600)}
+function moveNavIndicator(target){const nav=document.querySelector('.nav'),ind=document.querySelector('.nav-indicator');if(!nav||!ind||!target)return;const nr=nav.getBoundingClientRect(),tr=target.getBoundingClientRect();ind.style.width=`${tr.width}px`;ind.style.transform=`translateX(${tr.left-nr.left}px)`}
+function syncNavIndicator(){moveNavIndicator(document.querySelector('[data-tab].active'))}
+function closeOpenOverlays(){
+  sessionFromPlayer=false;
+  $$('.modal.open').forEach(m=>m.classList.remove('open'));
+  syncMini();
+  if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
+}
+function tab(id){
+  closeOpenOverlays();
+  $$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
+  $$('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
+  moveNavIndicator(document.querySelector(`[data-tab="${id}"]`));
+  if(id==='stats')renderStats();
+  if(id==='history')renderHistory();
+  if(id==='more')renderMore();
+}
+
+migrateV1();
+navigator.storage?.persist?.().catch(()=>{});
+$('#category').innerHTML=categories.map(x=>`<option>${x}</option>`).join('');$('#warmup').innerHTML=warmups.map(x=>`<option>${x}</option>`).join('');
+$$('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));$('#addBtn').onclick=()=>openSessionModal();$('#cancelSession').onclick=closeSessionModal;$('#saveSession').onclick=saveSession;$('#addTempo').onclick=()=>{const last=$$('#tempoRows .tempo-row').pop(),bpm=+last?.querySelector('.block-bpm').value;addTempoRow(bpm?bpm+5:'','',last?.querySelector('.block-variant').value||'')};$$('[data-min]').forEach(b=>b.onclick=()=>{$('#practiceMinutes').value=b.dataset.min;syncPresetChips();updateTotal()});$('#warmup').onchange=updateTotal;$('#warmupMinutes').oninput=updateTotal;$('#practiceMinutes').oninput=()=>{syncPresetChips();updateTotal()};$('#exerciseName').oninput=syncExerciseCategory;$('#exercisePicker').onchange=chooseExercise;$('#addInlineVariant').onclick=showInlineVariantEditor;$('#saveInlineVariant').onclick=saveVariantOnTheFly;$('#cancelInlineVariant').onclick=hideInlineVariantEditor;$('#inlineVariantName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveVariantOnTheFly()}});
+$('#miniOpen').onclick=()=>player&&openStems(player.song.id);
+$('#miniPlay').onclick=()=>{if(!player)return;askNoticePermission();player.audio.paused?player.audio.play().catch(()=>toast('No se pudo reproducir')):player.audio.pause()};
+$('#miniClose').onclick=()=>{if(!player)return;if(practiceSeconds()>=60&&!confirm(`Tienes ${practiceText()} de práctica sin guardar. ¿Cerrar la canción igualmente?`))return;stopPlayer()};
+resetForm();renderAll();requestAnimationFrame(syncNavIndicator);window.addEventListener('resize',syncNavIndicator);
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',updateKeyboardOffset);
+  window.visualViewport.addEventListener('scroll',updateKeyboardOffset);
+}
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+if (PREVIEW && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister()));
+} else if ('serviceWorker' in navigator) {
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    refreshing = true;
+    location.reload();
+  });
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' });
+      await reg.update();
+    } catch (err) {
+      console.error(err);
+    }
+  });
+}
+</script>
+
+</body>
+</html>
