@@ -1187,7 +1187,7 @@ function deleteSavedExercise(id){
 const LETTERS=['C','D','E','F','G','A','B'],LETTER_PC=[0,2,4,5,7,9,11];
 const CIRCLE_MAJOR=['C','G','D','A','E','B','F#','Db','Ab','Eb','Bb','F'];
 const CIRCLE_MINOR=['A','E','B','F#','C#','G#','D#','Bb','F','C','G','D'];
-const TUNINGS={Guitarra:['E','A','D','G','B','E'],Bajo:['E','A','D','G']};
+const TUNINGS={Guitarra:['E','A','D','G','B','E'],Bajo:['E','A','D','G'],'Bajo 5':['B','E','A','D','G']};
 // Cada escala se define por sus grados ('b3', '#4'…): de ellos salen los semitonos y la ortografía
 // (cada grado usa la letra de su número contando desde la tónica).
 const SCALE_GROUPS=[
@@ -1317,11 +1317,11 @@ function renderScales(){
   st.mode=def.id;
   if(st.degrees.length!==labels.length)st.degrees=presetDegrees(labels,st.preset);
   try{localStorage.setItem(SCALE_PREFS_KEY,JSON.stringify(scaleState))}catch{}
-  const custom=!def.group,seg=(attr,items,cur)=>`<div class="seg two">${items.map(([k,l])=>`<button type="button" ${attr}="${k}" class="${cur===k?'active':''}">${l}</button>`).join('')}</div>`;
+  const custom=!def.group,seg=(attr,items,cur)=>`<div class="seg${items.length===2?' two':''}">${items.map(([k,l])=>`<button type="button" ${attr}="${k}" class="${cur===k?'active':''}">${l}</button>`).join('')}</div>`;
   const fretLeft=$('.fret-scroll')?.scrollLeft||0;
   const opts=list=>list.map(s=>`<option value="${esc(s.id)}" ${s.id===def.id?'selected':''}>${esc(s.name)}</option>`).join('');
   $('#scalesBody').innerHTML=`
-    ${seg('data-scale-instrument',[['Guitarra','Guitarra'],['Bajo','Bajo']],st.instrument)}
+    ${seg('data-scale-instrument',[['Guitarra','Guitarra'],['Bajo','Bajo'],['Bajo 5','Bajo 5']],st.instrument)}
     ${circleSvg()}
     <div class="key-title">${def.id==='major'||def.id==='minor'?`${spanishName(st.tonic,def.id)} · ${pretty(st.tonic)}${def.id==='minor'?'m':''}`:`${solfege(st.tonic)} · ${esc(def.name)}`}</div>
     <div class="key-notes">${scale.map(pretty).join(' · ')}</div>
