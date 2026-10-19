@@ -1883,15 +1883,47 @@ function drawStrobe(dt){
   g.clearRect(0,0,W,H);g.fillStyle=!heard?'#2a3131':Math.abs(c)<=2?'#00F0FF':'#cfd6d6';
   for(let r=0;r<3;r++){const per=96>>r,x0=((t?.strobeX||0)*(1<<r))%per;for(let x=x0-per;x<W;x+=per)g.fillRect(x,r*H/3+6,per/2,H/3-12)}
 }
-// Nota de referencia con timbre de cuerda pulsada (onda con armónicos y caída exponencial): afinación exacta.
+// SYNTH-START
+// Cuerda pulsada por modelado físico (Karplus-Strong): un golpe de ruido recorre un bucle de retardo con pérdidas,
+// como la vibración real de la cuerda. Graves: excitación más suave y caída más larga; el filtro del bucle apaga los agudos.
+// rate corrige el periodo (N muestras + retardo del filtro) para que la nota quede exacta con playbackRate.
+function pluckSamples(freq,sr,dur,rnd=Math.random){
+  const S=Math.max(.12,Math.min(.5,90/freq)),N=Math.max(2,Math.floor(sr/freq-S)),len=Math.round(sr*dur),y=new Float32Array(len),ex=new Float32Array(N);
+  const b=Math.min(.75,Math.max(.3,freq/600)),P=Math.max(1,Math.round(N/7));
+  let lp=0,m=0,pk=0;for(let i=0;i<N;i++){lp+=b*((rnd()*2-1)-lp);ex[i]=lp;m+=lp/N}
+  for(let i=N-1;i>=0;i--){ex[i]-=m+(i>=P?ex[i-P]-m:0);pk=Math.max(pk,Math.abs(ex[i]))}
+  const w=2*Math.PI*freq/sr,H=Math.sqrt((1-S)**2+S*S+2*S*(1-S)*Math.cos(w));
+  const t60=Math.max(2,Math.min(5,4*Math.sqrt(110/freq))),rho=Math.min(.99995,.001**(1/(t60*freq))/H),fade=Math.round(sr*.03);
+  for(let n=0;n<len;n++)y[n]=(n<N?ex[n]/pk:0)+(n>=N?rho*((1-S)*y[n-N]+(n>N?S*y[n-N-1]:0)):0);
+  for(let i=0;i<fade;i++)y[len-1-i]*=i/fade;
+  const d=Math.atan2(S*Math.sin(w),1-S+S*Math.cos(w))/w;
+  return {data:y,rate:freq*(N+d)/sr};
+}
+// Clic de metrónomo tipo bloque de madera: tres modos que se apagan rápido (mismas alturas que antes).
+function clickSamples(kind,sr){
+  const [f,v]=kind==='accent'?[1760,.9]:kind==='beat'?[1100,.6]:[800,.28],len=Math.round(sr*.05),y=new Float32Array(len);
+  for(let i=0;i<len;i++){const t=i/sr,s=k=>Math.sin(2*Math.PI*f*k*t);y[i]=v/1.6*Math.min(1,i/(sr*.0005))*(s(1)*Math.exp(-t/.012)+.5*s(2.76)*Math.exp(-t/.005)+.3*s(5.4)*Math.exp(-t/.002))}
+  return {data:y};
+}
+// SYNTH-END
+// Los sonidos se generan una vez por contexto de audio y se reutilizan.
+const synthCache=new WeakMap();
+function synthBuffer(ctx,key,make){
+  let m=synthCache.get(ctx);if(!m)synthCache.set(ctx,m=new Map());
+  let b=m.get(key);if(!b){const {data,rate=1}=make(ctx.sampleRate);b=ctx.createBuffer(1,data.length,ctx.sampleRate);b.getChannelData(0).set(data);b.rate=rate;m.set(key,b)}
+  return b;
+}
+function playPluck(ctx,t,freq,gain,len){
+  const b=synthBuffer(ctx,'p'+freq.toFixed(2),sr=>pluckSamples(freq,sr,2.6)),src=ctx.createBufferSource(),g=ctx.createGain();
+  src.buffer=b;src.playbackRate.value=b.rate;
+  g.gain.setValueAtTime(gain,t);g.gain.setValueAtTime(gain,t+len*.7);g.gain.linearRampToValueAtTime(0,t+len);
+  src.connect(g).connect(ctx.destination);src.start(t);src.stop(t+len+.02);
+}
+// Nota de referencia con timbre de cuerda pulsada: afinación exacta.
 function playReference(midi){
   const ctx=tuner?.ctx||(refCtx&&refCtx.state!=='closed'?refCtx:(refCtx=new (window.AudioContext||window.webkitAudioContext)()));
   ctx.resume?.().catch(()=>{});
-  const n=14,real=new Float32Array(n),imag=new Float32Array(n);for(let k=1;k<n;k++)imag[k]=1/k**1.4;
-  const osc=ctx.createOscillator(),g=ctx.createGain(),t0=ctx.currentTime;
-  osc.setPeriodicWave(ctx.createPeriodicWave(real,imag));osc.frequency.value=midiFreq(midi,tunerPrefs.a4);
-  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.45,t0+.01);g.gain.exponentialRampToValueAtTime(.001,t0+2.4);
-  osc.connect(g).connect(ctx.destination);osc.start(t0);osc.stop(t0+2.5);
+  const t0=ctx.currentTime;playPluck(ctx,t0+.01,midiFreq(midi,tunerPrefs.a4),.9,2.5);
   if(tuner)tuner.ignoreUntil=t0+2.6; // que el micro no "afine" la propia nota de referencia
 }
 
@@ -1944,19 +1976,13 @@ function playChord(i){
 // Notas con timbre de cuerda pulsada (rasgueo si spread > 0).
 function playTones(midis,spread=0){
   const ctx=refCtx&&refCtx.state!=='closed'?refCtx:(refCtx=new (window.AudioContext||window.webkitAudioContext)());ctx.resume?.().catch(()=>{});
-  const n=14,real=new Float32Array(n),imag=new Float32Array(n);for(let k=1;k<n;k++)imag[k]=1/k**1.4;
-  const wave=ctx.createPeriodicWave(real,imag);
-  midis.forEach((m,k)=>{const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+.02+k*spread;
-    o.setPeriodicWave(wave);o.frequency.value=midiFreq(m);
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22,t+.008);g.gain.exponentialRampToValueAtTime(.001,t+1.8);
-    o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+1.85)});
+  midis.forEach((m,k)=>playPluck(ctx,ctx.currentTime+.02+k*spread,midiFreq(m),midis.length>1?.4:.6,2));
 }
 function scalePlayStart(){
   if(scalePlay)return;
   metroStop();stopTuner();if(player&&!player.audio.paused)player.audio.pause();
   const ctx=new (window.AudioContext||window.webkitAudioContext)();ctx.resume?.().catch(()=>{});
-  const n=14,real=new Float32Array(n),imag=new Float32Array(n);for(let k=1;k<n;k++)imag[k]=1/k**1.4;
-  scalePlay={ctx,wave:ctx.createPeriodicWave(real,imag),next:ctx.currentTime+.08,i:0,queue:[]};
+  scalePlay={ctx,next:ctx.currentTime+.08,i:0,queue:[]};
   scalePlay.timer=setInterval(scalePlaySchedule,25);
   const frame=()=>{if(!scalePlay)return;scalePlayPaint();scalePlay.raf=requestAnimationFrame(frame)};frame();
 }
@@ -1975,10 +2001,7 @@ function scalePlaySchedule(){
   while(sp.next<now+.12){
     const k=sp.i%seq.length,{midi,deg}=seq[k],t=sp.next;
     if(sp.i%sub===0)metroClick(ctx,t,k===0?'accent':'sub');
-    const o=ctx.createOscillator(),g=ctx.createGain(),len=Math.min(1.2,dt*1.6);
-    o.setPeriodicWave(sp.wave);o.frequency.value=midiFreq(midi);
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.4,t+.008);g.gain.exponentialRampToValueAtTime(.001,t+len);
-    o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+len+.02);
+    playPluck(ctx,t,midiFreq(midi),.8,Math.min(1.4,dt*1.8));
     sp.queue.push({t,deg});sp.next+=dt;sp.i++;
   }
 }
@@ -2191,9 +2214,8 @@ function metroSchedule(){
   }
 }
 function metroClick(ctx,t,kind){
-  const o=ctx.createOscillator(),g=ctx.createGain(),[f,v]=kind==='accent'?[1760,.9]:kind==='beat'?[1100,.6]:[800,.28];
-  o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.035);
-  o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+.04);
+  const src=ctx.createBufferSource();src.buffer=synthBuffer(ctx,'c'+kind,sr=>clickSamples(kind,sr));
+  src.connect(ctx.destination);src.start(t);
 }
 function metroPaint(){
   const m=metro,now=m.ctx.currentTime;let cur=null;
