@@ -76,7 +76,7 @@
     <div class="field">
       <label>Ejercicio</label>
       <div class="exercise-row">
-        <input id="exerciseName" list="exerciseList" placeholder="Escribe o elige de la biblioteca" autocomplete="off"/>
+        <input id="exerciseField" list="exerciseList" placeholder="Escribe o elige de la biblioteca" autocomplete="off"/>
         <div class="lib-btn" aria-hidden="true">≡<select id="exercisePicker" aria-label="Elegir de la biblioteca"><option value="">Elegir de la biblioteca…</option></select></div>
       </div>
       <datalist id="exerciseList"></datalist>
@@ -99,7 +99,7 @@
           <button id="addInlineVariant" class="secondary" type="button">+ Nueva variante</button>
         </div>
         <div id="inlineVariantEditor" class="inline-variant-editor" hidden>
-          <input id="inlineVariantName" type="text" placeholder="Ej. Vibrato, Bending en 1ª…" autocomplete="off">
+          <input id="inlineVariantField" type="text" placeholder="Ej. Vibrato, Bending en 1ª…" autocomplete="off">
           <button id="saveInlineVariant" class="primary" type="button">Añadir</button>
           <button id="cancelInlineVariant" class="secondary" type="button">Cancelar</button>
         </div>
@@ -891,14 +891,14 @@ function openSessionModal(sessionId=null,focus=true){
   }
 
   updateKeyboardOffset();
-  if(!editingSessionId&&!sessionFromPlayer&&focus)setTimeout(()=>$('#exerciseName').focus(),120)
+  if(!editingSessionId&&!sessionFromPlayer&&focus)setTimeout(()=>$('#exerciseField').focus(),120)
 }
 // Copia una práctica en el formulario. keepNotes=false para repetirla (la fecha queda en "ahora").
 function fillSessionForm(s,keepNotes){
   const e=sessionExercise(s);
   refreshExercisePicker();
   $('#exercisePicker').value=e.id||'';
-  $('#exerciseName').value=e.name||'';
+  $('#exerciseField').value=e.name||'';
   $('#category').value=e.category||categories[0];
   $('#warmup').value=s.warmup||warmups[0];
   $('#warmupMinutes').value=+s.warmupMinutes||0;
@@ -932,28 +932,28 @@ function closeSessionModal(){
   document.documentElement.style.setProperty('--keyboard-offset','0px')
 }
 function showInlineVariantEditor(){
-  const name=$('#exerciseName').value.trim();
+  const name=$('#exerciseField').value.trim();
   if(!name)return toast('Primero elige o escribe un ejercicio');
 
   const e=ensureExercise(name,$('#category').value);
   refreshExerciseDatalist();
   refreshExercisePicker();
   $('#exercisePicker').value=e.id;
-  $('#exerciseName').value=e.name;
+  $('#exerciseField').value=e.name;
   $('#category').value=e.category;
   refreshTempoVariantSelects();
 
   $('#inlineVariantEditor').hidden=false;
-  $('#inlineVariantName').value='';
-  setTimeout(()=>$('#inlineVariantName').focus(),60);
+  $('#inlineVariantField').value='';
+  setTimeout(()=>$('#inlineVariantField').focus(),60);
 }
 function hideInlineVariantEditor(){
   $('#inlineVariantEditor').hidden=true;
-  $('#inlineVariantName').value='';
+  $('#inlineVariantField').value='';
 }
 function saveVariantOnTheFly(){
   const exerciseId=$('#exercisePicker').value;
-  const clean=$('#inlineVariantName').value.trim();
+  const clean=$('#inlineVariantField').value.trim();
   if(!exerciseId)return toast('Elige primero un ejercicio');
   if(!clean)return toast('Escribe un nombre para la variante');
 
@@ -1022,11 +1022,11 @@ function chooseExercise(){
   const id=$('#exercisePicker').value;
   if(!id){refreshTempoVariantSelects();return}
   const e=exercises().find(x=>x.id===id);if(!e)return;
-  $('#exerciseName').value=e.name;$('#category').value=e.category;
+  $('#exerciseField').value=e.name;$('#category').value=e.category;
   refreshTempoVariantSelects()
 }
 function syncExerciseCategory(){
-  const name=$('#exerciseName').value.trim().toLowerCase(),e=exercises().find(x=>x.name.toLowerCase()===name);
+  const name=$('#exerciseField').value.trim().toLowerCase(),e=exercises().find(x=>x.name.toLowerCase()===name);
   if(e){
     $('#category').value=e.category;
     $('#exercisePicker').value=e.id;
@@ -1099,10 +1099,10 @@ function updateTotal(){
     el.classList.add('warn');
   }
 }
-function resetForm(){if($('#inlineVariantEditor'))hideInlineVariantEditor();$('#exerciseName').value='';$('#category').value=categories[0];$('#warmup').value=warmups[0];$('#warmupMinutes').value=0;$('#practiceMinutes').value=15;$('#notes').value='';difficulty=3;instrument=instrumentOf(sessions()[0]);renderInstrument();$('#tempoRows').innerHTML='';$('#date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);renderDifficulty();refreshExerciseDatalist();refreshExercisePicker();$('#exercisePicker').value='';refreshTempoVariantSelects();renderRecentChips();$('#moreDetails').open=false;syncPresetChips();updateTotal()}
+function resetForm(){if($('#inlineVariantEditor'))hideInlineVariantEditor();$('#exerciseField').value='';$('#category').value=categories[0];$('#warmup').value=warmups[0];$('#warmupMinutes').value=0;$('#practiceMinutes').value=15;$('#notes').value='';difficulty=3;instrument=instrumentOf(sessions()[0]);renderInstrument();$('#tempoRows').innerHTML='';$('#date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);renderDifficulty();refreshExerciseDatalist();refreshExercisePicker();$('#exercisePicker').value='';refreshTempoVariantSelects();renderRecentChips();$('#moreDetails').open=false;syncPresetChips();updateTotal()}
 function saveSession(){
   const fromPlayer=sessionFromPlayer,fromMetro=sessionFromMetro;
-  const name=$('#exerciseName').value.trim();if(!name)return toast('Escribe un ejercicio');
+  const name=$('#exerciseField').value.trim();if(!name)return toast('Escribe un ejercicio');
   const p=Math.max(1,+$('#practiceMinutes').value||0),
         blocks=getTempoBlocks(),
         assigned=blocks.reduce((n,b)=>n+(b.minutes==null?0:(+b.minutes||0)),0);
@@ -1236,7 +1236,7 @@ function readVariantEditor(containerId){
 function openCreateExercise(){
   const m=$('#exerciseModal');
   m.innerHTML=`<div class="topbar"><button id="cancelCreateExercise">Atrás</button><h2>Nuevo ejercicio</h2><button id="saveNewExercise">Guardar</button></div><div class="form">
-    <div class="field"><label>Nombre</label><input id="newExerciseName" placeholder="Ej. Hotel California" autocomplete="off"></div>
+    <div class="field"><label>Nombre</label><input id="newExerciseField" placeholder="Ej. Hotel California" autocomplete="off"></div>
     <div class="field"><label>Categoría</label><select id="newExerciseCategory">${categories.map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
     <div class="field"><label>Variantes (opcional)</label><div id="newExerciseVariants"></div><button id="addNewExerciseVariant" class="secondary wide" type="button">+ Añadir variante</button></div>
     <div class="card empty">Ejemplo: Hotel California → Vibrato, Bending en 1ª. Cromatismos → Desde dedo 1, 2, 3 o 4.</div>
@@ -1244,10 +1244,10 @@ function openCreateExercise(){
   $('#cancelCreateExercise').onclick=openExerciseLibrary;
   $('#saveNewExercise').onclick=saveNewExercise;
   $('#addNewExerciseVariant').onclick=()=>addVariantEditorRow('newExerciseVariants');
-  setTimeout(()=>$('#newExerciseName').focus(),80)
+  setTimeout(()=>$('#newExerciseField').focus(),80)
 }
 function saveNewExercise(){
-  const name=$('#newExerciseName').value.trim(),category=$('#newExerciseCategory').value;if(!name)return toast('Escribe un nombre');
+  const name=$('#newExerciseField').value.trim(),category=$('#newExerciseCategory').value;if(!name)return toast('Escribe un nombre');
   const all=exercises();if(all.some(e=>e.name.toLowerCase()===name.toLowerCase()))return toast('Ese ejercicio ya existe');
   all.push({id:uuid(),name,category,variants:readVariantEditor('newExerciseVariants'),createdAt:new Date().toISOString()});
   saveExercises(all);renderAll();openExerciseLibrary();toast('Ejercicio creado')
@@ -1305,7 +1305,7 @@ function openExerciseDetail(id){
   if($('#setGoal'))$('#setGoal').onclick=()=>{openEditExercise(id);$('#editGoalBpm').focus()};
   $('#quickAdd').onclick=()=>{
     m.classList.remove('open');openSessionModal();
-    $('#exerciseName').value=e.name;$('#category').value=e.category;
+    $('#exerciseField').value=e.name;$('#category').value=e.category;
     refreshExercisePicker();$('#exercisePicker').value=e.id;refreshTempoVariantSelects()
   };
   $('#deleteExercise').onclick=()=>deleteSavedExercise(id);
@@ -1319,7 +1319,7 @@ function openEditExercise(id){
 
   m.innerHTML=`<div class="topbar"><button id="cancelEditExercise">Cancelar</button><h2>Editar ejercicio</h2><button id="saveEditExercise">Guardar</button></div>
   <div class="form">
-    <div class="field"><label>Nombre</label><input id="editExerciseName" value="${esc(e.name)}" autocomplete="off"></div>
+    <div class="field"><label>Nombre</label><input id="editExerciseField" value="${esc(e.name)}" autocomplete="off"></div>
     <div class="field"><label>Categoría</label><select id="editExerciseCategory">${categories.map(c=>`<option ${c===e.category?'selected':''}>${esc(c)}</option>`).join('')}</select></div>
     <div class="field"><label>BPM objetivo (opcional)</label><input id="editGoalBpm" type="number" inputmode="numeric" min="30" max="400" value="${e.goalBpm||''}" placeholder="Por ejemplo 140"></div>
     <div class="field"><label>Variantes</label><div id="editExerciseVariants"></div><button id="addEditExerciseVariant" class="secondary wide" type="button">+ Añadir variante</button></div>
@@ -1333,7 +1333,7 @@ function openEditExercise(id){
 }
 
 function saveEditedExercise(id){
-  const name=$('#editExerciseName').value.trim(),category=$('#editExerciseCategory').value,variants=readVariantEditor('editExerciseVariants');
+  const name=$('#editExerciseField').value.trim(),category=$('#editExerciseCategory').value,variants=readVariantEditor('editExerciseVariants');
   if(!name)return toast('Escribe un nombre');
   const goalRaw=$('#editGoalBpm').value.trim(),goalBpm=validGoalBpm(goalRaw);
   if(goalRaw&&!goalBpm)return toast('El BPM objetivo va de 30 a 400');
@@ -1697,7 +1697,7 @@ function setScaleMode(id){
 function scaleEditorHtml(){
   const d=scaleDraft,labels=d.sel.map(i=>CUSTOM_DEGREES[i]);
   return `<div class="card" style="margin-top:10px">
-    <div class="field"><label>Nombre de la escala</label><input id="csName" maxlength="40" value="${esc(d.name)}" placeholder="Mi escala"></div>
+    <div class="field"><label>Nombre de la escala</label><input id="csField" maxlength="40" autocomplete="off" value="${esc(d.name)}" placeholder="Mi escala"></div>
     <div class="muted" style="font-size:12px;margin:0 4px 8px">Toca los grados que lleva (el 1 siempre está)</div>
     <div class="degree-chips" style="grid-template-columns:repeat(6,1fr)">${CUSTOM_DEGREES.map((l,i)=>`<button type="button" data-cs="${i}" class="${d.sel.includes(i)?'on':''}" style="--deg:${degreeColor(l)}" aria-pressed="${d.sel.includes(i)}" ${i?'':'disabled'}>${pretty(l)}</button>`).join('')}</div>
     <div class="key-notes" style="margin:12px 0">${solfege(scaleState.tonic)}: ${spellLabels(scaleState.tonic,labels).map(pretty).join(' · ')}</div>
@@ -1776,13 +1776,13 @@ function renderScales(){
   $$('[data-sbpm]').forEach(b=>b.onclick=()=>{st.playBpm=Math.max(40,Math.min(240,st.playBpm+ +b.dataset.sbpm));renderScales()});
   $$('[data-ssub]').forEach(b=>b.onclick=()=>{st.playSub=+b.dataset.ssub;renderScales()});
   if(scaleDraft){
-    $('#csName').oninput=e=>scaleDraft.name=e.target.value;
+    $('#csField').oninput=e=>scaleDraft.name=e.target.value;
     $$('[data-cs]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cs,sel=scaleDraft.sel;scaleDraft.sel=sel.includes(i)?sel.filter(x=>x!==i):[...sel,i].sort((x,y)=>x-y);renderScales()});
     $('#csCancel').onclick=()=>{scaleDraft=null;renderScales()};
     $('#csSave').onclick=saveScaleDraft;
     return;
   }
-  $('#newScale').onclick=()=>{scaleDraft={id:null,name:'',sel:[0,2,4,5,7,9,11]};renderScales();$('#csName').focus()};
+  $('#newScale').onclick=()=>{scaleDraft={id:null,name:'',sel:[0,2,4,5,7,9,11]};renderScales();$('#csField').focus()};
   if(custom){
     $('#editScale').onclick=()=>{scaleDraft={id:def.id,name:def.name,sel:def.labels.map(l=>CUSTOM_DEGREES.indexOf(l))};renderScales()};
     $('#delScale').onclick=()=>{if(!confirm(`¿Borrar la escala «${def.name}»?`))return;saveCustomScales(customScales.filter(x=>x.id!==def.id));setScaleMode('major');renderScales()};
@@ -3152,7 +3152,7 @@ function tab(id){
 migrateV1();
 navigator.storage?.persist?.().catch(()=>{});
 $('#category').innerHTML=categories.map(x=>`<option>${x}</option>`).join('');$('#warmup').innerHTML=warmups.map(x=>`<option>${x}</option>`).join('');
-$$('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));$$('[data-pview]').forEach(b=>b.onclick=()=>{progressView=b.dataset.pview;showProgressView();$('.app').scrollTop=0});$('#cancelSession').onclick=closeSessionModal;$('#saveSession').onclick=saveSession;$('#addTempo').onclick=()=>{const last=$$('#tempoRows .tempo-row').pop(),bpm=+last?.querySelector('.block-bpm').value;addTempoRow(bpm?bpm+5:'','',last?.querySelector('.block-variant').value||'')};$$('[data-min]').forEach(b=>b.onclick=()=>{$('#practiceMinutes').value=b.dataset.min;syncPresetChips();updateTotal()});$('#warmup').onchange=updateTotal;$('#warmupMinutes').oninput=updateTotal;$('#practiceMinutes').oninput=()=>{syncPresetChips();updateTotal()};$('#exerciseName').oninput=syncExerciseCategory;$('#exercisePicker').onchange=chooseExercise;$('#addInlineVariant').onclick=showInlineVariantEditor;$('#saveInlineVariant').onclick=saveVariantOnTheFly;$('#cancelInlineVariant').onclick=hideInlineVariantEditor;$('#inlineVariantName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveVariantOnTheFly()}});
+$$('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));$$('[data-pview]').forEach(b=>b.onclick=()=>{progressView=b.dataset.pview;showProgressView();$('.app').scrollTop=0});$('#cancelSession').onclick=closeSessionModal;$('#saveSession').onclick=saveSession;$('#addTempo').onclick=()=>{const last=$$('#tempoRows .tempo-row').pop(),bpm=+last?.querySelector('.block-bpm').value;addTempoRow(bpm?bpm+5:'','',last?.querySelector('.block-variant').value||'')};$$('[data-min]').forEach(b=>b.onclick=()=>{$('#practiceMinutes').value=b.dataset.min;syncPresetChips();updateTotal()});$('#warmup').onchange=updateTotal;$('#warmupMinutes').oninput=updateTotal;$('#practiceMinutes').oninput=()=>{syncPresetChips();updateTotal()};$('#exerciseField').oninput=syncExerciseCategory;$('#exercisePicker').onchange=chooseExercise;$('#addInlineVariant').onclick=showInlineVariantEditor;$('#saveInlineVariant').onclick=saveVariantOnTheFly;$('#cancelInlineVariant').onclick=hideInlineVariantEditor;$('#inlineVariantField').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveVariantOnTheFly()}});
 $('#miniOpen').onclick=()=>player&&openStems(player.song.id);
 $('#miniPlay').onclick=()=>{if(!player)return;askNoticePermission();player.audio.paused?player.audio.play().catch(()=>toast('No se pudo reproducir')):player.audio.pause()};
 $('#miniClose').onclick=()=>{if(!player)return;if(practiceSeconds()>=60&&!confirm(`Tienes ${practiceText()} de práctica sin guardar. ¿Cerrar la canción igualmente?`))return;stopPlayer()};
