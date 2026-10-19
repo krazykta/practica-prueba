@@ -1,12 +1,12 @@
 {
   "name": "Práctica β (prueba)",
   "short_name": "Práctica β",
-  "description": "Registro de práctica de guitarra.",
+  "description": "Cuaderno de práctica de guitarra y bajo.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#090b0b",
-  "theme_color": "#090b0b",
+  "background_color": "#14110f",
+  "theme_color": "#14110f",
   "icons": [
     {
       "src": "icons/icon-192.png",
