@@ -19,7 +19,7 @@
 .title{font-family:var(--serif);font-size:32px;font-weight:700;letter-spacing:-.4px}
 .section-title{font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:-.1px}
 .eyebrow{letter-spacing:.3px;text-transform:none}.eyebrow:first-letter{text-transform:uppercase}
-.backup-nag{display:flex;align-items:center;gap:10px;margin-top:12px;border-color:rgba(0,240,255,.3)}.backup-nag .primary{padding:10px 14px}.i{width:1.2em;height:1.2em;vertical-align:-.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.home-date{font-size:18px;font-weight:600;margin:4px 0 16px}
+.backup-nag{display:flex;align-items:center;gap:10px;margin-top:12px;border-color:rgba(0,240,255,.3)}.backup-nag .primary{padding:10px 14px}.i{width:1.2em;height:1.2em;vertical-align:-.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.ad-slot{display:none}body.ads .ad-slot{display:grid;place-items:center;height:60px;margin-top:22px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:11px}body.ads .ad-slot:before{content:'Anuncio'}body.has-mini .ad-slot{display:none}.welcome{max-width:460px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 22px 30px;min-height:100%;display:flex;flex-direction:column}.welcome-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:12vh}.welcome-top>:last-child{justify-self:end}.welcome-dots{display:flex;gap:6px}.welcome-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.welcome-dots i.on{background:var(--accent);width:20px;border-radius:4px}.welcome-ic{color:var(--accent);font-size:40px;margin-bottom:14px}.welcome h2{font-family:var(--serif);font-size:30px;line-height:1.15;margin:6px 0 10px}.welcome p{font-size:15px;line-height:1.5;margin:0 0 26px}.welcome-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.welcome-opts.three{grid-template-columns:repeat(3,1fr)}.welcome-opts button{padding:18px 8px;font-size:16px}.home-date{font-size:18px;font-weight:600;margin:4px 0 16px}
 .home-actions .secondary{font-size:14px;padding:12px 8px}
 .card{border-radius:12px;border-color:var(--line)}.mini,.metric{border-radius:12px}.primary,.secondary,.danger{border-radius:12px}
 .nav{position:fixed;z-index:90;left:50%;bottom:0;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px var(--navpad);background:var(--bg);border-top:1px solid var(--line)}
@@ -59,6 +59,7 @@
     <div class="title">Progreso</div>
     <div class="subtabs" id="progressSeg"><button type="button" data-pview="stats">Resumen</button><button type="button" data-pview="history">Calendario</button><button type="button" data-pview="achievements">Logros</button></div>
     <div id="stats" class="pview"></div><div id="history" class="pview" hidden></div><div id="achievements" class="pview" hidden></div>
+    <div class="ad-slot" data-ad="progreso" aria-hidden="true"></div>
   </section>
   <section id="more" class="screen"></section>
 </div>
@@ -126,6 +127,7 @@
 <div id="detailModal" class="modal"></div>
 <div id="toolModal" class="modal"></div>
 <div id="exerciseModal" class="modal"></div>
+<div id="welcomeModal" class="modal"></div>
 <div id="miniPlayer" class="mini-player" hidden>
   <button id="miniOpen" class="mini-info" type="button"><strong id="miniTitle"></strong><span id="miniSub"></span></button>
   <button id="miniPlay" class="mini-play" type="button" aria-label="Reproducir o pausar">▶</button>
@@ -140,6 +142,13 @@ const catColor=c=>categoryColors[c]||'#9AA2A2';
 const warmups=['Sin calentamiento','Movilidad','Cromáticos','Digitación','Independencia de dedos','Técnica','Estiramientos suaves','Personalizado'];
 // PREVIEW=true usa claves aisladas y no registra Service Worker. Poner false SOLO al publicar.
 const PREVIEW=false;
+// Freemium: FREEMIUM=false (hoy) = todo gratis y sin anuncios. Con true, quien no sea premium ve los huecos de anuncio.
+// shortcut: premium se lee del dispositivo y se salta fácil; antes de cobrar, comprobarlo en un servidor.
+const FREEMIUM=false,PREMIUM_KEY=PREVIEW?'practica_preview_premium':'practica_premium';
+const esPremium=()=>!FREEMIUM||localStorage.getItem(PREMIUM_KEY)==='1';
+// Huecos de anuncio con altura fija (el contenido no salta). Solo en Hoy, Progreso y Más; nunca sin conexión ni con una canción abierta (CSS has-mini).
+const adSlot=place=>`<div class="ad-slot" data-ad="${place}" aria-hidden="true"></div>`;
+const syncAds=()=>document.body.classList.toggle('ads',!esPremium()&&navigator.onLine);
 const SESSIONS_KEY=PREVIEW?'practica_preview_sessions':'practica_sessions_v2';
 const EXERCISES_KEY=PREVIEW?'practica_preview_exercises':'practica_exercises_v2';
 const GOALS_KEY=PREVIEW?'practica_preview_goals':'practica_goals_v1';
@@ -304,7 +313,7 @@ function renderHome(){
     ${due?`<div class="card backup-nag"><div class="grow"><strong>Guarda una copia</strong><div class="muted" style="font-size:12px;margin-top:3px">${due<0?'Tus prácticas solo están en este móvil':`Hace ${due} días de la última copia`}</div></div><button class="link-btn" id="backupLater" type="button">Luego</button><button class="primary" id="backupNow" type="button">Exportar</button></div>`:''}
     ${catWeek.length||goalsHome.length?`<div class="section-title">Tus metas</div><div class="card">${catWeek.map(r=>`<div class="cat-row" data-home-goals style="display:block;cursor:pointer"><div style="display:flex;gap:8px;align-items:center"><div class="c" style="--cat:${catColor(r.cat)}"></div><div class="grow">${esc(r.cat)}</div><span class="muted" style="font-size:12px">${r.pct>=1?'✓ ':''}${fmt(r.done)} / ${fmt(r.goal)} esta semana</span></div><div class="progress" style="margin:6px 0 0"><i style="width:${Math.round(r.pct*100)}%;background:${catColor(r.cat)}"></i></div></div>`).join('')}${goalsHome.map(({e,g})=>`<div class="cat-row" data-goal-ex="${esc(e.id)}" style="cursor:pointer;display:block"><div style="display:flex;gap:8px"><div class="grow" style="min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(e.name)}</div><span class="muted" style="font-size:12px"><span class="tempo-bpm">${g.best??'—'}</span> / ${g.goal} BPM</span></div>${goalBar(g,true)}</div>`).join('')}</div>`:''}
     <div class="section-head"><div class="section-title">${today.length?'Hoy has tocado':'Últimas prácticas'}</div>${a.length?'<button class="link-btn" id="homeAll" type="button">Ver calendario ›</button>':''}</div>
-    ${latest.length?latest.map(sessionCard).join(''):`<div class="card empty">Todavía no hay prácticas. Toca «Registrar práctica» para apuntar la primera.</div>`}`;
+    ${latest.length?latest.map(sessionCard).join(''):`<div class="card empty">Todavía no hay prácticas. Toca «Registrar práctica» para apuntar la primera.</div>`}${adSlot('hoy')}`;
   bindSessionCards();
   $('#homeLog').onclick=()=>openSessionModal();
   if($('#quickRepeat'))$('#quickRepeat').onclick=()=>repeatSession(a[0].id);
@@ -313,6 +322,31 @@ function renderHome(){
   if($('#homeAll'))$('#homeAll').onclick=()=>{progressView='history';tab('progress')};
   $$('[data-home-goals]').forEach(r=>r.onclick=openGoals);
   $$('[data-goal-ex]').forEach(r=>r.onclick=()=>{$('#exerciseModal').classList.add('open');openExerciseDetail(r.dataset.goalEx)});
+}
+
+// ---------- Bienvenida: 3 pasos la primera vez (solo sin prácticas) ----------
+const WELCOME_KEY=PREVIEW?'practica_preview_welcome':'practica_welcome_v1';
+let welcomeStep=0;
+function openWelcome(){welcomeStep=0;$('#welcomeModal').classList.add('open');renderWelcome()}
+function closeWelcome(){try{localStorage.setItem(WELCOME_KEY,new Date().toISOString())}catch{}$('#welcomeModal').classList.remove('open');renderAll()}
+function renderWelcome(){
+  const g=goals(),steps=[
+    ['guitar','¿Qué tocas?','Lo usaremos en el afinador, las escalas y tus prácticas. Puedes cambiarlo cuando quieras.',
+      `<div class="welcome-opts">${instruments.map(x=>`<button type="button" class="${tunerPrefs.instrument===x?'primary':'secondary'}" data-w-inst="${x}">${x}</button>`).join('')}</div>`],
+    ['timer','¿Cuánto quieres tocar al día?','Es tu objetivo diario. Lo verás en Hoy y puedes cambiarlo en Más › Objetivos.',
+      `<div class="welcome-opts three">${[15,30,45,60,90,120].map(m=>`<button type="button" class="${g.dailyMinutes===m?'primary':'secondary'}" data-w-min="${m}">${fmt(m)}</button>`).join('')}</div>`],
+    ['target','Apunta tu primera práctica','Cada vez que toques, regístrala en Hoy: qué ejercicio, cuánto rato y a qué BPM. Así verás tu progreso, tus rachas y tus logros.',
+      `<button type="button" class="primary wide big-action" id="wFirst">＋ Registrar práctica</button><button type="button" class="link-btn" id="wLater" style="margin-top:14px">Ahora no</button>`]];
+  const [icon,title,text,body]=steps[welcomeStep];
+  $('#welcomeModal').innerHTML=`<div class="welcome">
+    <div class="welcome-top">${welcomeStep?'<button type="button" class="link-btn" id="wBack">‹ Atrás</button>':'<span></span>'}<span class="welcome-dots">${steps.map((_,i)=>`<i class="${i===welcomeStep?'on':''}"></i>`).join('')}</span><button type="button" class="link-btn" id="wSkip">Saltar</button></div>
+    <div class="welcome-ic">${ic(icon)}</div><div class="eyebrow">Paso ${welcomeStep+1} de 3</div><h2>${title}</h2><p class="muted">${text}</p>${body}</div>`;
+  const next=()=>{welcomeStep++;renderWelcome()};
+  $('#wSkip').onclick=closeWelcome;
+  if($('#wBack'))$('#wBack').onclick=()=>{welcomeStep--;renderWelcome()};
+  $$('[data-w-inst]').forEach(b=>b.onclick=()=>{tunerPrefs.instrument=scaleState.instrument=b.dataset.wInst;saveTunerPrefs();saveScalePrefs();next()});
+  $$('[data-w-min]').forEach(b=>b.onclick=()=>{saveGoals({...goals(),dailyMinutes:+b.dataset.wMin});next()});
+  if($('#wFirst')){$('#wFirst').onclick=()=>{closeWelcome();openSessionModal()};$('#wLater').onclick=closeWelcome}
 }
 
 // ---------- Tocar: todas las herramientas en un sitio ----------
@@ -699,7 +733,7 @@ function renderMore(){
     <div class="stats2">
       <div class="mini"><span>Ejercicios</span><strong>${ex.length}</strong></div>
       <div class="mini"><span>Prácticas</span><strong>${a.length}</strong></div>
-    </div>`;
+    </div>${adSlot('mas')}`;
 
   $('#openExercises').onclick=openExerciseLibrary;
   $('#openGoals').onclick=openGoals;
@@ -1099,7 +1133,7 @@ function updateTotal(){
     el.classList.add('warn');
   }
 }
-function resetForm(){if($('#inlineVariantEditor'))hideInlineVariantEditor();$('#exerciseField').value='';$('#category').value=categories[0];$('#warmup').value=warmups[0];$('#warmupMinutes').value=0;$('#practiceMinutes').value=15;$('#notes').value='';difficulty=3;instrument=instrumentOf(sessions()[0]);renderInstrument();$('#tempoRows').innerHTML='';$('#date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);renderDifficulty();refreshExerciseDatalist();refreshExercisePicker();$('#exercisePicker').value='';refreshTempoVariantSelects();renderRecentChips();$('#moreDetails').open=false;syncPresetChips();updateTotal()}
+function resetForm(){if($('#inlineVariantEditor'))hideInlineVariantEditor();$('#exerciseField').value='';$('#category').value=categories[0];$('#warmup').value=warmups[0];$('#warmupMinutes').value=0;$('#practiceMinutes').value=15;$('#notes').value='';difficulty=3;instrument=sessions().length?instrumentOf(sessions()[0]):tunerPrefs.instrument;renderInstrument();$('#tempoRows').innerHTML='';$('#date').value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);renderDifficulty();refreshExerciseDatalist();refreshExercisePicker();$('#exercisePicker').value='';refreshTempoVariantSelects();renderRecentChips();$('#moreDetails').open=false;syncPresetChips();updateTotal()}
 function saveSession(){
   const fromPlayer=sessionFromPlayer,fromMetro=sessionFromMetro;
   const name=$('#exerciseField').value.trim();if(!name)return toast('Escribe un ejercicio');
@@ -3156,7 +3190,8 @@ $$('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));$$('[data-pview]')
 $('#miniOpen').onclick=()=>player&&openStems(player.song.id);
 $('#miniPlay').onclick=()=>{if(!player)return;askNoticePermission();player.audio.paused?player.audio.play().catch(()=>toast('No se pudo reproducir')):player.audio.pause()};
 $('#miniClose').onclick=()=>{if(!player)return;if(practiceSeconds()>=60&&!confirm(`Tienes ${practiceText()} de práctica sin guardar. ¿Cerrar la canción igualmente?`))return;stopPlayer()};
-resetForm();renderAll();showProgressView();
+resetForm();renderAll();showProgressView();syncAds();
+if(!sessions().length&&!localStorage.getItem(WELCOME_KEY))openWelcome();addEventListener('online',syncAds);addEventListener('offline',syncAds);
 if(window.visualViewport){
   window.visualViewport.addEventListener('resize',updateKeyboardOffset);
   window.visualViewport.addEventListener('scroll',updateKeyboardOffset);
