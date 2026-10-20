@@ -1,10 +1,11 @@
-const CACHE = "practica-v1-8-8";
+const CACHE = "practica-v1-8-11";
 const ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./separator-worker.js",
   "./lame.min.js",
+  "./fonts/manrope.woff2",
   "./icons/icon-180.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",

@@ -5,21 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#090b0b" />
 <title>Práctica β</title>
+<link rel="preload" href="fonts/manrope.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="manifest" href="manifest.json" />
 <link rel="apple-touch-icon" href="icons/icon-180.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="Práctica β" />
 <style>
-:root{--bg:#090b0b;--card:#151818;--card2:#1d2121;--line:#282e2e;--muted:#909898;--text:#f7f9f9;--accent:#00F0FF;--danger:#ff655f;--safe:max(12px,env(safe-area-inset-bottom));--navpad:max(6px,calc(env(safe-area-inset-bottom) - 20px));font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color-scheme:dark}
+@font-face{font-family:Manrope;font-style:normal;font-weight:400 800;font-display:swap;src:url(fonts/manrope.woff2) format('woff2')}
+:root{--font:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+:root{--bg:#090b0b;--card:#151818;--card2:#1d2121;--line:#282e2e;--muted:#909898;--text:#f7f9f9;--accent:#00F0FF;--danger:#ff655f;--safe:max(12px,env(safe-area-inset-bottom));--navpad:max(6px,calc(env(safe-area-inset-bottom) - 20px));font-family:var(--font);color-scheme:dark;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);overscroll-behavior:none;-webkit-overflow-scrolling:auto}body{position:fixed;inset:0;overflow:hidden}button,input,select,textarea{font:inherit}.app{position:fixed;inset:0;margin:0 auto;width:min(100%,520px);height:100dvh;max-width:520px;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;background:radial-gradient(circle at 50% -15%,#0b1f2a 0,#090b0b 32%);padding-bottom:0}.screen{display:none;min-height:0;padding:calc(22px + env(safe-area-inset-top)) 18px calc(96px + env(safe-area-inset-bottom))}.screen.active{display:block}
-@media (display-mode: standalone){.screen{padding-top:calc(26px + env(safe-area-inset-top))}}.title{font-size:34px;font-weight:800;letter-spacing:-1px;margin:4px 0 18px}.eyebrow{font-size:14px;color:var(--muted);text-transform:capitalize}.card{background:var(--card);border:1px solid #202525;border-radius:18px;padding:15px}.section-title{font-size:18px;font-weight:750;margin:24px 0 12px}.stats3,.stats2{display:grid;gap:9px}.stats3{grid-template-columns:repeat(3,1fr)}.stats2{grid-template-columns:repeat(2,1fr)}.mini{background:var(--card);border:1px solid #1d2222;border-radius:15px;padding:13px;min-height:72px}.mini span{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}.mini strong{font-size:16px}.mini.accent strong{color:var(--accent)}.session{display:flex;align-items:flex-start;gap:12px}.session+.session{margin-top:10px}.dot{width:38px;height:38px;flex:0 0 auto;background:var(--accent);border-radius:50%;display:grid;place-items:center;color:#00131f;box-shadow:0 0 0 1px #ffffff0f inset}.cat-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:color-mix(in srgb,var(--cat) 16%,transparent);color:var(--cat);border:1px solid color-mix(in srgb,var(--cat) 32%,transparent)}.cat-badge:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat)}.main{flex:1;min-width:0}.main h4{margin:0 0 4px;font-size:16px}.main p{margin:2px 0;color:var(--muted);font-size:13px}.variant-groups{display:grid;gap:8px;margin-top:9px}.variant-group{background:#1b2020;border:1px solid #252b2b;border-radius:12px;padding:9px 10px}.variant-name{font-size:12px;font-weight:800;color:#00F0FF;margin-bottom:7px}.variant-blocks{display:flex;flex-wrap:wrap;gap:6px}.tempo-chip-rich{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:#232929;border:1px solid #2d3434;font-size:11px}.tempo-bpm{color:#B69CFF;font-weight:800}.tempo-sep{color:#626c6c}.tempo-time{color:#FFBF69;font-weight:750}.chev{color:var(--muted);font-size:20px}.empty{color:var(--muted);font-size:14px;line-height:1.5}.primary,.secondary,.danger{border:0;border-radius:14px;padding:13px 16px;font-weight:750}.primary{background:var(--accent);color:#00131f}.primary:disabled{opacity:.4}.secondary{background:var(--card2);color:#fff}.danger{background:rgba(255,101,95,.13);color:var(--danger);border:1px solid rgba(255,101,95,.22)}.wide{width:100%}.seg{background:var(--card);border-radius:12px;padding:3px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:14px}.seg button{border:0;background:transparent;color:var(--muted);padding:8px;border-radius:9px}.seg button.active{background:#363c3c;color:#fff}.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric-row.two{grid-template-columns:repeat(2,1fr);margin-top:8px}.metric{background:var(--card);padding:13px;border-radius:14px}.metric small{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.metric b{font-size:16px}.bars{height:190px;display:flex;gap:9px;align-items:flex-end;padding:16px 4px 2px;border-bottom:1px solid var(--line)}.barcol{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:7px}.bars.dense{gap:2px;padding-left:0;padding-right:0}.bar{width:70%;background:linear-gradient(var(--accent),#009AA5);border-radius:6px 6px 2px 2px;min-height:2px}.barcol span{font-size:11px;color:var(--muted)}.cat-row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.cat-row:last-child{border-bottom:0}.c{width:9px;height:9px;border-radius:50%;background:var(--cat,var(--accent));box-shadow:0 0 10px color-mix(in srgb,var(--cat,var(--accent)) 28%,transparent)}.grow{flex:1}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.calendar-head button{background:transparent;border:0;color:#fff;font-size:22px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 6px}.calendar .dow,.calendar .cell{text-align:center}.calendar .dow{font-size:11px;color:var(--muted);padding:2px 0 7px}.calendar .cell{-webkit-appearance:none;appearance:none;justify-self:center;width:38px;height:42px;padding:0;border:0;background:transparent;color:#f7f9f9;display:grid;place-items:center;position:relative;border-radius:0;font-size:14px;font-weight:500;line-height:1;isolation:isolate}.calendar .cell.has:after{content:"";position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent)}.calendar .cell.selected{color:#fff;font-weight:700}.calendar .cell.selected:before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,240,255,.24);border:1px solid rgba(0,240,255,.34);box-shadow:0 0 14px rgba(0,240,255,.08);pointer-events:none}.calendar .cell.has:after{z-index:1}.calendar .cell:active{opacity:.72}.more-row{display:flex;align-items:center;gap:13px;padding:16px 2px;border-bottom:1px solid var(--line)}.account-status{display:flex;align-items:center;gap:13px;padding:16px 2px;border-bottom:1px solid var(--line)}.account-email{font-size:12px;color:var(--muted);margin-top:4px;word-break:break-all}.account-action-danger strong{color:#ff747d}.account-note{font-size:12px;line-height:1.45;color:var(--muted);margin:9px 4px 0}.more-row:last-child{border-bottom:0}.more-row .ic{width:26px;text-align:center;color:var(--accent)}.exercise-card{padding:14px 0;border-bottom:1px solid var(--line)}.exercise-card:last-child{border-bottom:0}.exercise-card h4{margin:0 0 5px}.exercise-meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px}.modal{position:fixed;z-index:120;inset:0;background:#090b0b;display:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch;padding-bottom:calc(30px + var(--safe))}.session-form{padding-bottom:150px}.floating-save-wrap{position:fixed;z-index:150;left:50%;bottom:calc(18px + env(safe-area-inset-bottom) + var(--keyboard-offset,0px));transform:translateX(-50%);width:min(488px,calc(100% - 32px));pointer-events:none;transition:bottom .16s ease}.floating-save{pointer-events:auto;width:100%;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:15px 18px;background:linear-gradient(145deg,#00F0FF 0%,#00D8FF 52%,#00B8FF 100%);color:#00131f;font-weight:800;font-size:16px;box-shadow:0 12px 32px rgba(0,0,0,.42),0 5px 22px rgba(0,216,255,.22),inset 0 1px 0 rgba(255,255,255,.25)}.floating-save:active{transform:scale(.985)}.modal.open{display:block}body:has(.modal.open) .nav{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(16px);transition:opacity .16s ease,transform .16s ease}.topbar{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:82px 1fr 82px;align-items:center;background:rgba(9,11,11,.94);backdrop-filter:blur(20px);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid #171b1b}.topbar h2{text-align:center;font-size:17px;margin:0}.topbar button{border:0;background:transparent;color:var(--accent);padding:8px}.topbar button:first-child{color:#fff;text-align:left}.form{padding:18px}.field{margin-bottom:15px}.field label{display:block;color:var(--muted);font-size:12px;margin:0 0 7px 4px}.field input,.field select,.field textarea{width:100%;border:1px solid #242929;background:var(--card);color:#fff;border-radius:14px;padding:14px;outline:none}.field textarea{resize:vertical;min-height:90px}.difficulty{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.difficulty button{height:42px;border:0;border-radius:12px;background:var(--card2);color:#fff}.difficulty button.active{background:var(--accent);color:#00131f;font-weight:800}.tempo-box{background:var(--card);border:1px solid #222828;border-radius:16px;padding:12px}.tempo-row{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(72px,.7fr) minmax(72px,.7fr) 42px;gap:7px;align-items:center;margin-bottom:8px}.tempo-row.no-variants{grid-template-columns:minmax(80px,1fr) minmax(80px,1fr) 42px}.tempo-row.no-variants .block-variant{display:none}.tempo-row select,.tempo-row input{width:100%;min-width:0;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:12px;padding:11px 9px;outline:none}.block-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.block-actions button{width:100%}.inline-variant-editor{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-top:8px}.inline-variant-editor[hidden]{display:none}.inline-variant-editor input{width:100%;min-width:0;border:1px solid #242929;background:var(--card);color:#fff;border-radius:12px;padding:12px;outline:none}.inline-variant-editor button{padding:12px 11px;border-radius:12px;border:0;font-weight:750}.variant-editor-row{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;margin-bottom:8px}.variant-editor-row input{width:100%;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:12px;padding:12px;outline:none}.variant-editor-row button{height:42px;border:0;border-radius:12px;background:#292f2f;color:#fff;font-size:20px}.tempo-row:last-child{margin-bottom:0}.tempo-row input{width:100%;border:1px solid #2a3030;background:#101313;color:#fff;border-radius:11px;padding:11px}.remove{border:0;background:#2a1b1b;color:var(--danger);width:42px;height:42px;border-radius:11px}.tempo-summary{font-size:12px;color:var(--muted);margin-top:10px}.tempo-summary.warn{color:#ffb35c}.total{display:flex;justify-content:space-between;align-items:center}.total b{color:var(--accent)}.toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,20px);background:#f5f5f5;color:#111;padding:11px 15px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:200}.toast.show{opacity:1;transform:translate(-50%,0)}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.detail-grid .mini{min-height:auto}.backline{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;margin-bottom:14px;cursor:pointer}.muted{color:var(--muted)}.seg.two{grid-template-columns:1fr 1fr}.seg.no-gap{margin-bottom:0}.hidden-file{display:none}.circle5{display:block;width:100%;max-width:320px;margin:0 auto;touch-action:manipulation}.circle5 text{font-weight:700;fill:#f7f9f9;pointer-events:none}.circle5 g{cursor:pointer}.key-title{text-align:center;font-size:20px;font-weight:800;margin:6px 0 2px}.key-notes span.on{color:var(--accent);font-weight:800}.key-notes{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.5px}.degree-chips{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.degree-chips button{height:44px;border:1px solid #2a3030;border-radius:12px;background:var(--card2);color:#6f7878;font-weight:800;opacity:.55}.quiz-answers{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px}.quiz-answers button{height:52px;border:1px solid #2a3030;border-radius:12px;background:var(--card2);color:#fff;display:grid;place-items:center;align-content:center;gap:1px;padding:0;font-size:15px}.quiz-answers small{font-size:10px;color:var(--muted);white-space:nowrap}.ear-answers{grid-template-columns:repeat(3,1fr)}.ear-answers button{font-size:13px;height:46px}.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.ach{background:var(--card);border:1px solid #1d2222;border-radius:15px;padding:12px;opacity:.6}.ach.done{opacity:1;border-color:rgba(0,240,255,.3)}.ach>i{display:block;font-style:normal;font-size:22px;margin-bottom:6px;color:var(--muted)}.ach.done>i{color:var(--accent)}.ach strong{display:block;font-size:14px}.ach small{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35}.ach b{display:block;color:var(--accent);font-size:11px;margin-top:6px}.quiz-answers button.right{background:#4EEE7C;color:#00131f}.quiz-answers button.wrong{background:#ff655f;color:#fff}.quiz-answers button.right small,.quiz-answers button.wrong small{color:inherit}.chord-chips button{opacity:1;color:#cfd6d6;font-size:14px;line-height:1.1;padding:0}.chord-chips button small{display:block;font-size:9px;letter-spacing:-.2px;white-space:nowrap;font-weight:600;color:var(--muted)}.chord-chips button.on small{color:#00131f}.degree-chips button.on{opacity:1;color:#00131f;background:var(--deg);border-color:transparent}.preset-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.preset-row button{border:0;border-radius:11px;background:#202626;color:#cfd6d6;padding:9px 4px;font-size:12px}.fretboard{display:block;max-width:none}.fret-scroll{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding:10px 4px}.progress{height:8px;border-radius:99px;background:#202626;overflow:hidden;margin:10px 0 8px}.progress i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .3s}.song-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.song-row:last-child{border-bottom:0}.song-row .grow{min-width:0}.song-row strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.icon-btn{border:0;background:#202626;color:#cfd6d6;width:40px;height:40px;border-radius:12px;font-size:16px;flex:0 0 auto}.transport{display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;justify-items:center;margin:8px 0 4px}.play-btn{width:64px;height:64px;border-radius:50%;border:0;background:linear-gradient(145deg,#00F0FF,#00B8FF);color:#00131f;font-size:24px;font-weight:800}.range{width:100%;accent-color:var(--accent)}.time-row{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}.bpm-big{font-size:34px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}.bpm-row{display:grid;grid-template-columns:48px 1fr 48px;gap:10px;align-items:center}.bpm-row button,.mini-btns button{border:0;border-radius:12px;background:var(--card2);color:#fff;height:44px;font-weight:800}.mini-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.stem-row{display:grid;grid-template-columns:10px 76px 1fr 38px 38px;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.stem-row:last-child{border-bottom:0}.stem-row button{height:34px;border:0;border-radius:10px;background:#202626;color:#909898;font-weight:800;font-size:12px}.stem-row button.on{background:var(--accent);color:#00131f}.stem-row button.mute.on{background:#ff655f;color:#fff}.orig-bpm{display:flex;align-items:center;gap:8px}.orig-bpm input{width:80px;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:10px;padding:8px;text-align:center}.orig-bpm button{border:0;border-radius:10px;background:#202626;color:#cfd6d6;padding:9px 10px;font-size:12px}#sessionModal{z-index:125}.exercise-row{display:grid;grid-template-columns:1fr 52px;gap:8px}.lib-btn{position:relative;border:1px solid #242929;border-radius:14px;background:var(--card2);color:var(--accent);display:grid;place-items:center;font-size:20px;overflow:hidden}.field .lib-btn select{position:absolute;inset:0;width:100%;height:100%;opacity:0;padding:0;border:0}.chip-row{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px;scrollbar-width:none}.chip-row::-webkit-scrollbar{display:none}.chip-btn{flex:0 0 auto;border:1px solid #2a3030;background:#1b2020;color:#cfd6d6;border-radius:999px;padding:8px 13px;font-size:13px;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chip-btn:active{background:#263030}.chip-btn.here{border-color:#56615f;color:#fff}.chip-btn.on{background:rgba(0,240,255,.16);border-color:rgba(0,240,255,.45);color:var(--accent)}.tsub{font-size:12px;margin-top:3px}.tuner-display{--tc:#5a6464;text-align:center;padding:12px 12px 14px}.tuner-top{display:flex;justify-content:space-between;align-items:center;font-size:12px}.tuner-note{font-size:68px;font-weight:800;line-height:1;color:var(--tc);margin-top:2px;transition:color .15s}.tuner-note sub{font-size:22px;color:var(--muted);vertical-align:baseline;margin-left:2px}.tuner-gauge{display:block;width:100%;max-width:330px;margin:4px auto 0}.tuner-strobe{display:block;width:100%;height:90px;border-radius:12px;background:#0b0e0e;margin:10px 0 6px}.tuner-cents{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}.tuner-cents b{color:var(--tc);font-size:22px}.tuner-hint{min-height:20px;margin-top:6px;font-weight:700;color:var(--tc)}.tuner-strings{display:flex;gap:6px;justify-content:center;margin:12px 0 4px}.tstr{position:relative;flex:1;max-width:62px;height:58px;border:1px solid #2a3030;border-radius:14px;background:var(--card2);color:#fff;display:grid;place-items:center;align-content:center;gap:2px;font-size:17px}.tstr small{font-size:10px;color:var(--muted)}.tstr.active{border-color:var(--accent)}.tstr.lock{background:rgba(0,240,255,.16);color:var(--accent)}.tstr.ok:after{content:'✓';position:absolute;top:3px;right:6px;font-size:11px;color:var(--accent)}.tuner-all{text-align:center;font-size:12px;margin:2px 0 12px}.tuner-song{display:flex;align-items:center;gap:10px;margin-bottom:10px}.tuner-song .primary,.tuner-song .secondary{padding:10px 14px}.tuner-custom{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px;margin-bottom:10px}.tuner-custom div{display:flex;align-items:center;justify-content:space-between;gap:4px}.tuner-custom button,.tuner-cal button{border:0;border-radius:10px;background:#202626;color:#cfd6d6;height:36px;min-width:36px;font-weight:800}.tuner-cal{display:flex;align-items:center;gap:8px}.tuner-cal .tuner-a4{min-width:86px;color:#fff;font-variant-numeric:tabular-nums}.metro-main{text-align:center}.metro-dots{display:flex;justify-content:center;gap:10px;margin:2px 0 14px}.metro-dots i{width:16px;height:16px;border-radius:50%;background:#2a3131;transition:background .06s,transform .06s}.metro-dots i.acc{box-shadow:0 0 0 2px rgba(0,240,255,.35)}.metro-dots i.on{background:var(--accent);transform:scale(1.25)}.metro-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;margin-top:12px}.metro-row button{border:0;border-radius:12px;background:var(--card2);color:#fff;height:46px;font-weight:800}.metro-bpm{font-size:46px}.string-row{display:flex;justify-content:center;gap:8px;margin:-4px 0 6px}.chip-label{font-size:11px;color:var(--muted);margin:10px 4px 0}.more-details{margin:0 0 15px}.more-details summary{list-style:none;cursor:pointer;color:var(--accent);font-size:14px;font-weight:650;padding:6px 4px 14px}.more-details summary::-webkit-details-marker{display:none}.more-details[open] summary{color:var(--muted)}.mini-player{position:fixed;z-index:95;left:50%;bottom:calc(var(--navpad) + 70px);transform:translateX(-50%);width:min(500px,calc(100% - 20px));display:grid;grid-template-columns:1fr 46px 38px;gap:6px;align-items:center;padding:6px 6px 6px 14px;background:rgba(24,26,26,.96);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);border:1px solid rgba(0,240,255,.22);border-radius:20px;box-shadow:0 10px 28px rgba(0,0,0,.45)}.mini-player[hidden]{display:none}body:has(.modal.open) .mini-player{z-index:130;bottom:calc(10px + env(safe-area-inset-bottom))}body:has(#sessionModal.open) .mini-player{display:none}body.has-mini .screen{padding-bottom:calc(160px + env(safe-area-inset-bottom))}body.has-mini .modal{padding-bottom:calc(90px + var(--safe))}.mini-info{min-width:0;border:0;background:transparent;color:#fff;text-align:left;padding:4px 0}.mini-info strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini-info span{display:block;font-size:11px;color:var(--accent);margin-top:2px;font-variant-numeric:tabular-nums}.mini-play{width:46px;height:46px;border-radius:50%;border:0;background:linear-gradient(145deg,#00F0FF,#00B8FF);color:#00131f;font-size:17px;font-weight:800}.chord-now{display:flex;align-items:baseline;gap:10px;margin-top:10px;font-size:13px;white-space:nowrap;overflow:hidden}.chord-now b{font-size:26px;color:var(--accent);min-width:56px}.loop-btn{margin-top:10px;font-variant-numeric:tabular-nums}.loop-btn.on{background:rgba(0,240,255,.16);color:var(--accent)}.mini-x{width:38px;height:38px;border:0;border-radius:12px;background:#202626;color:#909898;font-size:18px}
+@media (display-mode: standalone){.screen{padding-top:calc(26px + env(safe-area-inset-top))}}.title{font-size:34px;font-weight:800;letter-spacing:-1px;margin:4px 0 18px}.eyebrow{font-size:14px;color:var(--muted);text-transform:capitalize}.card{background:var(--card);border:1px solid #202525;border-radius:18px;padding:15px}.section-title{font-size:18px;font-weight:750;margin:24px 0 12px}.stats3,.stats2{display:grid;gap:9px}.stats3{grid-template-columns:repeat(3,1fr)}.stats2{grid-template-columns:repeat(2,1fr)}.mini{background:var(--card);border:1px solid #1d2222;border-radius:15px;padding:13px;min-height:72px}.mini span{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}.mini strong{font-size:16px}.mini.accent strong{color:var(--accent)}.session{display:flex;align-items:flex-start;gap:12px}.session+.session{margin-top:10px}.dot{width:38px;height:38px;flex:0 0 auto;background:var(--accent);border-radius:50%;display:grid;place-items:center;color:#00131f;box-shadow:0 0 0 1px #ffffff0f inset}.cat-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:color-mix(in srgb,var(--cat) 16%,transparent);color:var(--cat);border:1px solid color-mix(in srgb,var(--cat) 32%,transparent)}.cat-badge:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cat)}.main{flex:1;min-width:0}.main h4{margin:0 0 4px;font-size:16px}.main p{margin:2px 0;color:var(--muted);font-size:14px}.variant-groups{display:grid;gap:8px;margin-top:9px}.variant-group{background:#1b2020;border:1px solid #252b2b;border-radius:12px;padding:9px 10px}.variant-name{font-size:12px;font-weight:800;color:#00F0FF;margin-bottom:7px}.variant-blocks{display:flex;flex-wrap:wrap;gap:6px}.tempo-chip-rich{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;background:#232929;border:1px solid #2d3434;font-size:11px}.tempo-bpm{color:#B69CFF;font-weight:800}.tempo-sep{color:#626c6c}.tempo-time{color:#FFBF69;font-weight:750}.chev{color:var(--muted);font-size:20px}.empty{color:var(--muted);font-size:14px;line-height:1.5}.primary,.secondary,.danger{border:0;border-radius:14px;padding:13px 16px;font-weight:750}.primary{background:var(--accent);color:#00131f}.primary:disabled{opacity:.4}.secondary{background:var(--card2);color:#fff}.danger{background:rgba(255,101,95,.13);color:var(--danger);border:1px solid rgba(255,101,95,.22)}.wide{width:100%}.seg{background:var(--card);border-radius:12px;padding:3px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:14px}.seg button{border:0;background:transparent;color:var(--muted);padding:8px;border-radius:9px}.seg button.active{background:#363c3c;color:#fff}.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric-row.two{grid-template-columns:repeat(2,1fr);margin-top:8px}.metric{background:var(--card);padding:13px;border-radius:14px}.metric small{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.metric b{font-size:16px}.bars{height:190px;display:flex;gap:9px;align-items:flex-end;padding:16px 4px 2px;border-bottom:1px solid var(--line)}.barcol{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:7px}.bars.dense{gap:2px;padding-left:0;padding-right:0}.bar{width:70%;background:linear-gradient(var(--accent),#009AA5);border-radius:6px 6px 2px 2px;min-height:2px}.barcol span{font-size:11px;color:var(--muted)}.cat-row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}.cat-row:last-child{border-bottom:0}.c{width:9px;height:9px;border-radius:50%;background:var(--cat,var(--accent));box-shadow:0 0 10px color-mix(in srgb,var(--cat,var(--accent)) 28%,transparent)}.grow{flex:1}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.calendar-head button{background:transparent;border:0;color:#fff;font-size:22px}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 6px}.calendar .dow,.calendar .cell{text-align:center}.calendar .dow{font-size:11px;color:var(--muted);padding:2px 0 7px}.calendar .cell{-webkit-appearance:none;appearance:none;justify-self:center;width:38px;height:42px;padding:0;border:0;background:transparent;color:#f7f9f9;display:grid;place-items:center;position:relative;border-radius:0;font-size:14px;font-weight:500;line-height:1;isolation:isolate}.calendar .cell.has:after{content:"";position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent)}.calendar .cell.selected{color:#fff;font-weight:700}.calendar .cell.selected:before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,240,255,.24);border:1px solid rgba(0,240,255,.34);box-shadow:0 0 14px rgba(0,240,255,.08);pointer-events:none}.calendar .cell.has:after{z-index:1}.calendar .cell:active{opacity:.72}.more-row{display:flex;align-items:center;gap:13px;padding:16px 2px;border-bottom:1px solid var(--line)}.account-status{display:flex;align-items:center;gap:13px;padding:16px 2px;border-bottom:1px solid var(--line)}.account-email{font-size:12px;color:var(--muted);margin-top:4px;word-break:break-all}.account-action-danger strong{color:#ff747d}.account-note{font-size:12px;line-height:1.45;color:var(--muted);margin:9px 4px 0}.more-row:last-child{border-bottom:0}.more-row .ic{width:26px;text-align:center;color:var(--accent)}.exercise-card{padding:14px 0;border-bottom:1px solid var(--line)}.exercise-card:last-child{border-bottom:0}.exercise-card h4{margin:0 0 5px}.exercise-meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px}.modal{position:fixed;z-index:120;inset:0;background:#090b0b;display:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:none;-webkit-overflow-scrolling:touch;padding-bottom:calc(30px + var(--safe))}.session-form{padding-bottom:150px}.floating-save-wrap{position:fixed;z-index:150;left:50%;bottom:calc(18px + env(safe-area-inset-bottom) + var(--keyboard-offset,0px));transform:translateX(-50%);width:min(488px,calc(100% - 32px));pointer-events:none;transition:bottom .16s ease}.floating-save{pointer-events:auto;width:100%;border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:15px 18px;background:linear-gradient(145deg,#00F0FF 0%,#00D8FF 52%,#00B8FF 100%);color:#00131f;font-weight:800;font-size:16px;box-shadow:0 12px 32px rgba(0,0,0,.42),0 5px 22px rgba(0,216,255,.22),inset 0 1px 0 rgba(255,255,255,.25)}.floating-save:active{transform:scale(.985)}.modal.open{display:block}body:has(.modal.open) .nav{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(16px);transition:opacity .16s ease,transform .16s ease}.topbar{position:sticky;top:0;z-index:3;display:grid;grid-template-columns:82px 1fr 82px;align-items:center;background:rgba(9,11,11,.94);backdrop-filter:blur(20px);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid #171b1b}.topbar h2{text-align:center;font-size:18px;margin:0}.topbar button{border:0;background:transparent;color:var(--accent);padding:8px}.topbar button:first-child{color:#fff;text-align:left}.form{padding:18px}.field{margin-bottom:15px}.field label{display:block;color:var(--muted);font-size:12px;margin:0 0 7px 4px}.field input,.field select,.field textarea{width:100%;border:1px solid #242929;background:var(--card);color:#fff;border-radius:14px;padding:14px;outline:none}.field textarea{resize:vertical;min-height:90px}.difficulty{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.difficulty button{height:42px;border:0;border-radius:12px;background:var(--card2);color:#fff}.difficulty button.active{background:var(--accent);color:#00131f;font-weight:800}.tempo-box{background:var(--card);border:1px solid #222828;border-radius:16px;padding:12px}.tempo-row{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(72px,.7fr) minmax(72px,.7fr) 42px;gap:7px;align-items:center;margin-bottom:8px}.tempo-row.no-variants{grid-template-columns:minmax(80px,1fr) minmax(80px,1fr) 42px}.tempo-row.no-variants .block-variant{display:none}.tempo-row select,.tempo-row input{width:100%;min-width:0;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:12px;padding:11px 9px;outline:none}.block-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.block-actions button{width:100%}.inline-variant-editor{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-top:8px}.inline-variant-editor[hidden]{display:none}.inline-variant-editor input{width:100%;min-width:0;border:1px solid #242929;background:var(--card);color:#fff;border-radius:12px;padding:12px;outline:none}.inline-variant-editor button{padding:12px 11px;border-radius:12px;border:0;font-weight:750}.variant-editor-row{display:grid;grid-template-columns:1fr 42px;gap:8px;align-items:center;margin-bottom:8px}.variant-editor-row input{width:100%;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:12px;padding:12px;outline:none}.variant-editor-row button{height:42px;border:0;border-radius:12px;background:#292f2f;color:#fff;font-size:20px}.tempo-row:last-child{margin-bottom:0}.tempo-row input{width:100%;border:1px solid #2a3030;background:#101313;color:#fff;border-radius:11px;padding:11px}.remove{border:0;background:#2a1b1b;color:var(--danger);width:42px;height:42px;border-radius:11px}.tempo-summary{font-size:12px;color:var(--muted);margin-top:10px}.tempo-summary.warn{color:#ffb35c}.total{display:flex;justify-content:space-between;align-items:center}.total b{color:var(--accent)}.toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,20px);background:#f5f5f5;color:#111;padding:11px 15px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:200}.toast.show{opacity:1;transform:translate(-50%,0)}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.detail-grid .mini{min-height:auto}.backline{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;margin-bottom:14px;cursor:pointer}.muted{color:var(--muted)}.seg.two{grid-template-columns:1fr 1fr}.seg.no-gap{margin-bottom:0}.hidden-file{display:none}.circle5{display:block;width:100%;max-width:320px;margin:0 auto;touch-action:manipulation}.circle5 text{font-weight:700;fill:#f7f9f9;pointer-events:none}.circle5 g{cursor:pointer}.key-title{text-align:center;font-size:20px;font-weight:800;margin:6px 0 2px}.key-notes span.on{color:var(--accent);font-weight:800}.key-notes{text-align:center;color:var(--muted);font-size:14px;letter-spacing:.5px}.degree-chips{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.degree-chips button{height:44px;border:1px solid #2a3030;border-radius:12px;background:var(--card2);color:#6f7878;font-weight:800;opacity:.55}.quiz-answers{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px}.quiz-answers button{height:52px;border:1px solid #2a3030;border-radius:12px;background:var(--card2);color:#fff;display:grid;place-items:center;align-content:center;gap:1px;padding:0;font-size:16px}.quiz-answers small{font-size:10px;color:var(--muted);white-space:nowrap}.ear-answers{grid-template-columns:repeat(3,1fr)}.ear-answers button{font-size:14px;height:46px}.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.ach{background:var(--card);border:1px solid #1d2222;border-radius:15px;padding:12px;opacity:.6}.ach.done{opacity:1;border-color:rgba(0,240,255,.3)}.ach>i{display:block;font-style:normal;font-size:22px;margin-bottom:6px;color:var(--muted)}.ach.done>i{color:var(--accent)}.ach strong{display:block;font-size:14px}.ach small{display:block;color:var(--muted);font-size:11px;margin-top:3px;line-height:1.35}.ach b{display:block;color:var(--accent);font-size:11px;margin-top:6px}.quiz-answers button.right{background:#4EEE7C;color:#00131f}.quiz-answers button.wrong{background:#ff655f;color:#fff}.quiz-answers button.right small,.quiz-answers button.wrong small{color:inherit}.chord-chips button{opacity:1;color:#cfd6d6;font-size:14px;line-height:1.1;padding:0}.chord-chips button small{display:block;font-size:10px;letter-spacing:-.2px;white-space:nowrap;font-weight:600;color:var(--muted)}.chord-chips button.on small{color:#00131f}.degree-chips button.on{opacity:1;color:#00131f;background:var(--deg);border-color:transparent}.preset-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.preset-row button{border:0;border-radius:11px;background:#202626;color:#cfd6d6;padding:9px 4px;font-size:12px}.fretboard{display:block;max-width:none}.fret-scroll{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding:10px 4px}.progress{height:8px;border-radius:99px;background:#202626;overflow:hidden;margin:10px 0 8px}.progress i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .3s}.song-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.song-row:last-child{border-bottom:0}.song-row .grow{min-width:0}.song-row strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.icon-btn{border:0;background:#202626;color:#cfd6d6;width:40px;height:40px;border-radius:12px;font-size:16px;flex:0 0 auto}.transport{display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;justify-items:center;margin:8px 0 4px}.play-btn{width:64px;height:64px;border-radius:50%;border:0;background:linear-gradient(145deg,#00F0FF,#00B8FF);color:#00131f;font-size:24px;font-weight:800}.range{width:100%;accent-color:var(--accent)}.time-row{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}.bpm-big{font-size:34px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums}.bpm-row{display:grid;grid-template-columns:48px 1fr 48px;gap:10px;align-items:center}.bpm-row button,.mini-btns button{border:0;border-radius:12px;background:var(--card2);color:#fff;height:44px;font-weight:800}.mini-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.stem-row{display:grid;grid-template-columns:10px 76px 1fr 38px 38px;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.stem-row:last-child{border-bottom:0}.stem-row button{height:34px;border:0;border-radius:10px;background:#202626;color:#909898;font-weight:800;font-size:12px}.stem-row button.on{background:var(--accent);color:#00131f}.stem-row button.mute.on{background:#ff655f;color:#fff}.orig-bpm{display:flex;align-items:center;gap:8px}.orig-bpm input{width:80px;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:10px;padding:8px;text-align:center}.orig-bpm button{border:0;border-radius:10px;background:#202626;color:#cfd6d6;padding:9px 10px;font-size:12px}#sessionModal{z-index:125}.exercise-row{display:grid;grid-template-columns:1fr 52px;gap:8px}.lib-btn{position:relative;border:1px solid #242929;border-radius:14px;background:var(--card2);color:var(--accent);display:grid;place-items:center;font-size:20px;overflow:hidden}.field .lib-btn select{position:absolute;inset:0;width:100%;height:100%;opacity:0;padding:0;border:0}.chip-row{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px;scrollbar-width:none}.chip-row::-webkit-scrollbar{display:none}.chip-btn{flex:0 0 auto;border:1px solid #2a3030;background:#1b2020;color:#cfd6d6;border-radius:999px;padding:8px 13px;font-size:14px;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chip-btn:active{background:#263030}.chip-btn.here{border-color:#56615f;color:#fff}.chip-btn.on{background:rgba(0,240,255,.16);border-color:rgba(0,240,255,.45);color:var(--accent)}.tsub{font-size:12px;margin-top:3px}.tuner-display{--tc:#5a6464;text-align:center;padding:12px 12px 14px}.tuner-top{display:flex;justify-content:space-between;align-items:center;font-size:12px}.tuner-note{font-size:68px;font-weight:800;line-height:1;color:var(--tc);margin-top:2px;transition:color .15s}.tuner-note sub{font-size:22px;color:var(--muted);vertical-align:baseline;margin-left:2px}.tuner-gauge{display:block;width:100%;max-width:330px;margin:4px auto 0}.tuner-strobe{display:block;width:100%;height:90px;border-radius:12px;background:#0b0e0e;margin:10px 0 6px}.tuner-cents{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}.tuner-cents b{color:var(--tc);font-size:22px}.tuner-hint{min-height:20px;margin-top:6px;font-weight:700;color:var(--tc)}.tuner-strings{display:flex;gap:6px;justify-content:center;margin:12px 0 4px}.tstr{position:relative;flex:1;max-width:62px;height:58px;border:1px solid #2a3030;border-radius:14px;background:var(--card2);color:#fff;display:grid;place-items:center;align-content:center;gap:2px;font-size:18px}.tstr small{font-size:10px;color:var(--muted)}.tstr.active{border-color:var(--accent)}.tstr.lock{background:rgba(0,240,255,.16);color:var(--accent)}.tstr.ok:after{content:'✓';position:absolute;top:3px;right:6px;font-size:11px;color:var(--accent)}.tuner-all{text-align:center;font-size:12px;margin:2px 0 12px}.tuner-song{display:flex;align-items:center;gap:10px;margin-bottom:10px}.tuner-song .primary,.tuner-song .secondary{padding:10px 14px}.tuner-custom{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px;margin-bottom:10px}.tuner-custom div{display:flex;align-items:center;justify-content:space-between;gap:4px}.tuner-custom button,.tuner-cal button{border:0;border-radius:10px;background:#202626;color:#cfd6d6;height:36px;min-width:36px;font-weight:800}.tuner-cal{display:flex;align-items:center;gap:8px}.tuner-cal .tuner-a4{min-width:86px;color:#fff;font-variant-numeric:tabular-nums}.metro-main{text-align:center}.metro-dots{display:flex;justify-content:center;gap:10px;margin:2px 0 14px}.metro-dots i{width:16px;height:16px;border-radius:50%;background:#2a3131;transition:background .06s,transform .06s}.metro-dots i.acc{box-shadow:0 0 0 2px rgba(0,240,255,.35)}.metro-dots i.on{background:var(--accent);transform:scale(1.25)}.metro-row{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:8px;margin-top:12px}.metro-row button{border:0;border-radius:12px;background:var(--card2);color:#fff;height:46px;font-weight:800}.metro-bpm{font-size:46px}.string-row{display:flex;justify-content:center;gap:8px;margin:-4px 0 6px}.chip-label{font-size:11px;color:var(--muted);margin:10px 4px 0}.more-details{margin:0 0 15px}.more-details summary{list-style:none;cursor:pointer;color:var(--accent);font-size:14px;font-weight:650;padding:6px 4px 14px}.more-details summary::-webkit-details-marker{display:none}.more-details[open] summary{color:var(--muted)}.mini-player{position:fixed;z-index:95;left:50%;bottom:calc(var(--navpad) + 70px);transform:translateX(-50%);width:min(500px,calc(100% - 20px));display:grid;grid-template-columns:1fr 46px 38px;gap:6px;align-items:center;padding:6px 6px 6px 14px;background:rgba(24,26,26,.96);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);border:1px solid rgba(0,240,255,.22);border-radius:20px;box-shadow:0 10px 28px rgba(0,0,0,.45)}.mini-player[hidden]{display:none}body:has(.modal.open) .mini-player{z-index:130;bottom:calc(10px + env(safe-area-inset-bottom))}body:has(#sessionModal.open) .mini-player{display:none}body.has-mini .screen{padding-bottom:calc(160px + env(safe-area-inset-bottom))}body.has-mini .modal{padding-bottom:calc(90px + var(--safe))}.mini-info{min-width:0;border:0;background:transparent;color:#fff;text-align:left;padding:4px 0}.mini-info strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini-info span{display:block;font-size:11px;color:var(--accent);margin-top:2px;font-variant-numeric:tabular-nums}.mini-play{width:46px;height:46px;border-radius:50%;border:0;background:linear-gradient(145deg,#00F0FF,#00B8FF);color:#00131f;font-size:18px;font-weight:800}.chord-now{display:flex;align-items:baseline;gap:10px;margin-top:10px;font-size:14px;white-space:nowrap;overflow:hidden}.chord-now b{font-size:26px;color:var(--accent);min-width:56px}.loop-btn{margin-top:10px;font-variant-numeric:tabular-nums}.loop-btn.on{background:rgba(0,240,255,.16);color:var(--accent)}.mini-x{width:38px;height:38px;border:0;border-radius:12px;background:#202626;color:#909898;font-size:18px}
 /* ---------- 1.8: navegación simple, títulos serif y barra con trastes (colores de siempre) ---------- */
-:root{--serif:ui-serif,"New York","Iowan Old Style","Palatino Linotype",Georgia,serif}
+:root{--serif:var(--font)}
 .title{font-family:var(--serif);font-size:32px;font-weight:700;letter-spacing:-.4px}
-.section-title{font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:-.1px}
+.section-title{font-family:var(--serif);font-size:20px;font-weight:700;letter-spacing:-.1px}
 .eyebrow{letter-spacing:.3px;text-transform:none}.eyebrow:first-letter{text-transform:uppercase}
-.backup-nag{display:flex;align-items:center;gap:10px;margin-top:12px;border-color:rgba(0,240,255,.3)}.backup-nag .primary{padding:10px 14px}.i{width:1.2em;height:1.2em;vertical-align:-.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.ad-slot{display:none}body.ads .ad-slot{display:grid;place-items:center;height:60px;margin-top:22px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:11px}body.ads .ad-slot:before{content:'Anuncio'}body.has-mini .ad-slot{display:none}.welcome{max-width:460px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 22px 30px;min-height:100%;display:flex;flex-direction:column}.welcome-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:12vh}.welcome-top>:last-child{justify-self:end}.welcome-dots{display:flex;gap:6px}.welcome-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.welcome-dots i.on{background:var(--accent);width:20px;border-radius:4px}.welcome-ic{color:var(--accent);font-size:40px;margin-bottom:14px}.welcome h2{font-family:var(--serif);font-size:30px;line-height:1.15;margin:6px 0 10px}.welcome p{font-size:15px;line-height:1.5;margin:0 0 26px}.welcome-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.welcome-opts.three{grid-template-columns:repeat(3,1fr)}.welcome-opts button{padding:18px 8px;font-size:16px}.home-date{font-size:18px;font-weight:600;margin:4px 0 16px}
+.backup-nag{display:flex;align-items:center;gap:10px;margin-top:12px;border-color:rgba(0,240,255,.3)}.backup-nag .primary{padding:10px 14px}.i{width:1.2em;height:1.2em;vertical-align:-.25em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}.ad-slot{display:none}body.ads .ad-slot{display:grid;place-items:center;height:60px;margin-top:22px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:11px}body.ads .ad-slot:before{content:'Anuncio'}body.has-mini .ad-slot{display:none}.welcome{max-width:460px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 22px 30px;min-height:100%;display:flex;flex-direction:column}.welcome-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:12vh}.welcome-top>:last-child{justify-self:end}.welcome-dots{display:flex;gap:6px}.welcome-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.welcome-dots i.on{background:var(--accent);width:20px;border-radius:4px}.welcome-ic{color:var(--accent);font-size:40px;margin-bottom:14px}.welcome h2{font-family:var(--serif);font-size:30px;line-height:1.15;margin:6px 0 10px}.welcome p{font-size:16px;line-height:1.5;margin:0 0 26px}.welcome-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.welcome-opts.three{grid-template-columns:repeat(3,1fr)}.welcome-opts button{padding:18px 8px;font-size:16px}.empty-state{text-align:center;padding:28px 20px 24px}.empty-state .es-ic{width:64px;height:64px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;background:rgba(0,240,255,.08);color:var(--accent);font-size:30px}.empty-state strong{display:block;font-size:18px}.empty-state p{color:var(--muted);font-size:14px;line-height:1.5;margin:6px auto 0;max-width:300px}.empty-state .primary{margin-top:18px}.player-tabs{margin:16px 0 12px;justify-content:space-between}.home-date{font-size:18px;font-weight:600;margin:4px 0 16px}
 .home-actions .secondary{font-size:14px;padding:12px 8px}
 .card{border-radius:12px;border-color:var(--line)}.mini,.metric{border-radius:12px}.primary,.secondary,.danger{border-radius:12px}
 .nav{position:fixed;z-index:90;left:50%;bottom:0;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px var(--navpad);background:var(--bg);border-top:1px solid var(--line)}
@@ -38,17 +41,19 @@
 .fretbar:before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:rgba(247,249,249,.4);z-index:1}
 .big-action{margin-top:12px;padding:16px;font-size:16px}
 .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.link-btn{border:0;background:transparent;color:var(--accent);font-size:13px;font-weight:650;padding:6px 0;white-space:nowrap}
+.link-btn{border:0;background:transparent;color:var(--accent);font-size:14px;font-weight:650;padding:6px 0;white-space:nowrap}
 .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .tool{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;padding:14px 12px;text-align:left;display:grid;gap:4px;align-content:start;min-height:104px}
 .tool i{font-style:normal;font-size:22px;color:var(--accent);line-height:1;margin-bottom:4px}
-.tool-grid .tool:last-child:nth-child(odd){grid-column:1/-1;min-height:0}.tool strong{font-size:15px}.tool small{font-size:11.5px;color:var(--muted);line-height:1.35}
+.tool-grid .tool:last-child:nth-child(odd){grid-column:1/-1;min-height:0}.tool strong{font-size:16px}.tool small{font-size:11.5px;color:var(--muted);line-height:1.35}
 .tool:active,.resume-card:active{transform:scale(.98)}
 .resume-card{width:100%;display:grid;gap:4px;text-align:left;color:var(--text);border-color:rgba(0,240,255,.35)}
 .resume-card strong{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pview[hidden]{display:none}
 .key-title{font-family:var(--serif)}
-.subtabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:-6px 0 16px}.subtabs button{border:0;background:none;color:var(--muted);padding:8px 0 11px;font-weight:700;font-size:15px;position:relative}.subtabs button.active{color:var(--text)}.subtabs button.active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--accent);border-radius:3px 3px 0 0}
+.subtabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:-6px 0 16px}.subtabs button{border:0;background:none;color:var(--muted);padding:8px 0 11px;font-weight:700;font-size:16px;position:relative}.subtabs button.active{color:var(--text)}.subtabs button.active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--accent);border-radius:3px 3px 0 0}
+/* 1.8.11: piezas comunes (texto de ayuda .note, tamaños t-*, márgenes mt/mb de 4 en 4 px) */
+body{font-weight:500}.note{color:var(--muted)!important;font-size:12px!important;line-height:1.45}.t-xs{font-size:11px!important}.t-s{font-size:12px!important}.t-m{font-size:14px!important}.mt0{margin-top:0px!important}.mb0{margin-bottom:0px!important}.mt1{margin-top:4px!important}.mb1{margin-bottom:4px!important}.mt2{margin-top:8px!important}.mb2{margin-bottom:8px!important}.mt3{margin-top:12px!important}.mb3{margin-bottom:12px!important}.mt4{margin-top:16px!important}.mb4{margin-bottom:16px!important}.mx1{margin-left:4px!important;margin-right:4px!important}.center{text-align:center}.title.sub{font-size:24px;margin:0 0 12px}.title{font-weight:800;letter-spacing:-.6px}.section-title{font-weight:800;letter-spacing:-.2px}.today-big,.today-streak b,.welcome h2{font-weight:800}
 </style>
 </head>
 <body>
@@ -106,7 +111,7 @@
         </div>
         <div id="tempoSummary" class="tempo-summary">Sin bloques de práctica</div>
       </div>
-      <div class="empty" style="font-size:12px;margin:7px 4px 0">Basta con el BPM. Variante y minutos son opcionales.</div>
+      <div class="note mt2 mb0 mx1">Basta con el BPM. Variante y minutos son opcionales.</div>
     </div>
 
     <div class="field"><label>Dificultad</label><div id="difficulty" class="difficulty"></div></div>
@@ -204,8 +209,11 @@ const IC={
   medal:'<circle cx="12" cy="15" r="5"/><path d="M8.5 11.5L6 3h4l2 5 2-5h4l-2.5 8.5"/>',
   flame:'<path d="M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.4 2.6-5.2 3.6-8.8 1.6 1.2 2.4 3 2.4 4.6 1-.6 1.7-1.8 1.9-3 2.1 1.6 3.1 4.4 3.1 7.2 0 3.6-2.6 6.2-4.5 6.2z"/>',
   bolt:'<path d="M13 3L5 14h6l-1 7 8-11h-6z"/>',
+  chart:'<path d="M4 19h16"/><path d="M5 15l4.5-4.5 3.5 3 6-7"/><path d="M15 6.5h4v4"/>',
   cats:'<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="8" cy="16" r="3"/><circle cx="16" cy="16" r="3"/>'};
 const ic=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+// Pantalla sin datos: icono grande, título, explicación y, si hace falta, un botón (id) para empezar.
+const emptyState=(icon,title,text,btnId,btn)=>`<div class="card empty-state"><div class="es-ic">${ic(icon)}</div><strong>${title}</strong><p>${text}</p>${btnId?`<button type="button" class="primary" id="${btnId}">${btn}</button>`:''}</div>`;
 const uuid=()=>crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`;
 let sessionStore=(()=>{try{return JSON.parse(localStorage.getItem(SESSIONS_KEY)||'[]')}catch{return[]}})();
 let exerciseStore=(()=>{try{return JSON.parse(localStorage.getItem(EXERCISES_KEY)||'[]')}catch{return[]}})();
@@ -278,7 +286,7 @@ const myAchievements=()=>achievementList(achievementData(sessions(),s=>sessionEx
   quizBest:scaleState.quizBest||0,earBest:Math.max(0,...Object.values(scaleState.earBest||{}))}));
 function achievementsHtml(){
   const l=myAchievements(),n=l.filter(a=>a.done).length;
-  return `<div class="section-title">Logros · ${n} de ${l.length}</div><div class="ach-grid">${l.map(a=>`<div class="ach${a.done?' done':''}"><i>${ic(a.icon)}</i><strong>${esc(a.name)}</strong><small>${esc(a.desc)}</small>${a.done?'<b>✓ Conseguido</b>':`<div class="progress" style="margin:6px 0 0"><i style="width:${Math.round(a.value/a.target*100)}%"></i></div>`}</div>`).join('')}</div>`;
+  return `<div class="section-title">Logros · ${n} de ${l.length}</div><div class="ach-grid">${l.map(a=>`<div class="ach${a.done?' done':''}"><i>${ic(a.icon)}</i><strong>${esc(a.name)}</strong><small>${esc(a.desc)}</small>${a.done?'<b>✓ Conseguido</b>':`<div class="progress mt2 mb0"><i style="width:${Math.round(a.value/a.target*100)}%"></i></div>`}</div>`).join('')}</div>`;
 }
 // Avisa de los logros nuevos (la primera vez solo apunta los que ya tenías, sin avisar).
 function checkAchievements(){
@@ -304,16 +312,16 @@ function renderHome(){
   $('#home').innerHTML=`
     <div class="eyebrow home-date">${now.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}</div>
     <div class="card today-card">
-      <div class="today-top"><div><div class="today-big">${fmt(todayMin)}</div><div class="muted" style="font-size:13px;margin-top:5px">de ${fmt(goal)} · ${todayMin>=goal?'objetivo cumplido':`faltan ${fmt(goal-todayMin)}`}</div></div><div class="today-streak"><b>${streak}</b><span>${streak===1?'día seguido':'días seguidos'}</span></div></div>
+      <div class="today-top"><div><div class="today-big">${fmt(todayMin)}</div><div class="note mt1">de ${fmt(goal)} · ${todayMin>=goal?'objetivo cumplido':`faltan ${fmt(goal-todayMin)}`}</div></div><div class="today-streak"><b>${streak}</b><span>${streak===1?'día seguido':'días seguidos'}</span></div></div>
       <div class="fretbar" role="img" aria-label="${Math.round(pct)} % del objetivo de hoy"><i style="width:${pct}%"></i></div>
       <div class="time-row"><span>Esta semana: ${fmt(weekMin)}</span><span>${Math.round(pct)} %</span></div>
     </div>
     <button class="primary wide big-action" id="homeLog" type="button">＋ Registrar práctica</button>
     <div class="block-actions home-actions" style="margin-top:9px${a.length?'':';grid-template-columns:1fr'}">${a.length?`<button class="secondary" id="quickRepeat" type="button">${ic('repeat')} Repetir última</button>`:''}<button class="secondary" id="homeRoutine" type="button">${ic('timer')} Rutina del día</button></div>
-    ${due?`<div class="card backup-nag"><div class="grow"><strong>Guarda una copia</strong><div class="muted" style="font-size:12px;margin-top:3px">${due<0?'Tus prácticas solo están en este móvil':`Hace ${due} días de la última copia`}</div></div><button class="link-btn" id="backupLater" type="button">Luego</button><button class="primary" id="backupNow" type="button">Exportar</button></div>`:''}
-    ${catWeek.length||goalsHome.length?`<div class="section-title">Tus metas</div><div class="card">${catWeek.map(r=>`<div class="cat-row" data-home-goals style="display:block;cursor:pointer"><div style="display:flex;gap:8px;align-items:center"><div class="c" style="--cat:${catColor(r.cat)}"></div><div class="grow">${esc(r.cat)}</div><span class="muted" style="font-size:12px">${r.pct>=1?'✓ ':''}${fmt(r.done)} / ${fmt(r.goal)} esta semana</span></div><div class="progress" style="margin:6px 0 0"><i style="width:${Math.round(r.pct*100)}%;background:${catColor(r.cat)}"></i></div></div>`).join('')}${goalsHome.map(({e,g})=>`<div class="cat-row" data-goal-ex="${esc(e.id)}" style="cursor:pointer;display:block"><div style="display:flex;gap:8px"><div class="grow" style="min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(e.name)}</div><span class="muted" style="font-size:12px"><span class="tempo-bpm">${g.best??'—'}</span> / ${g.goal} BPM</span></div>${goalBar(g,true)}</div>`).join('')}</div>`:''}
+    ${due?`<div class="card backup-nag"><div class="grow"><strong>Guarda una copia</strong><div class="note mt1">${due<0?'Tus prácticas solo están en este móvil':`Hace ${due} días de la última copia`}</div></div><button class="link-btn" id="backupLater" type="button">Luego</button><button class="primary" id="backupNow" type="button">Exportar</button></div>`:''}
+    ${catWeek.length||goalsHome.length?`<div class="section-title">Tus metas</div><div class="card">${catWeek.map(r=>`<div class="cat-row" data-home-goals style="display:block;cursor:pointer"><div style="display:flex;gap:8px;align-items:center"><div class="c" style="--cat:${catColor(r.cat)}"></div><div class="grow">${esc(r.cat)}</div><span class="note">${r.pct>=1?'✓ ':''}${fmt(r.done)} / ${fmt(r.goal)} esta semana</span></div><div class="progress mt2 mb0"><i style="width:${Math.round(r.pct*100)}%;background:${catColor(r.cat)}"></i></div></div>`).join('')}${goalsHome.map(({e,g})=>`<div class="cat-row" data-goal-ex="${esc(e.id)}" style="cursor:pointer;display:block"><div style="display:flex;gap:8px"><div class="grow" style="min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(e.name)}</div><span class="note"><span class="tempo-bpm">${g.best??'—'}</span> / ${g.goal} BPM</span></div>${goalBar(g,true)}</div>`).join('')}</div>`:''}
     <div class="section-head"><div class="section-title">${today.length?'Hoy has tocado':'Últimas prácticas'}</div>${a.length?'<button class="link-btn" id="homeAll" type="button">Ver calendario ›</button>':''}</div>
-    ${latest.length?latest.map(sessionCard).join(''):`<div class="card empty">Todavía no hay prácticas. Toca «Registrar práctica» para apuntar la primera.</div>`}${adSlot('hoy')}`;
+    ${latest.length?latest.map(sessionCard).join(''):emptyState('guitar','Aún no hay prácticas','Cuando acabes de tocar, pulsa «Registrar práctica» y aquí verás lo último que has hecho.')}${adSlot('hoy')}`;
   bindSessionCards();
   $('#homeLog').onclick=()=>openSessionModal();
   if($('#quickRepeat'))$('#quickRepeat').onclick=()=>repeatSession(a[0].id);
@@ -336,7 +344,7 @@ function renderWelcome(){
     ['timer','¿Cuánto quieres tocar al día?','Es tu objetivo diario. Lo verás en Hoy y puedes cambiarlo en Más › Objetivos.',
       `<div class="welcome-opts three">${[15,30,45,60,90,120].map(m=>`<button type="button" class="${g.dailyMinutes===m?'primary':'secondary'}" data-w-min="${m}">${fmt(m)}</button>`).join('')}</div>`],
     ['target','Apunta tu primera práctica','Cada vez que toques, regístrala en Hoy: qué ejercicio, cuánto rato y a qué BPM. Así verás tu progreso, tus rachas y tus logros.',
-      `<button type="button" class="primary wide big-action" id="wFirst">＋ Registrar práctica</button><button type="button" class="link-btn" id="wLater" style="margin-top:14px">Ahora no</button>`]];
+      `<button type="button" class="primary wide big-action" id="wFirst">＋ Registrar práctica</button><button type="button" class="link-btn mt4" id="wLater">Ahora no</button>`]];
   const [icon,title,text,body]=steps[welcomeStep];
   $('#welcomeModal').innerHTML=`<div class="welcome">
     <div class="welcome-top">${welcomeStep?'<button type="button" class="link-btn" id="wBack">‹ Atrás</button>':'<span></span>'}<span class="welcome-dots">${steps.map((_,i)=>`<i class="${i===welcomeStep?'on':''}"></i>`).join('')}</span><button type="button" class="link-btn" id="wSkip">Saltar</button></div>
@@ -356,7 +364,7 @@ const PLAY_TOOLS=[
   ['Juegos',[['playEar','ear','Entrenar el oído','Intervalos y acordes',()=>openScaleGame('ear')],['playQuiz','fret','Juego del mástil','Adivina la nota marcada',()=>openScaleGame('quiz')]]]];
 function renderPlay(){
   $('#play').innerHTML=`<div class="title">Tocar</div>
-    ${player?`<button type="button" class="card resume-card" id="playResume"><span class="muted" style="font-size:12px">Canción abierta</span><strong>▶ ${esc(player.song.name)}</strong></button>`:''}
+    ${player?`<button type="button" class="card resume-card" id="playResume"><span class="note">Canción abierta</span><strong>▶ ${esc(player.song.name)}</strong></button>`:''}
     ${PLAY_TOOLS.map(([g,items])=>`<div class="section-title">${g}</div><div class="tool-grid">${items.map(([id,icon,name,desc])=>`<button type="button" class="tool" id="${id}"><i>${ic(icon)}</i><strong>${name}</strong><small>${desc}</small></button>`).join('')}</div>`).join('')}`;
   PLAY_TOOLS.forEach(([,items])=>items.forEach(([id,,,,fn])=>$('#'+id).onclick=fn));
   if($('#playResume'))$('#playResume').onclick=()=>openStems(player.song.id);
@@ -413,7 +421,7 @@ function sessionCard(s){
 function goalBar(g,compact){
   if(!g)return '';
   const txt=g.done?`✓ Meta conseguida: ${g.goal} BPM`:g.best==null?`Meta ${g.goal} BPM · aún sin BPM registrados`:`Meta ${g.goal} BPM · te ${g.left===1?'falta 1':`faltan ${g.left}`} (mejor ${g.best})`;
-  return `<div class="progress" style="margin:${compact?'6px 0 0':'10px 0 6px'}"><i style="width:${Math.round(g.pct*100)}%;${g.done?'background:#4EEE7C':''}"></i></div>${compact?'':`<div class="muted" style="font-size:12px">${txt}</div>`}`;
+  return `<div class="progress" style="margin:${compact?'6px 0 0':'10px 0 6px'}"><i style="width:${Math.round(g.pct*100)}%;${g.done?'background:#4EEE7C':''}"></i></div>${compact?'':`<div class="note">${txt}</div>`}`;
 }
 const exerciseGoal=e=>e?.goalBpm?bpmGoal(bpmSeries(sessions().filter(s=>s.exerciseId===e.id),e),e.goalBpm):null;
 function bindSessionCards(){$$('[data-session]').forEach(el=>el.onclick=()=>openSessionDetail(el.dataset.session))}
@@ -540,11 +548,12 @@ function heatmap(a,now){
   }
   return `<svg viewBox="0 0 310 140" style="display:block;width:100%" role="img" aria-label="Mapa de constancia, últimas 12 semanas">
     ${['L','X','V','D'].map((l,i)=>`<text x="6" y="${i*40+8}" dominant-baseline="central" font-size="10" fill="#909898">${l}</text>`).join('')}${cells.join('')}</svg>
-    <div class="time-row" style="margin-top:6px"><span>Hace 12 semanas</span><span>Menos ▢ → más ■ del objetivo</span></div>`;
+    <div class="time-row mt2"><span>Hace 12 semanas</span><span>Menos ▢ → más ■ del objetivo</span></div>`;
 }
 
 let statMoreOpen=false;
 function renderStats(){
+  if(!sessions().length){$('#stats').innerHTML=emptyState('chart','Aquí verás tu progreso','Minutos por día, rachas, BPM de cada ejercicio y mucho más, en cuanto registres tu primera práctica.','statsFirst','＋ Registrar práctica');$('#statsFirst').onclick=()=>openSessionModal();return}
   const all=sessions().filter(s=>statInstrument==='all'||instrumentOf(s)===statInstrument),now=new Date(),g=goals();
   const [from,to]=periodRange(statPeriod,now),[pFrom,pTo]=periodRange(statPeriod,now,-1);
   const inRange=(x,f,t)=>{const d=new Date(x.date);return d>=f&&d<t};
@@ -590,50 +599,50 @@ function renderStats(){
   }):[];
   const forgotten=practiced.map(e=>({e,days:dayDiff(new Date(lastOf(e)),now)})).filter(x=>x.days>=14).sort((a,b)=>b.days-a.days).slice(0,5);
 
-  const metric=(label,value,sub='')=>`<div class="metric"><small>${label}</small><b>${value}</b>${sub?`<div class="muted" style="font-size:11px;margin-top:5px">${sub}</div>`:''}</div>`;
+  const metric=(label,value,sub='')=>`<div class="metric"><small>${label}</small><b>${value}</b>${sub?`<div class="note mt1">${sub}</div>`:''}</div>`;
   $('#stats').innerHTML=`
     <div class="seg">${[['all','Todos'],['Guitarra','Guitarra'],['Bajo','Bajo']].map(([k,l])=>`<button data-stat-instrument="${k}" class="${statInstrument===k?'active':''}">${l}</button>`).join('')}</div>
     <div class="seg">${[['week','Semana'],['month','Mes'],['year','Año']].map(([k,l])=>`<button data-period="${k}" class="${statPeriod===k?'active':''}">${l}</button>`).join('')}</div>
     <div class="metric-row">${metric('Práctica',fmt(practice),delta==null?'':`<span style="color:${delta>=0?'#4EEE7C':'#ff655f'}">${delta>=0?'▲':'▼'} ${Math.abs(delta)}%</span> vs ${prevName}`)}${metric('Calentamientos',fmt(warm))}${metric('Total',fmt(practice+warm))}</div>
-    <div class="metric-row two">${metric('Días practicados',`${days} <span class="muted" style="font-size:12px">de ${elapsed}</span>`)}${metric('Media por día practicado',fmt(days?Math.round(practice/days):0),`Media diaria: ${fmt(Math.round(practice/elapsed))}`)}</div>
+    <div class="metric-row two">${metric('Días practicados',`${days} <span class="note">de ${elapsed}</span>`)}${metric('Media por día practicado',fmt(days?Math.round(practice/days):0),`Media diaria: ${fmt(Math.round(practice/elapsed))}`)}</div>
     <div class="metric-row two">${metric('Objetivo diario cumplido',`${goalDays} ${goalDays===1?'día':'días'}`,`${Math.round(goalDays/elapsed*100)}% de los días`)}${metric('Mejor día',bestDay?fmt(bestDay[1]):'—',bestDay?new Date(bestDay[0]+'T00:00').toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'}):'')}</div>
     <div class="section-title">Tiempo de práctica</div><div class="card"><div class="bars ${bars.length>12?'dense':''}">${bars.map(([l,v],i)=>`<div class="barcol"><div class="bar" style="height:${Math.max(2,v/max*150)}px"></div><span>${bars.length>12&&i&&(i+1)%5?'&nbsp;':l}</span></div>`).join('')}</div></div>
 
     <div class="section-title">Progreso por ejercicio</div>
     ${ex?`<div class="card">
-      <div class="field" style="margin-bottom:10px"><select id="statExercise">${practiced.map(e=>`<option value="${esc(e.id)}" ${e.id===statExercise?'selected':''}>${esc(e.name)}</option>`).join('')}</select></div>
-      ${variantNames.length?`<div class="field" style="margin-bottom:10px"><select id="statVariant"><option value="">Todas las variantes</option>${variantNames.map(v=>`<option ${v===statVariant?'selected':''}>${esc(v)}</option>`).join('')}</select></div>`:''}
+      <div class="field mb3"><select id="statExercise">${practiced.map(e=>`<option value="${esc(e.id)}" ${e.id===statExercise?'selected':''}>${esc(e.name)}</option>`).join('')}</select></div>
+      ${variantNames.length?`<div class="field mb3"><select id="statVariant"><option value="">Todas las variantes</option>${variantNames.map(v=>`<option ${v===statVariant?'selected':''}>${esc(v)}</option>`).join('')}</select></div>`:''}
       <div class="stats3">
         <div class="mini"><span>BPM inicial</span><strong>${series[0]?.bpm??'—'}</strong></div>
         <div class="mini accent"><span>BPM actual</span><strong>${series.at(-1)?.bpm??'—'}</strong></div>
         <div class="mini"><span>BPM máx.</span><strong>${series.length?Math.max(...series.map(x=>x.bpm)):'—'}</strong></div>
       </div>
       ${ex.goalBpm?goalBar(bpmGoal(series,ex.goalBpm)):''}
-      ${series.length>1?`<div class="muted" style="font-size:12px;margin:10px 2px">${series.at(-1).bpm-series[0].bpm>=0?'+':''}${series.at(-1).bpm-series[0].bpm} BPM desde la primera sesión registrada</div>${bpmChart(series)}`:`<div class="empty" style="font-size:12px;margin-top:10px">${series.length?'Registra más sesiones con BPM para ver la evolución.':'Este ejercicio no tiene bloques con BPM.'}</div>`}
-      ${cross?`<div class="muted" style="font-size:12px;margin:14px 2px 2px">Dificultad según el BPM</div>
-      ${cross.rows.map(r=>`<div class="cat-row" style="padding:7px 0"><span class="tempo-bpm" style="width:74px">${r.min===r.max?r.min:`${r.min}–${r.max}`}</span><div class="grow"><div class="progress" style="margin:0"><i style="width:${r.diff/5*100}%;background:${diffColor(r.diff)}"></i></div></div><span style="width:74px;text-align:right">${r.diff.toFixed(1)}/5 <span class="muted" style="font-size:11px">·${r.n}</span></span></div>`).join('')}
-      ${cross.easyUpTo||cross.hardFrom?`<div class="muted" style="font-size:12px;margin:6px 2px 0">${[cross.easyUpTo?`Cómodo hasta <b style="color:#4EEE7C">${cross.easyUpTo} BPM</b>`:'',cross.hardFrom?`cuesta desde <b style="color:#ff655f">${cross.hardFrom} BPM</b>`:''].filter(Boolean).join(' · ')}</div>`:''}`:''}
-      <div class="stats3" style="margin-top:12px">
+      ${series.length>1?`<div class="note mt3 mb3 mx1">${series.at(-1).bpm-series[0].bpm>=0?'+':''}${series.at(-1).bpm-series[0].bpm} BPM desde la primera sesión registrada</div>${bpmChart(series)}`:`<div class="note mt3">${series.length?'Registra más sesiones con BPM para ver la evolución.':'Este ejercicio no tiene bloques con BPM.'}</div>`}
+      ${cross?`<div class="note mt4 mb1 mx1">Dificultad según el BPM</div>
+      ${cross.rows.map(r=>`<div class="cat-row" style="padding:7px 0"><span class="tempo-bpm" style="width:74px">${r.min===r.max?r.min:`${r.min}–${r.max}`}</span><div class="grow"><div class="progress mt0 mb0"><i style="width:${r.diff/5*100}%;background:${diffColor(r.diff)}"></i></div></div><span style="width:74px;text-align:right">${r.diff.toFixed(1)}/5 <span class="note">·${r.n}</span></span></div>`).join('')}
+      ${cross.easyUpTo||cross.hardFrom?`<div class="note mt2 mb0 mx1">${[cross.easyUpTo?`Cómodo hasta <b style="color:#4EEE7C">${cross.easyUpTo} BPM</b>`:'',cross.hardFrom?`cuesta desde <b style="color:#ff655f">${cross.hardFrom} BPM</b>`:''].filter(Boolean).join(' · ')}</div>`:''}`:''}
+      <div class="stats3 mt3">
         <div class="mini"><span>Tiempo</span><strong>${fmt(sumMin(exSessions))}</strong></div>
         <div class="mini"><span>Sesiones</span><strong>${exSessions.length}</strong></div>
         <div class="mini"><span>Dificultad</span><strong>${(exSessions.reduce((n,s)=>n+(+s.difficulty||3),0)/exSessions.length).toFixed(1)}</strong></div>
       </div>
-      ${variantRows.length?`<div style="margin-top:10px">${variantRows.map(r=>`<div class="cat-row"><div class="grow"><strong>${esc(r.v)}</strong><div class="muted" style="font-size:12px;margin-top:4px">${r.count} ${r.count===1?'sesión':'sesiones'}${r.last?` · última ${r.last.toLocaleDateString('es-ES')}`:''}</div></div><span style="text-align:right">${r.max?`<span class="tempo-bpm">${r.max} BPM</span>`:''}${r.mins?`<div class="tempo-time" style="font-size:12px;margin-top:3px">${fmt(r.mins)}</div>`:''}</span></div>`).join('')}</div>`:''}
+      ${variantRows.length?`<divclass="mt3">${variantRows.map(r=>`<div class="cat-row"><div class="grow"><strong>${esc(r.v)}</strong><div class="note mt1">${r.count} ${r.count===1?'sesión':'sesiones'}${r.last?` · última ${r.last.toLocaleDateString('es-ES')}`:''}</div></div><span style="text-align:right">${r.max?`<span class="tempo-bpm">${r.max} BPM</span>`:''}${r.mins?`<div class="tempo-time t-s mt1">${fmt(r.mins)}</div>`:''}</span></div>`).join('')}</div>`:''}
     </div>`:'<div class="card empty">Registra prácticas para ver tu progreso.</div>'}
 
     <div class="section-title">Constancia</div>
     <div class="stats3"><div class="mini accent"><span>Racha actual</span><strong>${currentStreak(allDays,now)} días</strong></div><div class="mini"><span>Mejor racha</span><strong>${bestStreak(allDays)} días</strong></div><div class="mini"><span>Días totales</span><strong>${allDays.size}</strong></div></div>
-    <div class="card" style="margin-top:9px">${heatmap(all,now)}</div>
+    <div class="card mt2">${heatmap(all,now)}</div>
 
-    <div class="section-title">Por categoría</div><div class="card">${practice?catSorted.map(([k,v])=>`<div class="cat-row"><div class="c" style="--cat:${catColor(k)}"></div><div class="grow">${esc(k)}</div><span>${fmt(v)} · ${Math.round(v/practice*100)}%</span></div>`).join('')+`<div class="empty" style="font-size:12px;margin-top:8px">Más descuidada: <strong style="color:${catColor(neglected)}">${esc(neglected)}</strong></div>`:'<div class="empty">Sin datos todavía.</div>'}</div>
+    <div class="section-title">Por categoría</div><div class="card">${practice?catSorted.map(([k,v])=>`<div class="cat-row"><div class="c" style="--cat:${catColor(k)}"></div><div class="grow">${esc(k)}</div><span>${fmt(v)} · ${Math.round(v/practice*100)}%</span></div>`).join('')+`<div class="note mt2">Más descuidada: <strong style="color:${catColor(neglected)}">${esc(neglected)}</strong></div>`:'<div class="empty">Sin datos todavía.</div>'}</div>
 
     <details class="more-details stat-more" ${statMoreOpen?'open':''}><summary>Más estadísticas</summary>
-    <div class="card" style="margin-bottom:9px"><div class="muted" style="font-size:12px;margin-bottom:4px">Por día de la semana (histórico)</div><div class="bars" style="height:120px">${weekday.map((v,i)=>`<div class="barcol"><div class="bar" style="height:${Math.max(2,v/wdMax*85)}px"></div><span>${'LMXJVSD'[i]}</span></div>`).join('')}</div></div>
-    <div class="section-title">Por ejercicio</div><div class="card">${Object.values(exTotals).sort((a,b)=>b.total-a.total).slice(0,8).map(x=>`<div class="cat-row"><div class="grow">${esc(x.name)}<div class="muted" style="font-size:12px;margin-top:3px">${x.count} ${x.count===1?'sesión':'sesiones'} · media ${fmt(x.total/x.count)}</div></div><span>${fmt(x.total)}</span></div>`).join('')||'<div class="empty">Sin datos todavía.</div>'}</div>
+    <div class="card mb2"><div class="note mb1">Por día de la semana (histórico)</div><div class="bars" style="height:120px">${weekday.map((v,i)=>`<div class="barcol"><div class="bar" style="height:${Math.max(2,v/wdMax*85)}px"></div><span>${'LMXJVSD'[i]}</span></div>`).join('')}</div></div>
+    <div class="section-title">Por ejercicio</div><div class="card">${Object.values(exTotals).sort((a,b)=>b.total-a.total).slice(0,8).map(x=>`<div class="cat-row"><div class="grow">${esc(x.name)}<div class="note mt1">${x.count} ${x.count===1?'sesión':'sesiones'} · media ${fmt(x.total/x.count)}</div></div><span>${fmt(x.total)}</span></div>`).join('')||'<div class="empty">Sin datos todavía.</div>'}</div>
     ${forgotten.length?`<div class="section-title">Sin practicar hace tiempo</div><div class="card">${forgotten.map(x=>`<div class="cat-row"><div class="c" style="--cat:${catColor(x.e.category)}"></div><div class="grow">${esc(x.e.name)}</div><span class="muted">hace ${x.days} días</span></div>`).join('')}</div>`:''}
 
     <div class="section-title">Calentamiento y dificultad</div>
-    <div class="stats2"><div class="mini"><span>Calentamiento sobre práctica</span><strong>${practice?Math.round(warm/practice*100):0}%</strong></div><div class="mini"><span>Más usado</span><strong style="font-size:14px">${topWarm?esc(topWarm[0]):'—'}</strong></div><div class="mini"><span>Calentamiento medio</span><strong>${fmt(f.filter(s=>+s.warmupMinutes>0).length?warm/f.filter(s=>+s.warmupMinutes>0).length:0)}</strong></div><div class="mini"><span>Dificultad media</span><strong>${diffAvg}${diffAvg==='—'?'':'/5'}</strong></div></div>
+    <div class="stats2"><div class="mini"><span>Calentamiento sobre práctica</span><strong>${practice?Math.round(warm/practice*100):0}%</strong></div><div class="mini"><span>Más usado</span><strongclass="t-m">${topWarm?esc(topWarm[0]):'—'}</strong></div><div class="mini"><span>Calentamiento medio</span><strong>${fmt(f.filter(s=>+s.warmupMinutes>0).length?warm/f.filter(s=>+s.warmupMinutes>0).length:0)}</strong></div><div class="mini"><span>Dificultad media</span><strong>${diffAvg}${diffAvg==='—'?'':'/5'}</strong></div></div>
     </details>`;
   $('.stat-more').ontoggle=e=>{statMoreOpen=e.target.open};
   $$('[data-period]').forEach(b=>b.onclick=()=>{statPeriod=b.dataset.period;renderStats()});
@@ -666,12 +675,12 @@ function renderMore(){
     <div class="card">
       <div class="more-row" id="openExercises">
         <div class="ic">${ic('list')}</div>
-        <div class="grow"><strong>Ejercicios guardados</strong><div class="muted" style="font-size:12px;margin-top:3px">${ex.length} ejercicios</div></div>
+        <div class="grow"><strong>Ejercicios guardados</strong><div class="note mt1">${ex.length} ejercicios</div></div>
         <div>›</div>
       </div>
       <div class="more-row" id="openGoals">
         <div class="ic">${ic('target')}</div>
-        <div class="grow"><strong>Objetivos</strong><div class="muted" style="font-size:12px;margin-top:3px">${weekDays}/${g.weeklyDays} días · ${fmt(weekMinutes)}/${fmt(g.weeklyMinutes)}</div></div>
+        <div class="grow"><strong>Objetivos</strong><div class="note mt1">${weekDays}/${g.weeklyDays} días · ${fmt(weekMinutes)}/${fmt(g.weeklyMinutes)}</div></div>
         <div>›</div>
       </div>
       <div class="more-row" id="openCategories">
@@ -685,12 +694,12 @@ function renderMore(){
     <div class="card">
       <div class="more-row" id="exportBackup">
         <div class="ic">${ic('download')}</div>
-        <div class="grow"><strong>Exportar copia</strong><div class="muted" style="font-size:12px;margin-top:3px">${lastBackupText()}</div></div>
+        <div class="grow"><strong>Exportar copia</strong><div class="note mt1">${lastBackupText()}</div></div>
         <div>›</div>
       </div>
       <div class="more-row" id="importBackup">
         <div class="ic">${ic('upload')}</div>
-        <div class="grow"><strong>Importar copia</strong><div class="muted" style="font-size:12px;margin-top:3px">Sustituye los datos de este dispositivo</div></div>
+        <div class="grow"><strong>Importar copia</strong><div class="note mt1">Sustituye los datos de este dispositivo</div></div>
         <div>›</div>
       </div>
       <input id="importBackupFile" class="hidden-file" type="file" accept="application/json,.json">
@@ -710,7 +719,7 @@ function renderMore(){
         <div class="ic">${ic('swap')}</div>
         <div class="grow">
           <strong>Cambiar cuenta</strong>
-          <div class="muted" style="font-size:12px;margin-top:3px">Cerrar Cloudflare y entrar con otro correo</div>
+          <div class="note mt1">Cerrar Cloudflare y entrar con otro correo</div>
         </div>
         <div>›</div>
       </div>
@@ -719,7 +728,7 @@ function renderMore(){
         <div class="ic">${ic('logout')}</div>
         <div class="grow">
           <strong>Cerrar sesión</strong>
-          <div class="muted" style="font-size:12px;margin-top:3px">Cerrar solamente la sesión de Práctica</div>
+          <div class="note mt1">Cerrar solamente la sesión de Práctica</div>
         </div>
         <div>›</div>
       </div>
@@ -835,11 +844,11 @@ function openGoals(){
   const catWeek=weekCategoryProgress(a,s=>sessionExercise(s).category,g.byCategory,weekStart);
   const m=$('#exerciseModal');
   m.innerHTML=`<div class="topbar"><button id="closeGoals">Cerrar</button><h2>Objetivos</h2><button id="saveGoalsBtn">Guardar</button></div><div class="form">
-    <div class="section-title" style="margin-top:0">Progreso actual</div>
+    <div class="section-title mt0">Progreso actual</div>
     <div class="card">
-      <div class="cat-row"><div class="grow"><strong>Hoy</strong><div class="muted" style="font-size:12px;margin-top:4px">${fmt(todayMinutes)} de ${fmt(g.dailyMinutes)}</div></div><strong style="color:var(--accent)">${pct(todayMinutes,g.dailyMinutes)}%</strong></div>
-      <div class="cat-row"><div class="grow"><strong>Días esta semana</strong><div class="muted" style="font-size:12px;margin-top:4px">${weekDays} de ${g.weeklyDays} días</div></div><strong style="color:var(--accent)">${pct(weekDays,g.weeklyDays)}%</strong></div>
-      <div class="cat-row"><div class="grow"><strong>Tiempo esta semana</strong><div class="muted" style="font-size:12px;margin-top:4px">${fmt(weekMinutes)} de ${fmt(calculatedWeekly)}</div></div><strong style="color:var(--accent)">${pct(weekMinutes,calculatedWeekly)}%</strong></div>
+      <div class="cat-row"><div class="grow"><strong>Hoy</strong><div class="note mt1">${fmt(todayMinutes)} de ${fmt(g.dailyMinutes)}</div></div><strong style="color:var(--accent)">${pct(todayMinutes,g.dailyMinutes)}%</strong></div>
+      <div class="cat-row"><div class="grow"><strong>Días esta semana</strong><div class="note mt1">${weekDays} de ${g.weeklyDays} días</div></div><strong style="color:var(--accent)">${pct(weekDays,g.weeklyDays)}%</strong></div>
+      <div class="cat-row"><div class="grow"><strong>Tiempo esta semana</strong><div class="note mt1">${fmt(weekMinutes)} de ${fmt(calculatedWeekly)}</div></div><strong style="color:var(--accent)">${pct(weekMinutes,calculatedWeekly)}%</strong></div>
     </div>
 
     <div class="section-title">Configurar</div>
@@ -852,21 +861,21 @@ function openGoals(){
       <input id="goalDays" type="number" min="1" max="7" step="1" value="${g.weeklyDays}">
     </div>
 
-    <div class="card" style="margin-top:8px">
+    <div class="card mt2">
       <div class="cat-row" style="border-bottom:0">
         <div class="grow">
           <strong>Objetivo semanal</strong>
-          <div id="weeklyFormula" class="muted" style="font-size:12px;margin-top:5px"></div>
+          <div id="weeklyFormula" class="note mt1"></div>
         </div>
         <strong id="weeklyGoalPreview" style="color:var(--accent)">${fmt(calculatedWeekly)}</strong>
       </div>
     </div>
 
-    <div class="empty" style="margin-top:12px">El objetivo semanal se calcula automáticamente a partir de tus horas diarias × los días que quieras practicar.</div>
+    <div class="empty mt3">El objetivo semanal se calcula automáticamente a partir de tus horas diarias × los días que quieras practicar.</div>
 
     <div class="section-title">Por categoría (minutos a la semana)</div>
-    <div class="card">${categories.map(c=>{const r=catWeek.find(x=>x.cat===c);return `<div class="cat-row"><div class="c" style="--cat:${catColor(c)}"></div><div class="grow">${esc(c)}${r?`<div class="muted" style="font-size:12px;margin-top:3px">Esta semana: ${fmt(r.done)} · ${Math.round(r.pct*100)}%</div>`:''}</div><input data-catgoal="${esc(c)}" type="number" inputmode="numeric" min="0" max="3000" step="15" value="${g.byCategory[c]||''}" placeholder="—" aria-label="Minutos a la semana de ${esc(c)}" style="width:76px;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:10px;padding:8px;text-align:center"></div>`}).join('')}</div>
-    <div class="empty" style="margin-top:12px">Vacío = sin objetivo. Los que pongas salen en Inicio con su barra de avance; la semana empieza el lunes.</div>
+    <div class="card">${categories.map(c=>{const r=catWeek.find(x=>x.cat===c);return `<div class="cat-row"><div class="c" style="--cat:${catColor(c)}"></div><div class="grow">${esc(c)}${r?`<div class="note mt1">Esta semana: ${fmt(r.done)} · ${Math.round(r.pct*100)}%</div>`:''}</div><input data-catgoal="${esc(c)}" type="number" inputmode="numeric" min="0" max="3000" step="15" value="${g.byCategory[c]||''}" placeholder="—" aria-label="Minutos a la semana de ${esc(c)}" style="width:76px;border:1px solid #242929;background:var(--card2);color:#fff;border-radius:10px;padding:8px;text-align:center"></div>`}).join('')}</div>
+    <div class="empty mt3">Vacío = sin objetivo. Los que pongas salen en Inicio con su barra de avance; la semana empieza el lunes.</div>
   </div>`;
 
   m.classList.add('open');
@@ -894,7 +903,7 @@ function openGoals(){
   };
 }
 
-function openCategories(){const m=$('#exerciseModal');m.innerHTML=`<div class="topbar"><button id="closeCategories">Cerrar</button><h2>Categorías</h2><button></button></div><div class="form"><div class="card">${categories.map(c=>`<div class="cat-row"><div class="c" style="--cat:${catColor(c)}"></div><div class="grow">${esc(c)}</div><span class="cat-badge" style="--cat:${catColor(c)}">${esc(c)}</span></div>`).join('')}</div><div class="empty" style="margin-top:12px">Cada categoría conserva este color en el historial, ejercicios y estadísticas.</div></div>`;m.classList.add('open');$('#closeCategories').onclick=()=>m.classList.remove('open')}
+function openCategories(){const m=$('#exerciseModal');m.innerHTML=`<div class="topbar"><button id="closeCategories">Cerrar</button><h2>Categorías</h2><button></button></div><div class="form"><div class="card">${categories.map(c=>`<div class="cat-row"><div class="c" style="--cat:${catColor(c)}"></div><div class="grow">${esc(c)}</div><span class="cat-badge" style="--cat:${catColor(c)}">${esc(c)}</span></div>`).join('')}</div><div class="empty mt3">Cada categoría conserva este color en el historial, ejercicios y estadísticas.</div></div>`;m.classList.add('open');$('#closeCategories').onclick=()=>m.classList.remove('open')}
 
 function updateKeyboardOffset(){
   const root=document.documentElement;
@@ -1206,7 +1215,7 @@ function openSessionDetail(id){
   const s=sessions().find(x=>x.id===id);if(!s)return;
   const e=sessionExercise(s),blocks=s.tempoBlocks||[],legacyVariant=variantNameForSession(s,e),m=$('#detailModal');
   m.innerHTML=`<div class="topbar"><button id="closeDetail">Cerrar</button><h2>${esc(e.name)}</h2><button id="editSession">Editar</button></div><div class="form">
-    <div class="detail-grid"><div class="mini"><span>Práctica</span><strong>${fmt(s.practiceMinutes)}</strong></div><div class="mini"><span>Fecha</span><strong style="font-size:13px">${new Date(s.date).toLocaleString('es-ES',{day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})}</strong></div></div>
+    <div class="detail-grid"><div class="mini"><span>Práctica</span><strong>${fmt(s.practiceMinutes)}</strong></div><div class="mini"><span>Fecha</span><strongclass="t-m">${new Date(s.date).toLocaleString('es-ES',{day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})}</strong></div></div>
     <div class="section-title">Detalles</div>
     <div class="card">
       <div class="cat-row"><div class="grow">Categoría</div><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span></div>
@@ -1214,10 +1223,10 @@ function openSessionDetail(id){
       ${s.warmupMinutes?`<div class="cat-row"><div class="grow">Calentamiento</div><span>${esc(s.warmup)} · ${fmt(s.warmupMinutes)}</span></div>`:''}
       <div class="cat-row"><div class="grow">Dificultad</div><span>${s.difficulty||3}/5</span></div>
     </div>
-    ${blocks.length?`<div class="section-title">Bloques de práctica</div><div class="card">${blocks.map(b=>{const v=blockVariantName(b,e)||legacyVariant;return `<div class="cat-row"><div class="grow">${v?`<strong>${esc(v)}</strong><div class="muted" style="font-size:12px;margin-top:4px">${b.bpm} BPM</div>`:`<strong>${b.bpm} BPM</strong>`}</div>${b.minutes!=null&&+b.minutes>0?`<span>${fmt(b.minutes)}</span>`:''}</div>`}).join('')}</div>`:''}
+    ${blocks.length?`<div class="section-title">Bloques de práctica</div><div class="card">${blocks.map(b=>{const v=blockVariantName(b,e)||legacyVariant;return `<div class="cat-row"><div class="grow">${v?`<strong>${esc(v)}</strong><div class="note mt1">${b.bpm} BPM</div>`:`<strong>${b.bpm} BPM</strong>`}</div>${b.minutes!=null&&+b.minutes>0?`<span>${fmt(b.minutes)}</span>`:''}</div>`}).join('')}</div>`:''}
     ${s.notes?`<div class="section-title">Notas</div><div class="card">${esc(s.notes)}</div>`:''}
     <div class="section-title">Acciones</div>
-    <button id="repeatSession" class="primary wide" style="margin-bottom:10px">${ic('repeat')} Repetir hoy</button>
+    <button id="repeatSession" class="primary wide mb3">${ic('repeat')} Repetir hoy</button>
     <button id="deleteSession" class="danger wide">Eliminar práctica</button>
   </div>`;
   m.classList.add('open');
@@ -1238,8 +1247,8 @@ function openExerciseLibrary(){
   m.innerHTML=`<div class="topbar"><button id="closeExercise">Cerrar</button><h2>Ejercicios</h2><button id="createExercise">Crear</button></div><div class="form">
     ${info.length?`<div class="field"><input id="exerciseSearch" type="search" placeholder="Buscar ejercicio o categoría…" autocomplete="off"></div>
     <div class="card">${info.map(({e,ss,total,last})=>`<div class="exercise-card" data-exercise="${esc(e.id)}" data-search="${esc(norm(e.name+' '+e.category))}"><h4>${esc(e.name)}</h4><div class="exercise-meta"><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span><span>${fmt(total)}</span><span>${ss.length} ${ss.length===1?'práctica':'prácticas'}</span>${last?`<span>Última: ${last.toLocaleDateString('es-ES')}</span>`:'<span>Sin practicar todavía</span>'}${e.songId?'<span style="color:var(--accent)">♫ Canción</span>':''}</div></div>`).join('')}<div id="noExerciseMatch" class="empty" hidden>Ningún ejercicio coincide.</div></div>`
-    :'<div class="card empty">Todavía no tienes ejercicios. Pulsa “Crear” para añadir el primero.</div>'}
-    <div class="empty" style="font-size:12px;margin:12px 4px 0">Puedes crear ejercicios sin registrar ninguna práctica y elegirlos después en “Nueva práctica”.</div>
+    :emptyState('list','Aún no tienes ejercicios','Pulsa «Crear» arriba, o se guardarán solos al registrar una práctica.')}
+    <div class="note mt3 mb0 mx1">Puedes crear ejercicios sin registrar ninguna práctica y elegirlos después en “Nueva práctica”.</div>
   </div>`;
   m.classList.add('open');
   $('#closeExercise').onclick=()=>m.classList.remove('open');
@@ -1315,23 +1324,23 @@ function openExerciseDetail(id){
   m.innerHTML=`<div class="topbar"><button id="backExercises">Atrás</button><h2>${esc(e.name)}</h2><button id="editExercise">Editar</button></div>
   <div class="form">
     <div class="stats3"><div class="mini"><span>Tiempo total</span><strong>${fmt(total)}</strong></div><div class="mini"><span>Prácticas</span><strong>${ss.length}</strong></div><div class="mini"><span>BPM máx.</span><strong>${maxBpm||'—'}</strong></div></div>
-    ${e.goalBpm?`<div class="card" style="margin-top:9px">${goalBar(exerciseGoal(e))}</div>`:`<button id="setGoal" class="secondary wide" type="button" style="margin-top:9px">${ic('target')} Poner BPM objetivo</button>`}
+    ${e.goalBpm?`<div class="card mt2">${goalBar(exerciseGoal(e))}</div>`:`<button id="setGoal" class="secondary wide mt2" type="button">${ic('target')} Poner BPM objetivo</button>`}
 
     <div class="section-title">Ejercicio</div>
     <div class="card"><div class="cat-row"><div class="grow">Categoría</div><span class="cat-badge" style="--cat:${catColor(e.category)}">${esc(e.category)}</span></div></div>
 
     <div class="section-title">Variantes</div>
-    ${variantStats.size?`<div class="card">${[...variantStats.values()].map(v=>`<div class="cat-row"><div class="grow"><strong>${esc(v.name)}</strong><div class="muted" style="font-size:12px;margin-top:4px">${v.count} ${v.count===1?'práctica':'prácticas'}</div></div><span>${v.total?fmt(v.total):'Sin practicar'}</span></div>`).join('')}</div>`:'<div class="card empty">Este ejercicio todavía no tiene variantes. Puedes crearlas desde Editar.</div>'}
+    ${variantStats.size?`<div class="card">${[...variantStats.values()].map(v=>`<div class="cat-row"><div class="grow"><strong>${esc(v.name)}</strong><div class="note mt1">${v.count} ${v.count===1?'práctica':'prácticas'}</div></div><span>${v.total?fmt(v.total):'Sin practicar'}</span></div>`).join('')}</div>`:'<div class="card empty">Este ejercicio todavía no tiene variantes. Puedes crearlas desde Editar.</div>'}
 
-    <div style="margin-top:14px"><button id="quickAdd" class="primary wide">+ Añadir práctica</button></div>
-    ${e.songId?'<div style="margin-top:8px"><button id="playSong" class="secondary wide" type="button">▶ Practicar con la canción</button></div>':''}
+    <divclass="mt4"><button id="quickAdd" class="primary wide">+ Añadir práctica</button></div>
+    ${e.songId?'<divclass="mt2"><button id="playSong" class="secondary wide" type="button">▶ Practicar con la canción</button></div>':''}
 
     <div class="section-title">Historial</div>
     ${ss.length?ss.map(sessionCard).join(''):'<div class="card empty">Este ejercicio está guardado, pero todavía no tiene prácticas.</div>'}
 
     <div class="section-title">Gestionar</div>
     <button id="deleteExercise" class="danger wide">Eliminar ejercicio</button>
-    <div class="empty" style="margin:9px 4px 0">Eliminar el ejercicio también eliminará todas sus prácticas asociadas y las descontará de las estadísticas.</div>
+    <div class="empty mt2 mb0 mx1">Eliminar el ejercicio también eliminará todas sus prácticas asociadas y las descontará de las estadísticas.</div>
   </div>`;
 
   $('#backExercises').onclick=openExerciseLibrary;
@@ -1357,7 +1366,7 @@ function openEditExercise(id){
     <div class="field"><label>Categoría</label><select id="editExerciseCategory">${categories.map(c=>`<option ${c===e.category?'selected':''}>${esc(c)}</option>`).join('')}</select></div>
     <div class="field"><label>BPM objetivo (opcional)</label><input id="editGoalBpm" type="number" inputmode="numeric" min="30" max="400" value="${e.goalBpm||''}" placeholder="Por ejemplo 140"></div>
     <div class="field"><label>Variantes</label><div id="editExerciseVariants"></div><button id="addEditExerciseVariant" class="secondary wide" type="button">+ Añadir variante</button></div>
-    <div class="card"><div class="cat-row" style="border-bottom:0"><div class="grow"><strong>${count} ${count===1?'práctica asociada':'prácticas asociadas'}</strong><div class="muted" style="font-size:12px;margin-top:5px">Renombrar una variante conserva las prácticas que ya estaban asociadas a ella.</div></div></div></div>
+    <div class="card"><div class="cat-row" style="border-bottom:0"><div class="grow"><strong>${count} ${count===1?'práctica asociada':'prácticas asociadas'}</strong><div class="note mt1">Renombrar una variante conserva las prácticas que ya estaban asociadas a ella.</div></div></div></div>
   </div>`;
 
   exerciseVariants(e).forEach(v=>addVariantEditorRow('editExerciseVariants',v.name,v.id));
@@ -1730,11 +1739,11 @@ function setScaleMode(id){
 }
 function scaleEditorHtml(){
   const d=scaleDraft,labels=d.sel.map(i=>CUSTOM_DEGREES[i]);
-  return `<div class="card" style="margin-top:10px">
+  return `<div class="card mt3">
     <div class="field"><label>Nombre de la escala</label><input id="csField" maxlength="40" autocomplete="off" value="${esc(d.name)}" placeholder="Mi escala"></div>
-    <div class="muted" style="font-size:12px;margin:0 4px 8px">Toca los grados que lleva (el 1 siempre está)</div>
+    <div class="note mt0 mb2 mx1">Toca los grados que lleva (el 1 siempre está)</div>
     <div class="degree-chips" style="grid-template-columns:repeat(6,1fr)">${CUSTOM_DEGREES.map((l,i)=>`<button type="button" data-cs="${i}" class="${d.sel.includes(i)?'on':''}" style="--deg:${degreeColor(l)}" aria-pressed="${d.sel.includes(i)}" ${i?'':'disabled'}>${pretty(l)}</button>`).join('')}</div>
-    <div class="key-notes" style="margin:12px 0">${solfege(scaleState.tonic)}: ${spellLabels(scaleState.tonic,labels).map(pretty).join(' · ')}</div>
+    <div class="key-notes mt3 mb3">${solfege(scaleState.tonic)}: ${spellLabels(scaleState.tonic,labels).map(pretty).join(' · ')}</div>
     <div class="block-actions"><button type="button" class="secondary" id="csCancel">Cancelar</button><button type="button" class="primary" id="csSave">Guardar</button></div>
   </div>`;
 }
@@ -1765,10 +1774,10 @@ function renderScales(){
       <button type="button" id="scalePlay" class="${scalePlay?'secondary':'primary'}" style="padding:0 14px;color:${scalePlay?'#fff':'#00131f'};background:${scalePlay?'':'var(--accent)'}">${scalePlay?'■ Parar':'▶ Escuchar'}</button>
       <button type="button" data-sbpm="-5" aria-label="Más lento">−</button><b class="tuner-a4" style="text-align:center">${st.playBpm} BPM</b><button type="button" data-sbpm="5" aria-label="Más rápido">+</button>
     </div>
-    <div class="string-row" style="margin-top:8px">${[[1,'Negras'],[2,'Corcheas'],[3,'Tresillos']].map(([k,l])=>`<button type="button" class="chip-btn${st.playSub===k?' on':''}" data-ssub="${k}" aria-pressed="${st.playSub===k}">${l}</button>`).join('')}</div>
-    <div class="string-row" style="margin-top:2px;align-items:center"><span class="muted" style="font-size:12px">Nota pedal</span>${[['','No'],['1','Tónica'],['15','Tónica y 5ª']].map(([k,l])=>`<button type="button" class="chip-btn${(drone?.mode||'')===k?' on':''}" data-drone="${k}" aria-pressed="${(drone?.mode||'')===k}">${l}</button>`).join('')}</div>
+    <div class="string-row mt2">${[[1,'Negras'],[2,'Corcheas'],[3,'Tresillos']].map(([k,l])=>`<button type="button" class="chip-btn${st.playSub===k?' on':''}" data-ssub="${k}" aria-pressed="${st.playSub===k}">${l}</button>`).join('')}</div>
+    <div class="string-row" style="margin-top:2px;align-items:center"><span class="note">Nota pedal</span>${[['','No'],['1','Tónica'],['15','Tónica y 5ª']].map(([k,l])=>`<button type="button" class="chip-btn${(drone?.mode||'')===k?' on':''}" data-drone="${k}" aria-pressed="${(drone?.mode||'')===k}">${l}</button>`).join('')}</div>
     <div class="section-title">Escala</div>
-    <div class="field" style="margin-bottom:8px"><select id="scaleType" aria-label="Tipo de escala">${SCALE_GROUPS.map(([g])=>`<optgroup label="${g}">${opts(SCALES.filter(s=>s.group===g))}</optgroup>`).join('')}${customScales.length?`<optgroup label="Mis escalas">${opts(customScales)}</optgroup>`:''}</select></div>
+    <div class="field mb2"><select id="scaleType" aria-label="Tipo de escala">${SCALE_GROUPS.map(([g])=>`<optgroup label="${g}">${opts(SCALES.filter(s=>s.group===g))}</optgroup>`).join('')}${customScales.length?`<optgroup label="Mis escalas">${opts(customScales)}</optgroup>`:''}</select></div>
     ${scaleDraft?scaleEditorHtml():`<div class="block-actions" style="${custom?'':'grid-template-columns:1fr'}"><button type="button" class="secondary" id="newScale">+ Crear escala</button>${custom?`<button type="button" class="secondary" id="editScale">Editar</button><button type="button" class="danger" id="delScale" style="grid-column:1/-1">Borrar «${esc(def.name)}»</button>`:''}</div>`}
     <div class="section-title">Grados visibles</div>
     <div class="degree-chips">${labels.map((l,i)=>`<button type="button" data-degree="${i}" class="${st.degrees[i]?'on':''}" style="--deg:${degreeColor(l)}" aria-pressed="${st.degrees[i]}">${pretty(l)}</button>`).join('')}</div>
@@ -1781,14 +1790,14 @@ function renderScales(){
     ${labels.length===7?`<div class="section-title">Acordes de cada grado</div>
     ${seg('data-chord7',[['3','Tríadas'],['4','Cuatriadas']],st.chord7?'4':'3')}
     <div class="degree-chips chord-chips">${labels.map((l,i)=>{const c=diatonicChord(labels,i,st.chord7);return `<button type="button" data-chord="${i}" class="${st.chord===i?'on':''}" style="--deg:var(--accent)" aria-pressed="${st.chord===i}" aria-label="${c.roman}: ${pretty(scale[i])}${c.sym}">${c.roman}<small>${pretty(scale[i])}${c.sym}</small></button>`}).join('')}</div>
-    <div class="muted" style="font-size:12px;margin:8px 4px 0">${st.chord!=null?'El mástil muestra el acorde (1 raíz, 3 tercera, 5 quinta, 7 séptima). Tócalo otra vez para volver a la escala.':'Toca un acorde para oírlo y verlo en el mástil.'}</div>`:''}
+    <div class="note mt2 mb0 mx1">${st.chord!=null?'El mástil muestra el acorde (1 raíz, 3 tercera, 5 quinta, 7 séptima). Tócalo otra vez para volver a la escala.':'Toca un acorde para oírlo y verlo en el mástil.'}</div>`:''}
     <div class="section-title">Mástil</div>
     ${seg('data-scale-labels',[['degrees','Grados'],['notes','Notas']],st.labels)}
     ${labels.length===7||labels.length===5?`<div class="chip-row" aria-label="Posición">${[['','Todo el mástil'],...labels.map((l,i)=>[String(i),`Posición ${i+1}`])].map(([k,l])=>`<button type="button" class="chip-btn${String(st.pos??'')===k?' on':''}" data-pos="${k}" aria-pressed="${String(st.pos??'')===k}">${l}</button>`).join('')}</div>
-    <div class="muted" style="font-size:12px;margin:6px 4px 8px">${st.chord!=null?'Con un acorde elegido se ve el acorde en todo el mástil.':st.pos!=null?`${labels.length===7?3:2} notas por cuerda, empezando en el grado ${pretty(labels[st.pos])} de la cuerda más grave.`:`Elige una posición para ver la escala por zonas (${labels.length===7?'3':'2'} notas por cuerda).`}</div>`:''}
+    <div class="note mt2 mb2 mx1">${st.chord!=null?'Con un acorde elegido se ve el acorde en todo el mástil.':st.pos!=null?`${labels.length===7?3:2} notas por cuerda, empezando en el grado ${pretty(labels[st.pos])} de la cuerda más grave.`:`Elige una posición para ver la escala por zonas (${labels.length===7?'3':'2'} notas por cuerda).`}</div>`:''}
     <div class="card fret-scroll">${fretboardSvg()}</div>
-    <button type="button" class="secondary wide" id="openQuiz" style="margin-top:10px">${ic('fret')} Juego del mástil</button>
-    <button type="button" class="secondary wide" id="openEar" style="margin-top:8px">${ic('ear')} Entrenar el oído</button>`;
+    <button type="button" class="secondary wide mt3" id="openQuiz">${ic('fret')} Juego del mástil</button>
+    <button type="button" class="secondary wide mt2" id="openEar">${ic('ear')} Entrenar el oído</button>`;
   const posFrets=st.pos!=null&&st.chord==null?scalePosition(scaleTuning(),st.instrument,st.tonic,labels,st.pos,15):null;
   $('.fret-scroll').scrollLeft=posFrets?Math.max(0,58+(Math.min(...posFrets.map(x=>x.f))-1.5)*44-8):fretLeft; // la posición queda a la vista
   $$('[data-key]').forEach(g=>g.onclick=()=>{const [ring,n]=g.dataset.key.split(':');st.ring=ring;st.tonic=n;if(st.mode==='major'||st.mode==='minor')st.mode=ring;renderScales()});
@@ -1851,14 +1860,14 @@ function octaveCard(){
   const o=tunerOctave,tu=tunerTuning();if(!o)return '';
   const name=i=>splitNote(tu.names[i]).join(''),r=o.results[o.s],fmtC=c=>`${c>0?'+':''}${fmtNum(c)} cents`;
   const done=Object.entries(o.results).filter(([i])=>+i!==o.s);
-  return `<div class="card" style="margin-top:9px">
+  return `<div class="card mt2">
     <div class="cat-row" style="border:0;padding:0 0 8px"><div class="grow"><strong>Octavación · cuerda ${name(o.s)}</strong><div class="muted tsub">Toca una cuerda de abajo para cambiar</div></div><button type="button" class="chip-btn" id="octExit">Salir</button></div>
     <div class="cat-row"><div class="grow">1 · Al aire</div><span>${o.open!=null?fmtC(o.open):o.step==='open'?'<span class="muted">esperando…</span>':''}</span></div>
     <div class="cat-row"><div class="grow">2 · Traste 12 (pisado)</div><span>${r?fmtC(o.open+r.diff):o.step==='fret'?'<span class="muted">esperando…</span>':'<span class="muted">—</span>'}</span></div>
     ${r?`<div class="tuner-hint" style="text-align:left;color:${r.verdict==='ok'?'var(--accent)':'#FFD166'}">${r.verdict==='ok'?'✓ ':''}Diferencia ${fmtC(r.diff)}. ${OCTAVE_TEXT[r.verdict]}</div>
-      ${r.verdict==='ok'?'':'<div class="muted" style="font-size:12px">Afloja la cuerda antes de mover la selleta, vuelve a afinar y repite.</div>'}
-      <button type="button" class="secondary wide" id="octAgain" style="margin-top:10px">Repetir esta cuerda</button>`:''}
-    ${done.length?`<div class="muted" style="font-size:12px;margin-top:10px">${done.map(([i,x])=>`${name(+i)}: ${x.verdict==='ok'?'bien':x.verdict==='sharp'?`${fmtC(x.diff)} ↑`:`${fmtC(x.diff)} ↓`}`).join(' · ')}</div>`:''}
+      ${r.verdict==='ok'?'':'<div class="note">Afloja la cuerda antes de mover la selleta, vuelve a afinar y repite.</div>'}
+      <button type="button" class="secondary wide mt3" id="octAgain">Repetir esta cuerda</button>`:''}
+    ${done.length?`<div class="note mt3">${done.map(([i,x])=>`${name(+i)}: ${x.verdict==='ok'?'bien':x.verdict==='sharp'?`${fmtC(x.diff)} ↑`:`${fmtC(x.diff)} ↓`}`).join(' · ')}</div>`:''}
   </div>`;
 }
 // Recibe cada lectura del afinador mientras se comprueba la octavación.
@@ -2004,7 +2013,7 @@ function renderTuner(){
   $('#tunerBody').innerHTML=`
     ${seg('data-tinst',[['Guitarra','Guitarra'],['Bajo','Bajo']],pr.instrument)}
     <div class="string-row">${(pr.instrument==='Bajo'?[4,5]:[6,7]).map(k=>`<button type="button" class="chip-btn${nStr===k?' on':''}" data-tstrings="${k}" aria-pressed="${nStr===k}">${k} cuerdas</button>`).join('')}</div>
-    <div class="field" style="margin:4px 0 10px"><select id="tTuning" aria-label="Afinación">${list.map(t=>`<option value="${t[0]}" ${tu.id===t[0]?'selected':''}>${t[1]} · ${t[2].split(' ').map(n=>pretty(n.replace(/\d/,''))).join(' ')}</option>`).join('')}<option value="custom" ${tu.id==='custom'?'selected':''}>Propia…</option></select></div>
+    <div class="field mt1 mb3"><select id="tTuning" aria-label="Afinación">${list.map(t=>`<option value="${t[0]}" ${tu.id===t[0]?'selected':''}>${t[1]} · ${t[2].split(' ').map(n=>pretty(n.replace(/\d/,''))).join(' ')}</option>`).join('')}<option value="custom" ${tu.id==='custom'?'selected':''}>Propia…</option></select></div>
     ${tu.id==='custom'?`<div class="card tuner-custom">${tu.midis.map((m,i)=>`<div><button type="button" data-cdown="${i}" aria-label="Bajar cuerda ${i+1}">−</button><b>${splitNote(midiName(m)).join('')}</b><button type="button" data-cup="${i}" aria-label="Subir cuerda ${i+1}">+</button></div>`).join('')}</div>`:''}
     ${tunerSongCard()}
     <div class="card tuner-display" id="tunerDisplay">
@@ -2025,7 +2034,7 @@ function renderTuner(){
       ${pr.chromatic?'':`<div class="cat-row" style="padding:4px 0 10px"><div class="grow">Comprobar octavación<div class="muted tsub">Al aire frente al traste 12, para ajustar el puente</div></div><button type="button" class="chip-btn${tunerOctave?' on':''}" id="tOctave" aria-pressed="${!!tunerOctave}">${tunerOctave?'Sí':'No'}</button></div>`}
       <div class="tuner-cal"><span class="muted grow">La de referencia</span><button type="button" id="tA4down" aria-label="Bajar La">−</button><button type="button" id="tA4" class="tuner-a4" aria-label="Volver a 440 Hz">${fmtNum(pr.a4)} Hz</button><button type="button" id="tA4up" aria-label="Subir La">+</button></div>
     </div>
-    <div class="empty" style="font-size:12px;margin:12px 4px 0">El sonido se analiza en el dispositivo y no se guarda. Afina siempre subiendo hacia la nota.</div>`;
+    <div class="note mt3 mb0 mx1">El sonido se analiza en el dispositivo y no se guarda. Afina siempre subiendo hacia la nota.</div>`;
   const reset=()=>{tunerTuned.clear();tunerLock=null;tunerOctave=null;saveTunerPrefs();renderTuner()};
   const octStart=i=>{tunerLock=i;tunerOctave={...(tunerOctave||{results:{}}),s:i,step:'open',open:null,buf:[],waitQuiet:false};delete tunerOctave.results[i]};
   $$('[data-tinst]').forEach(b=>b.onclick=()=>{pr.instrument=b.dataset.tinst;reset()});
@@ -2192,12 +2201,12 @@ function renderQuiz(){
   const q=z.q,a=z.answered,pcs=quizPcs(),seg=(attr,items,cur)=>`<div class="seg${items.length===2?' two':''}">${items.map(([k,l])=>`<button type="button" ${attr}="${k}" class="${cur===k?'active':''}">${l}</button>`).join('')}</div>`;
   const first=pc=>QUIZ_NAMES[pc].split('/')[0];
   body.innerHTML=`<div class="backline" id="quizBack">‹ Escalas</div>
-    <div class="title" style="font-size:24px;margin:0 0 12px">Juego del mástil</div>
+    <div class="title sub">Juego del mástil</div>
     ${seg('data-qrange',[['5','Trastes 0–5'],['12','Trastes 0–12']],String(st.quizRange||5))}
     ${seg('data-qnotes',[['all','Todas'],['natural','Naturales'],['scale','De la escala']],st.quizNotes||'all')}
     ${st.quizNotes==='scale'?`<div class="key-notes" style="margin:-6px 0 10px">${solfege(st.tonic)} · ${esc(scaleDef(st.mode).name)}</div>`:''}
     <div class="stats3"><div class="mini"><span>Aciertos</span><strong>${z.hits}/${z.total}</strong></div><div class="mini accent"><span>Racha</span><strong>${z.streak}</strong></div><div class="mini"><span>Mejor racha</span><strong>${st.quizBest||0}</strong></div></div>
-    <div class="card fret-scroll" style="margin-top:9px">${q?fretboardSvg({s:q.s,f:q.f,state:a?(a.ok?'ok':'bad'):null,label:a?pretty(first(q.pc)):'?'}):''}</div>
+    <div class="card fret-scroll mt2">${q?fretboardSvg({s:q.s,f:q.f,state:a?(a.ok?'ok':'bad'):null,label:a?pretty(first(q.pc)):'?'}):''}</div>
     <div class="tuner-hint" style="text-align:center;color:${a?(a.ok?'#4EEE7C':'#ff655f'):'var(--muted)'}">${!q?'No hay posiciones con estas notas':a?(a.ok?'¡Bien!':`Era ${solfege(first(q.pc))} (${pretty(QUIZ_NAMES[q.pc])})`):`¿Qué nota es? Cuerda ${scaleTuning().length-q.s}, traste ${q.f}`}</div>
     <div class="quiz-answers">${pcs.map(pc=>{const n=QUIZ_NAMES[pc].split('/');return `<button type="button" data-qa="${pc}" class="${a&&pc===q.pc?'right':a&&pc===a.pc&&!a.ok?'wrong':''}" ${a||!q?'disabled':''}><b>${pretty(n[0])}</b><small>${n.length>1?pretty(n[1]):solfege(n[0])}</small></button>`}).join('')}</div>`;
   const sc=$('.fret-scroll'),mk=$('#quizMark');if(sc&&mk)sc.scrollLeft=+mk.getAttribute('cx')-sc.clientWidth/2;
@@ -2231,12 +2240,12 @@ function renderEar(){
   const kind=earKind(),q=z.q,a=z.answered,best=st.earBest?.[kind]||0,list=kind==='chord'?EAR_CHORDS.map(c=>c[0]):EAR_INTERVALS.map(x=>x[1]);
   const seg=(attr,items,cur)=>`<div class="seg${items.length===2?' two':''}">${items.map(([k,l])=>`<button type="button" ${attr}="${k}" class="${cur===k?'active':''}">${l}</button>`).join('')}</div>`;
   body.innerHTML=`<div class="backline" id="earBack">‹ Escalas</div>
-    <div class="title" style="font-size:24px;margin:0 0 12px">Entrenar el oído</div>
+    <div class="title sub">Entrenar el oído</div>
     ${seg('data-ekind',[['int','Intervalos'],['chord','Acordes']],kind)}
     ${seg('data-eset',kind==='chord'?[['basic','Tríadas'],['all','Con séptimas']]:[['basic','Básicos'],['all','Todos']],st.earSet==='all'?'all':'basic')}
     ${kind==='int'?seg('data-eharm',[['0','Una tras otra'],['1','A la vez']],st.earHarm?'1':'0'):''}
     <div class="stats3"><div class="mini"><span>Aciertos</span><strong>${z.hits}/${z.total}</strong></div><div class="mini accent"><span>Racha</span><strong>${z.streak}</strong></div><div class="mini"><span>Mejor racha</span><strong>${best}</strong></div></div>
-    <button type="button" class="primary wide" id="earAgain" style="margin-top:12px">▶ Escuchar otra vez</button>
+    <button type="button" class="primary wide mt3" id="earAgain">▶ Escuchar otra vez</button>
     <div class="tuner-hint" style="text-align:center;color:${a?(a.ok?'#4EEE7C':'#ff655f'):'var(--muted)'}">${a?(a.ok?'¡Bien!':`Era ${list[q.i]}`):kind==='chord'?'¿Qué acorde es?':'¿Qué intervalo es?'}</div>
     <div class="quiz-answers ear-answers">${earOptions(kind,st.earSet).map(i=>`<button type="button" data-ea="${i}" class="${a&&i===q.i?'right':a&&i===a.i&&!a.ok?'wrong':''}" ${a?'disabled':''}><b>${list[i]}</b></button>`).join('')}</div>`;
   $('#earBack').onclick=()=>{earQuiz=null;renderScales()};
@@ -2377,10 +2386,10 @@ function renderRoutine(){
   const items=routineItems,r=routineRun,total=items.reduce((n,x)=>n+x.minutes,0);
   if(r&&r.i>=items.length){ // terminada
     const list=items.map((it,k)=>({n:name(it.exerciseId),min:Math.round(r.acc[k]/60),bpm:it.bpm}));
-    body.innerHTML=`<div class="key-title" style="margin:6px 0 4px">¡Rutina terminada!</div><div class="key-notes">${fmt(Math.round(r.acc.reduce((a,b)=>a+b,0)/60))} en total</div>
-      <div class="card" style="margin-top:14px">${list.map(x=>`<div class="cat-row"><div class="grow">${esc(x.n)}${x.bpm?` <span class="tempo-bpm" style="font-size:12px">${x.bpm} BPM</span>`:''}</div><span>${x.min?fmt(x.min):'<span class="muted">sin hacer</span>'}</span></div>`).join('')}</div>
-      <button class="primary wide" id="routineSave" type="button" style="margin-top:14px">Guardar prácticas</button>
-      <button class="secondary wide" id="routineDiscard" type="button" style="margin-top:8px">Descartar</button>`;
+    body.innerHTML=`<div class="key-title mt2 mb1">¡Rutina terminada!</div><div class="key-notes">${fmt(Math.round(r.acc.reduce((a,b)=>a+b,0)/60))} en total</div>
+      <div class="card mt4">${list.map(x=>`<div class="cat-row"><div class="grow">${esc(x.n)}${x.bpm?` <span class="tempo-bpm t-s">${x.bpm} BPM</span>`:''}</div><span>${x.min?fmt(x.min):'<span class="muted">sin hacer</span>'}</span></div>`).join('')}</div>
+      <button class="primary wide mt4" id="routineSave" type="button">Guardar prácticas</button>
+      <button class="secondary wide mt2" id="routineDiscard" type="button">Descartar</button>`;
     $('#routineSave').onclick=saveRoutineRun;
     $('#routineDiscard').onclick=()=>{if(confirm('¿Descartar el tiempo de esta rutina sin guardarlo?')){routineRun=null;renderRoutine()}};
     return;
@@ -2388,29 +2397,29 @@ function renderRoutine(){
   if(r){ // en marcha o en pausa
     const it=items[r.i],next=items[r.i+1];
     body.innerHTML=`<div class="card metro-main" style="padding:18px 15px">
-        <div class="muted" style="font-size:13px">Ejercicio ${r.i+1} de ${items.length}</div>
-        <div class="key-title" style="margin:6px 0 2px">${esc(name(it.exerciseId))}</div>
-        ${it.bpm?`<div class="tempo-bpm" style="font-size:14px">${it.bpm} BPM</div>`:''}
-        <div class="bpm-big metro-bpm" id="routineLeft" style="margin-top:8px">${fmtCountdown(it.minutes*60-routineElapsed(r,Date.now()))}</div>
+        <div class="note">Ejercicio ${r.i+1} de ${items.length}</div>
+        <div class="key-title mt2 mb1">${esc(name(it.exerciseId))}</div>
+        ${it.bpm?`<div class="tempo-bpm t-m">${it.bpm} BPM</div>`:''}
+        <div class="bpm-big metro-bpm mt2" id="routineLeft">${fmtCountdown(it.minutes*60-routineElapsed(r,Date.now()))}</div>
         <div class="progress"><i id="routineBar" style="width:${Math.min(100,routineElapsed(r,Date.now())/(it.minutes*.6))}%"></i></div>
-        <div class="muted" style="font-size:12px">${next?`Siguiente: ${esc(name(next.exerciseId))} · ${next.minutes} min`:'Es el último'}</div>
+        <div class="note">${next?`Siguiente: ${esc(name(next.exerciseId))} · ${next.minutes} min`:'Es el último'}</div>
         <div class="metro-row"><button type="button" id="routinePause">${r.t0==null?'▶ Seguir':'❚❚ Pausa'}</button><button type="button" id="routineSkip">Saltar ›</button><button type="button" id="routineEnd">Terminar</button></div>
       </div>
-      <div class="card" style="margin-top:9px">${items.map((x,k)=>`<div class="cat-row" style="padding:8px 0;${k===r.i?'color:var(--accent);font-weight:700':k<r.i?'opacity:.5':''}"><div class="grow">${k<r.i?'✓ ':''}${esc(name(x.exerciseId))}</div><span>${x.minutes} min</span></div>`).join('')}</div>`;
+      <div class="card mt2">${items.map((x,k)=>`<div class="cat-row" style="padding:8px 0;${k===r.i?'color:var(--accent);font-weight:700':k<r.i?'opacity:.5':''}"><div class="grow">${k<r.i?'✓ ':''}${esc(name(x.exerciseId))}</div><span>${x.minutes} min</span></div>`).join('')}</div>`;
     $('#routinePause').onclick=()=>{const now=Date.now();if(r.t0==null)r.t0=now;else{r.acc[r.i]+=(now-r.t0)/1000;r.t0=null}renderRoutine()};
     $('#routineSkip').onclick=()=>{const now=Date.now(),run=r.t0!=null;if(run)r.acc[r.i]+=(now-r.t0)/1000;r.i++;r.t0=run&&r.i<items.length?now:null;routineChime(r.i>=items.length);renderRoutine()};
     $('#routineEnd').onclick=()=>{const now=Date.now();if(r.t0!=null)r.acc[r.i]+=(now-r.t0)/1000;r.t0=null;r.i=items.length;renderRoutine()};
     return;
   }
   // editor
-  if(!exs.length){body.innerHTML='<div class="card empty">Primero guarda algún ejercicio (con una práctica o desde la biblioteca) para montar la rutina.</div>';return}
-  body.innerHTML=`<div class="muted" style="font-size:12px;margin:0 4px 10px">Elige los ejercicios en orden, los minutos de cada uno y, si quieres, el BPM. Se guarda sola.</div>
+  if(!exs.length){body.innerHTML=emptyState('timer','Primero, algún ejercicio','La rutina encadena tus ejercicios guardados. Registra una práctica o crea un ejercicio en Más › Ejercicios guardados.');return}
+  body.innerHTML=`<div class="note mt0 mb3 mx1">Elige los ejercicios en orden, los minutos de cada uno y, si quieres, el BPM. Se guarda sola.</div>
     <div class="tempo-box">
-      ${items.length?`<div class="tempo-row muted" style="font-size:11px;margin-bottom:4px"><span>Ejercicio</span><span>Min</span><span>BPM</span><span></span></div>`:''}
-      ${items.map((x,k)=>`<div class="tempo-row"><select data-rex="${k}" aria-label="Ejercicio ${k+1}">${exs.map(e=>`<option value="${esc(e.id)}" ${e.id===x.exerciseId?'selected':''}>${esc(e.name)}</option>`).join('')}${exs.some(e=>e.id===x.exerciseId)?'':'<option selected value="">Ejercicio borrado</option>'}</select><input data-rmin="${k}" type="number" inputmode="numeric" min="1" max="120" value="${x.minutes}" aria-label="Minutos"><input data-rbpm="${k}" type="number" inputmode="numeric" min="30" max="400" value="${x.bpm||''}" placeholder="—" aria-label="BPM"><button type="button" class="remove" data-rdel="${k}" aria-label="Quitar">✕</button></div>`).join('')||'<div class="empty" style="font-size:13px">La rutina está vacía.</div>'}
+      ${items.length?`<div class="tempo-row note mb1"><span>Ejercicio</span><span>Min</span><span>BPM</span><span></span></div>`:''}
+      ${items.map((x,k)=>`<div class="tempo-row"><select data-rex="${k}" aria-label="Ejercicio ${k+1}">${exs.map(e=>`<option value="${esc(e.id)}" ${e.id===x.exerciseId?'selected':''}>${esc(e.name)}</option>`).join('')}${exs.some(e=>e.id===x.exerciseId)?'':'<option selected value="">Ejercicio borrado</option>'}</select><input data-rmin="${k}" type="number" inputmode="numeric" min="1" max="120" value="${x.minutes}" aria-label="Minutos"><input data-rbpm="${k}" type="number" inputmode="numeric" min="30" max="400" value="${x.bpm||''}" placeholder="—" aria-label="BPM"><button type="button" class="remove" data-rdel="${k}" aria-label="Quitar">✕</button></div>`).join('')||'<div class="note">La rutina está vacía.</div>'}
       <div class="block-actions" style="grid-template-columns:1fr"><button type="button" class="secondary" id="routineAdd">+ Añadir ejercicio</button></div>
     </div>
-    <div class="total" style="margin:14px 4px"><span class="muted">Total</span><b>${fmt(total)}</b></div>
+    <div class="total mt4 mb4 mx1"><span class="muted">Total</span><b>${fmt(total)}</b></div>
     <button type="button" class="primary wide" id="routineStart" ${items.length?'':'disabled'}>▶ Empezar rutina</button>`;
   const upd=fn=>e=>{fn(+e.target.dataset[Object.keys(e.target.dataset)[0]],e.target.value);routineItems=cleanRoutine(routineItems);saveRoutine();renderRoutine()};
   $$('[data-rex]').forEach(el=>el.onchange=upd((k,v)=>{if(v)items[k].exerciseId=v}));
@@ -2479,19 +2488,19 @@ function renderMetro(){
   $('#metroBody').innerHTML=`
     <div class="card metro-main">
       <div class="metro-dots" id="metroDots">${Array.from({length:p.beats},(_,i)=>`<i class="${i===0&&p.accent?'acc':''}"></i>`).join('')}</div>
-      <div class="bpm-row"><button id="metroDown" type="button" aria-label="Bajar BPM">−</button><div><div class="bpm-big metro-bpm" id="metroBpm">${p.bpm}</div><div class="muted" style="text-align:center;font-size:12px">BPM · ${p.sub===3?`${p.beats*3}/8`:`${p.beats}/4`} · ${SUB_NAMES[p.sub].toLowerCase()}</div></div><button id="metroUp" type="button" aria-label="Subir BPM">+</button></div>
+      <div class="bpm-row"><button id="metroDown" type="button" aria-label="Bajar BPM">−</button><div><div class="bpm-big metro-bpm" id="metroBpm">${p.bpm}</div><div class="note center">BPM · ${p.sub===3?`${p.beats*3}/8`:`${p.beats}/4`} · ${SUB_NAMES[p.sub].toLowerCase()}</div></div><button id="metroUp" type="button" aria-label="Subir BPM">+</button></div>
       <input id="metroRange" class="range" type="range" min="30" max="300" step="1" value="${p.bpm}" style="margin-top:12px" aria-label="BPM">
       <div class="metro-row"><button type="button" data-mstep="-5">−5</button><button type="button" id="metroTap">Tap</button><button type="button" data-mstep="5">+5</button></div>
-      <button id="metroPlay" class="primary wide" type="button" style="margin-top:12px">${metro?'❚❚ Parar':'▶ Empezar'}</button>
+      <button id="metroPlay" class="primary wide mt3" type="button">${metro?'❚❚ Parar':'▶ Empezar'}</button>
     </div>
     <div class="section-title">Compás</div>
     <div class="card">
-      <div class="chip-row" style="margin-top:0">${[2,3,4,5,6,7].map(b=>`<button type="button" class="chip-btn${p.beats===b?' on':''}" data-beats="${b}">${b} tiempos</button>`).join('')}</div>
+      <div class="chip-row mt0">${[2,3,4,5,6,7].map(b=>`<button type="button" class="chip-btn${p.beats===b?' on':''}" data-beats="${b}">${b} tiempos</button>`).join('')}</div>
       <div class="chip-row">${[1,2,3,4].map(s=>`<button type="button" class="chip-btn${p.sub===s?' on':''}" data-sub="${s}">${SUB_NAMES[s]}</button>`).join('')}</div>
       <div class="cat-row" style="border-bottom:0;padding:12px 0 0"><div class="grow">Acento en el 1</div><button type="button" class="chip-btn${p.accent?' on':''}" id="metroAccent" aria-pressed="${p.accent}">${p.accent?'Sí':'No'}</button></div>
     </div>
-    <div class="card" style="margin-top:9px">
-      <div class="cat-row" style="border-bottom:0;padding-top:0"><div class="grow"><strong>Práctica</strong><div class="muted" style="font-size:12px;margin-top:4px">Cuenta mientras suena, separado por BPM</div></div><strong id="metroTime" style="color:var(--accent);font-variant-numeric:tabular-nums">${fmtClock(metroSeconds())}</strong></div>
+    <div class="card mt2">
+      <div class="cat-row" style="border-bottom:0;padding-top:0"><div class="grow"><strong>Práctica</strong><div class="note mt1">Cuenta mientras suena, separado por BPM</div></div><strong id="metroTime" style="color:var(--accent);font-variant-numeric:tabular-nums">${fmtClock(metroSeconds())}</strong></div>
       <button id="metroLog" class="secondary wide" type="button">Guardar práctica</button>
     </div>`;
   const setBpm=v=>{p.bpm=Math.min(300,Math.max(30,Math.round(v)));saveMetroPrefs();$('#metroBpm').textContent=p.bpm;$('#metroRange').value=p.bpm};
@@ -2599,11 +2608,11 @@ async function renderSongList(){
   body.innerHTML=`
     <button id="pickSong" class="primary wide" type="button" ${job?'disabled':''}>+ Subir canción</button>
     <input id="songFile" class="hidden-file" type="file" accept="audio/*,.mp3,.m4a,.wav,.aac,.flac">
-    <div class="empty" style="font-size:12px;margin:9px 4px 0">Se separa en 6 pistas (guitarra, bajo, batería, voz, piano y otros) con IA dentro de tu móvil; el audio no sale del dispositivo. La primera vez descarga el modelo (57 MB). Mantén la app abierta mientras procesa.</div>
-    ${job?`<div class="card" style="margin-top:14px"><strong>${esc(job.name)}</strong><div class="progress"><i id="jobBar" style="width:${Math.round(job.value*100)}%"></i></div><div id="jobText" class="muted" style="font-size:12px">${esc(job.text)}</div><button id="cancelJob" class="secondary wide" style="margin-top:10px" type="button">Cancelar</button></div>`:''}
+    <div class="note mt2 mb0 mx1">Se separa en 6 pistas (guitarra, bajo, batería, voz, piano y otros) con IA dentro de tu móvil; el audio no sale del dispositivo. La primera vez descarga el modelo (57 MB). Mantén la app abierta mientras procesa.</div>
+    ${job?`<div class="card mt4"><strong>${esc(job.name)}</strong><div class="progress"><i id="jobBar" style="width:${Math.round(job.value*100)}%"></i></div><div id="jobText" class="note">${esc(job.text)}</div><button id="cancelJob" class="secondary wide mt3" type="button">Cancelar</button></div>`:''}
     <div class="section-title">Canciones</div>
-    ${songs.length?`<div class="card">${songs.map(s=>`<div class="song-row" data-song="${esc(s.id)}"><div class="grow"><strong>${esc(s.name)}</strong><div class="muted" style="font-size:12px;margin-top:3px">${fmtClock(s.frames/44100)} · ${s.bpm?`${s.bpm} BPM · `:''}${fmtMB(s.bytes)}</div></div><button class="icon-btn" data-del-song="${esc(s.id)}" aria-label="Borrar canción">×</button></div>`).join('')}</div>`:'<div class="card empty">Todavía no hay canciones separadas.</div>'}
-    ${est?`<div class="empty" style="font-size:12px;margin:9px 4px 0">Espacio usado por la app: ${fmtMB(est.usage)}</div>`:''}`;
+    ${songs.length?`<div class="card">${songs.map(s=>`<div class="song-row" data-song="${esc(s.id)}"><div class="grow"><strong>${esc(s.name)}</strong><div class="note mt1">${fmtClock(s.frames/44100)} · ${s.bpm?`${s.bpm} BPM · `:''}${fmtMB(s.bytes)}</div></div><button class="icon-btn" data-del-song="${esc(s.id)}" aria-label="Borrar canción">×</button></div>`).join('')}</div>`:emptyState('song','Aún no hay canciones','Elige una canción del móvil: la app la separa en pistas para que quites tu instrumento y toques encima.')}
+    ${est?`<div class="note mt2 mb0 mx1">Espacio usado por la app: ${fmtMB(est.usage)}</div>`:''}`;
   $('#pickSong').onclick=()=>$('#songFile').click();
   $('#songFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)startSeparation(f)};
   if(job)$('#cancelJob').onclick=cancelSeparation;
@@ -2854,15 +2863,15 @@ function renderTrainer(){
   const p=player,box=$('#trainerBox');if(!box)return;
   const s=p.song,tr=p.trainer;
   if(p.loop?.b==null||!s.bpm){box.innerHTML='';return}
-  if(!tr){box.innerHTML=`<button type="button" class="secondary wide" id="trainerOpen" style="margin-top:8px">${ic('speed')} Entrenador de velocidad</button>`;
+  if(!tr){box.innerHTML=`<button type="button" class="secondary wide mt2" id="trainerOpen">${ic('speed')} Entrenador de velocidad</button>`;
     $('#trainerOpen').onclick=()=>{const now=Math.round(p.target),max=Math.floor(s.bpm*1.5);
       p.trainer={step:2,every:4,goal:now<s.bpm?s.bpm:Math.min(max,now+10),laps:0,on:false};renderTrainer()};return}
-  const row=(k,label,unit)=>`<div class="tuner-cal" style="margin-top:8px"><span class="grow muted" style="font-size:13px">${label}</span><button type="button" data-tr="${k}" data-d="-1" aria-label="Menos">−</button><b class="tuner-a4" style="text-align:center">${tr[k]} ${unit}</b><button type="button" data-tr="${k}" data-d="1" aria-label="Más">+</button></div>`;
+  const row=(k,label,unit)=>`<div class="tuner-cal mt2"><span class="grow note">${label}</span><button type="button" data-tr="${k}" data-d="-1" aria-label="Menos">−</button><b class="tuner-a4" style="text-align:center">${tr[k]} ${unit}</b><button type="button" data-tr="${k}" data-d="1" aria-label="Más">+</button></div>`;
   box.innerHTML=`<div class="card" style="margin-top:8px;background:var(--card2)">${tr.on
     ?`<div class="cat-row" style="border:0;padding:0"><div class="grow"><strong>Entrenador en marcha</strong><div class="muted tsub">Vuelta ${tr.laps%tr.every+1} de ${tr.every} · +${tr.step} BPM hasta ${tr.goal}</div></div><strong style="color:var(--accent)">${Math.round(p.target)} BPM</strong></div>
-      <button type="button" class="secondary wide" id="trainerStop" style="margin-top:10px">Parar</button>`
+      <button type="button" class="secondary wide mt3" id="trainerStop">Parar</button>`
     :`${row('step','Sube','BPM')}${row('every','Cada','vueltas')}${row('goal','Hasta','BPM')}
-      <div class="block-actions" style="margin-top:12px"><button type="button" class="secondary" id="trainerCancel">Cancelar</button><button type="button" class="primary" id="trainerStart">Empezar</button></div>`}</div>`;
+      <div class="block-actions mt3"><button type="button" class="secondary" id="trainerCancel">Cancelar</button><button type="button" class="primary" id="trainerStart">Empezar</button></div>`}</div>`;
   const lim={step:[1,10],every:[1,16],goal:[Math.round(p.target)+1,Math.floor(s.bpm*1.5)]};
   $$('[data-tr]').forEach(b=>b.onclick=()=>{const k=b.dataset.tr,[lo,hi]=lim[k];tr[k]=Math.max(lo,Math.min(hi,tr[k]+ +b.dataset.d*(k==='goal'?5:1)));renderTrainer()});
   if($('#trainerCancel'))$('#trainerCancel').onclick=()=>{p.trainer=null;renderTrainer()};
@@ -2934,13 +2943,13 @@ function renderRecBox(){
   const p=player,box=$('#recBox');if(!box)return;
   const r=p.rec,loop=p.loop?.b!=null;
   box.innerHTML=(r?.stage==='rec'||r?.stage==='count'
-    ?`<button type="button" class="danger wide" id="recBtn" style="margin-top:8px">■ ${r.stage==='count'?'Cancelar':`Parar grabación${r.loop?' (para sola al final del bucle)':''}`}</button>`
+    ?`<button type="button" class="danger wide mt2" id="recBtn">■ ${r.stage==='count'?'Cancelar':`Parar grabación${r.loop?' (para sola al final del bucle)':''}`}</button>`
     :`<button type="button" class="secondary wide" id="recBtn" style="margin-top:8px" ${r?'disabled':''}>● Grabarme${loop?' (una vuelta del bucle)':''}</button>`)+
     (p.takes.length?`<div class="card" style="margin-top:8px;background:var(--card2)">${p.takes.map(t=>{const on=r?.stage==='play'&&r.id===t.id;return `<div class="cat-row" style="padding:8px 0;gap:6px"><div class="grow" style="min-width:0"><strong>Toma ${t.n}</strong><div class="muted tsub">${fmtClock(t.dur)} · desde ${fmtClock(t.start)} · ${Math.round(t.target)} BPM</div></div>
       ${on?'<button type="button" class="icon-btn" data-take-stop aria-label="Parar">■</button>':`<button type="button" class="icon-btn" data-take-song="${t.id}" aria-label="Escuchar con la canción" title="Con la canción">▶♫</button><button type="button" class="icon-btn" data-take-solo="${t.id}" aria-label="Escuchar solo la toma" title="Solo la toma">▶</button>`}
       <button type="button" class="icon-btn" data-take-save="${t.id}" aria-label="Guardar la toma">⤓</button><button type="button" class="icon-btn" data-take-del="${t.id}" aria-label="Borrar la toma">✕</button></div>`}).join('')}
-      <div class="tuner-cal" style="margin-top:8px"><span class="grow muted" style="font-size:12px">Sincronía (si te oyes tarde, súbela)</span><button type="button" data-lat="-10" aria-label="Menos">−</button><b class="tuner-a4" style="text-align:center">${recLatency} ms</b><button type="button" data-lat="10" aria-label="Más">+</button></div>
-      <div class="muted" style="font-size:11px;margin-top:6px">Las tomas se borran al cerrar la canción; guarda las que quieras con ⤓. Con auriculares se oye mejor.</div></div>`:'');
+      <div class="tuner-cal mt2"><span class="grow note">Sincronía (si te oyes tarde, súbela)</span><button type="button" data-lat="-10" aria-label="Menos">−</button><b class="tuner-a4" style="text-align:center">${recLatency} ms</b><button type="button" data-lat="10" aria-label="Más">+</button></div>
+      <div class="note mt2">Las tomas se borran al cerrar la canción; guarda las que quieras con ⤓. Con auriculares se oye mejor.</div></div>`:'');
   $('#recBtn').onclick=()=>r?.stage==='rec'||r?.stage==='count'?recStop():recStart();
   $$('[data-take-song]').forEach(b=>b.onclick=()=>takePlay(b.dataset.takeSong,true));
   $$('[data-take-solo]').forEach(b=>b.onclick=()=>takePlay(b.dataset.takeSolo,false));
@@ -3008,11 +3017,13 @@ async function addSectionHere(){
 // timeupdate llega cada ~250 ms: el intervalo hace el salto más preciso con la app abierta.
 setInterval(checkLoop,40);
 
+// Pestañas del reproductor: el transporte queda siempre arriba y lo demás se reparte aquí.
+const PLAYER_TABS=[['play','Tocar'],['stems','Pistas'],['tone','Tono'],['rec','Grabar']];
 function renderPlayer(){
   const p=player,s=p.song,dur=s.frames/44100,pct=s.bpm?Math.round(p.target/s.bpm*100):Math.round(p.rate*100);
   $('#stemsBody').innerHTML=`
     <div class="backline" id="backSongs">‹ Canciones</div>
-    <div class="title" style="font-size:24px;margin:0 0 12px">${esc(s.name)}</div>
+    <div class="title sub">${esc(s.name)}</div>
     <div class="card">
       <input id="seek" class="range" type="range" min="0" max="${dur}" step="0.1" value="${songPos()||0}" aria-label="Posición">
       <div class="time-row"><span id="curTime">${fmtClock(songPos())}</span><span>${fmtClock(dur)}</span></div>
@@ -3024,38 +3035,47 @@ function renderPlayer(){
       <button id="loopBtn" class="secondary wide loop-btn${p.loop?' on':''}" type="button" aria-pressed="${!!p.loop}">${loopLabel()}</button>
       <div class="chip-row" id="sectionRow" aria-label="Secciones"></div>
       ${s.chords?.length?'<div class="chord-now" id="chordNow" aria-live="off"></div>':''}
-      <div id="trainerBox"></div>
-      <div id="recBox"></div>
     </div>
-    <div class="card" style="margin-top:9px">
-      <div class="cat-row" style="border-bottom:0;padding-top:0"><div class="grow"><strong>Práctica en curso</strong><div class="muted" style="font-size:12px;margin-top:4px">Cuenta solo mientras suena, separado por BPM</div></div><strong id="practiceNow" style="color:var(--accent);font-variant-numeric:tabular-nums">${practiceText()}</strong></div>
+    <div class="subtabs player-tabs" id="playerTabs">${PLAYER_TABS.map(([k,l])=>`<button type="button" data-ptab-btn="${k}" class="${(p.tab||'play')===k?'active':''}">${l}</button>`).join('')}</div>
+    <div data-ptab="play">
+    <div class="card">
+      <div class="cat-row" style="border-bottom:0;padding-top:0"><div class="grow"><strong>Práctica en curso</strong><div class="note mt1">Cuenta solo mientras suena, separado por BPM</div></div><strong id="practiceNow" style="color:var(--accent);font-variant-numeric:tabular-nums">${practiceText()}</strong></div>
       <button id="logPractice" class="primary wide" type="button">Guardar práctica</button>
     </div>
     <div class="section-title">Tempo de práctica</div>
     <div class="card">
-      <div class="orig-bpm"><span class="muted grow" style="font-size:13px">BPM original</span><input id="origBpm" type="number" inputmode="numeric" min="30" max="300" value="${s.bpm||''}" placeholder="—"><button id="halfBpm" type="button">÷2</button><button id="doubleBpm" type="button">×2</button></div>
+      <div class="orig-bpm"><span class="grow note">BPM original</span><input id="origBpm" type="number" inputmode="numeric" min="30" max="300" value="${s.bpm||''}" placeholder="—"><button id="halfBpm" type="button">÷2</button><button id="doubleBpm" type="button">×2</button></div>
       ${s.bpm?`
-      <div class="bpm-row" style="margin-top:14px"><button id="bpmDown" type="button">−</button><div><div class="bpm-big">${Math.round(p.target)}</div><div class="muted" style="text-align:center;font-size:12px">BPM · ${pct}%</div></div><button id="bpmUp" type="button">+</button></div>
+      <div class="bpm-row mt4"><button id="bpmDown" type="button">−</button><div><div class="bpm-big">${Math.round(p.target)}</div><div class="note center">BPM · ${pct}%</div></div><button id="bpmUp" type="button">+</button></div>
       <input id="bpmRange" class="range" type="range" min="${Math.ceil(s.bpm*.5)}" max="${Math.floor(s.bpm*1.5)}" step="1" value="${Math.round(p.target)}" style="margin-top:12px" aria-label="BPM de práctica">
       <div class="mini-btns"><button data-pct="0.75" type="button">75%</button><button data-pct="0.9" type="button">90%</button><button data-pct="1" type="button">100%</button></div>
       <button id="countBtn" class="secondary wide loop-btn${countInOn?' on':''}" type="button" aria-pressed="${countInOn}">${countInOn?`${ic('drum')} Cuenta atrás: 4 clics antes de empezar`:`${ic('drum')} Cuenta atrás: no`}</button>`
-      :`<div class="empty" style="font-size:12px;margin-top:10px">No se pudo detectar el BPM. Escríbelo arriba para ajustar el tempo.</div>`}
+      :`<div class="note mt3">No se pudo detectar el BPM. Escríbelo arriba para ajustar el tempo.</div>`}
+      <div id="trainerBox"></div>
     </div>
-    <div class="section-title">Tono</div>
+    </div>
+    <div data-ptab="tone">
     <div class="card">
-      <div class="bpm-row"><button id="semiDown" type="button" aria-label="Bajar un semitono">−</button><div><div class="bpm-big">${p.semi>0?'+':''}${p.semi}</div><div class="muted" style="text-align:center;font-size:12px">${p.semi?'semitonos':'tono original'}</div></div><button id="semiUp" type="button" aria-label="Subir un semitono">+</button></div>
-      <div class="empty" style="font-size:12px;margin-top:10px">−1 = afinación en Mi♭. El tempo no cambia.</div>
-      <button id="tuneForSong" class="secondary wide" style="margin-top:10px" type="button">${ic('tuner')} Afinar para esta canción</button>
-      <div class="tuner-song" style="margin:14px 0 0">${songKeyHtml()}</div>
-      <div class="tuner-song" style="margin:12px 0 0"><div class="grow"><strong>Acordes</strong><div class="tsub muted">${!s.chords?'Detecta los acordes para verlos mientras suena':s.chords.some(c=>c.pc!=null)?'Arriba, bajo las secciones · mayores y menores':'No se encontraron acordes claros'}</div></div>${s.chords?'':'<button class="secondary" id="songChords" type="button">Analizar</button>'}</div>
+      <div class="bpm-row"><button id="semiDown" type="button" aria-label="Bajar un semitono">−</button><div><div class="bpm-big">${p.semi>0?'+':''}${p.semi}</div><div class="note center">${p.semi?'semitonos':'tono original'}</div></div><button id="semiUp" type="button" aria-label="Subir un semitono">+</button></div>
+      <div class="note mt3">−1 = afinación en Mi♭. El tempo no cambia.</div>
+      <button id="tuneForSong" class="secondary wide mt3" type="button">${ic('tuner')} Afinar para esta canción</button>
+      <div class="tuner-song mt4 mb0">${songKeyHtml()}</div>
+      <div class="tuner-song mt3 mb0"><div class="grow"><strong>Acordes</strong><div class="tsub muted">${!s.chords?'Detecta los acordes para verlos mientras suena':s.chords.some(c=>c.pc!=null)?'Arriba, bajo las secciones · mayores y menores':'No se encontraron acordes claros'}</div></div>${s.chords?'':'<button class="secondary" id="songChords" type="button">Analizar</button>'}</div>
     </div>
-    <div class="section-title">Pistas</div>
+    </div>
+    <div data-ptab="stems">
     <div class="card">${STEM_ORDER.filter(k=>p.data[k]).map(k=>`<div class="stem-row"><div class="c" style="--cat:${STEM_INFO[k][1]}"></div><span>${STEM_INFO[k][0]}</span><input class="range" type="range" min="0" max="1" step="0.05" value="${p.vol[k]}" data-vol="${k}" aria-label="Volumen ${STEM_INFO[k][0]}"><button data-solo="${k}" class="${p.solo===k?'on':''}" aria-pressed="${p.solo===k}">S</button><button data-mute="${k}" class="mute ${p.mute[k]?'on':''}" aria-pressed="${!!p.mute[k]}">M</button></div>`).join('')}</div>
     <div class="mini-btns"><button data-mix="all" type="button">Todo</button><button data-mix="guitar" type="button">Sin guitarra</button><button data-mix="bass" type="button">Sin bajo</button></div>
-    <div class="empty" style="font-size:12px;margin:12px 4px 0">S = escuchar solo esa pista · M = silenciarla. Para practicar, quita tu instrumento y toca encima.</div>
-    <div class="muted" style="font-size:12px;margin:14px 4px 6px">Exportar esta mezcla</div>
-    <div class="block-actions" style="margin-top:0"><button id="exportMix" class="secondary" type="button">⤓ WAV · ${Math.round(s.frames*4/1e6)} MB</button><button id="exportMp3" class="${p.mp3?'primary':'secondary'}" type="button" ${p.mp3Busy?'disabled':''}>${p.mp3Busy?'Convirtiendo…':p.mp3?`⤓ Guardar MP3 · ${(p.mp3.size/1e6).toFixed(1).replace('.',',')} MB`:`⤓ MP3 · ${mp3SizeMB(s.frames).toFixed(1).replace('.',',')} MB`}</button></div>
-    <div class="empty" style="font-size:12px;margin:6px 4px 0">Con las pistas y volúmenes de arriba, al tempo y tono originales. El MP3 (192 kbps) pesa unas 7 veces menos: primero se convierte y luego tocas «Guardar MP3».</div>`;
+    <div class="note mt3 mb0 mx1">S = escuchar solo esa pista · M = silenciarla. Para practicar, quita tu instrumento y toca encima.</div>
+    <div class="note mt4 mb2 mx1">Exportar esta mezcla</div>
+    <div class="block-actions mt0"><button id="exportMix" class="secondary" type="button">⤓ WAV · ${Math.round(s.frames*4/1e6)} MB</button><button id="exportMp3" class="${p.mp3?'primary':'secondary'}" type="button" ${p.mp3Busy?'disabled':''}>${p.mp3Busy?'Convirtiendo…':p.mp3?`⤓ Guardar MP3 · ${(p.mp3.size/1e6).toFixed(1).replace('.',',')} MB`:`⤓ MP3 · ${mp3SizeMB(s.frames).toFixed(1).replace('.',',')} MB`}</button></div>
+    <div class="note mt2 mb0 mx1">Con las pistas y volúmenes de arriba, al tempo y tono originales. El MP3 (192 kbps) pesa unas 7 veces menos: primero se convierte y luego tocas «Guardar MP3».</div>
+    </div>
+    <div data-ptab="rec">
+    <div class="card"><strong>Grabarte tocando</strong><div class="note mt1">Graba con el micro mientras suena la canción y escúchate después, con la canción o sola. Con un bucle marcado, graba una vuelta.</div><div id="recBox"></div></div>
+    </div>`;
+  const showTab=()=>{const t=p.tab||'play';$$('[data-ptab]').forEach(d=>d.hidden=d.dataset.ptab!==t);$$('[data-ptab-btn]').forEach(b=>b.classList.toggle('active',b.dataset.ptabBtn===t))};
+  showTab();$$('[data-ptab-btn]').forEach(b=>b.onclick=()=>{p.tab=b.dataset.ptabBtn;showTab()});
   const a=p.audio;
   $('#backSongs').onclick=()=>renderSongList();
   $('#logPractice').onclick=logPracticeFromPlayer;
