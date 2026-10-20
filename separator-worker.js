@@ -136,14 +136,16 @@ async function separate(session, left, right, L, T, onProgress, fallback = null)
 }
 
 // ---------- BPM (sobre la pista de batería, Int16 intercalado) ----------
+// `stereo`: una pista estéreo intercalada (Int16Array) o varias que se suman al vuelo, sin copiar la canción.
 function estimateBpm(stereo, sr = SR) {
-  const win = 1024, hop = 512, frames = Math.min(Math.floor((stereo.length / 2 - win) / hop), Math.round(180 * sr / hop));
+  const parts = Array.isArray(stereo) ? stereo : [stereo], len = parts[0].length;
+  const win = 1024, hop = 512, frames = Math.min(Math.floor((len / 2 - win) / hop), Math.round(180 * sr / hop));
   if (frames < 200) return null;
   const env = new Float32Array(frames);
   let prev = 0;
   for (let f = 0; f < frames; f++) {
     let e = 0;
-    for (let i = 0; i < win; i++) { const j = 2 * (f * hop + i), v = stereo[j] + stereo[j + 1]; e += v * v }
+    for (let i = 0; i < win; i++) { const j = 2 * (f * hop + i); let v = 0; for (const s of parts) v += s[j] + s[j + 1]; e += v * v }
     const le = Math.log1p(e / win / 1e4);
     env[f] = Math.max(0, le - prev); prev = le;
   }
@@ -165,6 +167,13 @@ function estimateBpm(stereo, sr = SR) {
     if (!best || score > best.score) best = { bpm, score };
   }
   return Math.round(best.bpm);
+}
+// BPM de la canción: con la batería si suena; sin batería (acústicas, baladas) la pista de batería es casi silencio
+// y se usan las demás (rasgueos, bajo, piano). `stems` en el orden de STEMS.
+function songBpm(stems) {
+  const rms = s => { let e = 0, n = 0; for (let i = 0; i < s.length; i += 64) { e += s[i] * s[i]; n++ } return Math.sqrt(e / Math.max(1, n)) };
+  const rest = stems.slice(1).reduce((a, s) => a + rms(s), 0);
+  return estimateBpm(rms(stems[0]) >= rest * 0.08 ? stems[0] : stems.slice(1));
 }
 
 // ---------- Modelo ----------
@@ -199,7 +208,7 @@ async function createSession(bytes) {
   throw new Error('session');
 }
 
-if (typeof module !== 'undefined') module.exports = { estimateBpm, separate, STEMS };
+if (typeof module !== 'undefined') module.exports = { estimateBpm, songBpm, separate, STEMS };
 else self.onmessage = async ({ data }) => {
   if (data.type !== 'separate') return;
   const post = (m, t) => self.postMessage(m, t || []);
@@ -212,7 +221,7 @@ else self.onmessage = async ({ data }) => {
     const progress = (value, eta) => post({ type: 'progress', phase: 'separate', value, eta, ep });
     const toCpu = ep === 'wasm' ? null : async () => { ep = 'wasm'; return ort.InferenceSession.create(bytes, { executionProviders: ['wasm'] }) };
     const stems = await separate(session, data.left, data.right, L, T, progress, toCpu);
-    const bpm = estimateBpm(stems[0]);
+    const bpm = songBpm(stems);
     const payload = Object.fromEntries(STEMS.map((n, i) => [n, stems[i]]));
     post({ type: 'done', stems: payload, bpm, ep }, stems.map(s => s.buffer));
   } catch (err) {
