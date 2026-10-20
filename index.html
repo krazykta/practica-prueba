@@ -2474,12 +2474,13 @@ const METRO_KEY=PREVIEW?'practica_preview_metronome':'practica_metronome_v1';
 let metroPrefs={bpm:100,beats:4,sub:1,accent:true,gap:0};
 try{const p=JSON.parse(localStorage.getItem(METRO_KEY)||'{}');metroPrefs={bpm:Math.min(300,Math.max(30,Math.round(+p.bpm)||100)),beats:Math.min(12,Math.max(1,Math.round(+p.beats)||4)),sub:[1,2,3,4].includes(+p.sub)?+p.sub:1,accent:p.accent!==false,gap:[1,2,4].includes(+p.gap)?+p.gap:0}}catch{}
 const saveMetroPrefs=()=>{try{localStorage.setItem(METRO_KEY,JSON.stringify(metroPrefs))}catch{}};
-let metro=null,metroTaps=[],sessionFromMetro=false;
+let metro=null,metroTaps=[],sessionFromMetro=false,metroTrainer=null; // metroTrainer: como el del reproductor, cada vuelta es un compás
 const metroPractice=new Map(); // segundos sonando por BPM, como en el reproductor
 const metroSeconds=()=>[...metroPractice.values()].reduce((a,b)=>a+b,0);
 const SUB_NAMES={1:'Negras',2:'Corcheas',3:'Tresillos',4:'Semicorcheas'};
 
 function openMetronome(){
+  if(!metro)metroTrainer=null; // se cerró sin parar el entrenador: empieza limpio
   const m=$('#toolModal');
   m.innerHTML=`<div class="topbar"><button id="closeMetro">Cerrar</button><h2>Metrónomo</h2><button aria-hidden="true" tabindex="-1"></button></div><div class="form" id="metroBody"></div>`;
   m.classList.add('open');m.scrollTop=0;
@@ -2495,6 +2496,7 @@ function renderMetro(){
       <input id="metroRange" class="range" type="range" min="30" max="300" step="1" value="${p.bpm}" style="margin-top:12px" aria-label="BPM">
       <div class="metro-row"><button type="button" data-mstep="-5">−5</button><button type="button" id="metroTap">Tap</button><button type="button" data-mstep="5">+5</button></div>
       <button id="metroPlay" class="primary wide mt3" type="button">${metro?'❚❚ Parar':'▶ Empezar'}</button>
+      <div id="metroTrainerBox"></div>
     </div>
     <div class="section-title">Compás</div>
     <div class="card">
@@ -2520,6 +2522,25 @@ function renderMetro(){
   $$('[data-gap]').forEach(b=>b.onclick=()=>{p.gap=+b.dataset.gap;re()});
   $('#metroPlay').onclick=()=>{metro?metroStop():metroStart();renderMetro()};
   $('#metroLog').onclick=logPracticeFromMetro;
+  renderMetroTrainer();
+}
+function renderMetroTrainer(){
+  const box=$('#metroTrainerBox'),tr=metroTrainer,p=metroPrefs;if(!box)return;
+  if(!tr){box.innerHTML=`<button type="button" class="secondary wide mt2" id="mtOpen">${ic('speed')} Entrenador de velocidad</button>`;
+    $('#mtOpen').onclick=()=>{metroTrainer={step:2,every:4,goal:Math.min(300,p.bpm+20),laps:0,on:false};renderMetroTrainer()};return}
+  const row=(k,label,unit)=>`<div class="tuner-cal mt2"><span class="grow note">${label}</span><button type="button" data-mt="${k}" data-d="-1" aria-label="Menos">−</button><b class="tuner-a4 center">${tr[k]} ${unit}</b><button type="button" data-mt="${k}" data-d="1" aria-label="Más">+</button></div>`;
+  box.innerHTML=`<div class="card mt2" style="background:var(--card2)">${tr.on
+    ?`<div class="cat-row" style="border:0;padding:0"><div class="grow"><strong>Entrenador en marcha</strong><div class="note mt1">Compás ${tr.laps%tr.every+1} de ${tr.every} · +${tr.step} BPM hasta ${tr.goal}</div></div></div>
+      <button type="button" class="secondary wide mt3" id="mtStop">Parar entrenador</button>`
+    :`${row('step','Sube','BPM')}${row('every','Cada','compases')}${row('goal','Hasta','BPM')}
+      <div class="block-actions mt3"><button type="button" class="secondary" id="mtCancel">Cancelar</button><button type="button" class="primary" id="mtStart">Empezar</button></div>`}</div>`;
+  const lim={step:[1,10],every:[1,16],goal:[p.bpm+1,300]};
+  $$('[data-mt]').forEach(b=>b.onclick=()=>{const k=b.dataset.mt,[lo,hi]=lim[k];tr[k]=Math.max(lo,Math.min(hi,tr[k]+ +b.dataset.d*(k==='goal'?5:1)));renderMetroTrainer()});
+  if($('#mtCancel'))$('#mtCancel').onclick=()=>{metroTrainer=null;renderMetroTrainer()};
+  if($('#mtStop'))$('#mtStop').onclick=()=>{metroTrainer=null;renderMetroTrainer()};
+  if($('#mtStart'))$('#mtStart').onclick=()=>{
+    if(tr.goal<=p.bpm)return toast('El objetivo tiene que ser mayor que el BPM actual');
+    tr.on=true;tr.laps=0;metroStop();metroStart();renderMetro()};
 }
 function metroStart(){
   if(metro)return;
@@ -2543,6 +2564,7 @@ function metroSchedule(){
   metroPractice.set(p.bpm,(metroPractice.get(p.bpm)||0)+Math.max(0,now-m.last));m.last=now;
   if(m.next<now-.05)m.next=now+.05; // tras una pausa del sistema no se recuperan clics atrasados
   while(m.next<now+.12){
+    if(metroTrainer?.on&&m.i&&m.i%(p.beats*p.sub)===0){p.bpm=trainerLap(metroTrainer,p.bpm);if(p.bpm>=metroTrainer.goal)metroTrainer.done=true}
     const s=metroStep(m.i,p.bpm,p.beats,p.sub,p.accent);
     if(!metroMuted(m.i,p.beats,p.sub,p.gap))metroClick(ctx,m.next,s.kind);m.queue.push({t:m.next,beat:s.beat,kind:s.kind});
     m.next+=s.dt;m.i++;
@@ -2557,6 +2579,10 @@ function metroPaint(){
   while(m.queue.length&&m.queue[0].t<=now)cur=m.queue.shift();
   if(cur&&cur.kind!=='sub')$$('#metroDots i').forEach((d,i)=>d.classList.toggle('on',i===cur.beat));
   const el=$('#metroTime');if(el)el.textContent=fmtClock(metroSeconds());
+  const b=$('#metroBpm'),bpm=metroPrefs.bpm;
+  if(b&&+b.textContent!==bpm){b.textContent=bpm;$('#metroRange').value=bpm;saveMetroPrefs();
+    if(metroTrainer?.done){metroTrainer=null;toast(`Objetivo alcanzado: ${bpm} BPM`)}else toast(`▲ ${bpm} BPM`);renderMetroTrainer()}
+  else if(metroTrainer?.on){const n=$('#metroTrainerBox .note'),t=`Compás ${metroTrainer.laps%metroTrainer.every+1} de ${metroTrainer.every} · +${metroTrainer.step} BPM hasta ${metroTrainer.goal}`;if(n&&n.textContent!==t)n.textContent=t}
 }
 function logPracticeFromMetro(){
   const secs=metroSeconds();
@@ -2579,13 +2605,16 @@ const STEM_ORDER=['guitar','bass','drums','vocals','piano','other'];
 const SONG_DB=PREVIEW?'practica_preview_songs':'practica_songs';
 let separatorJob=null, player=null;
 
-function songStore(mode,fn){
+// v2 (1.8.15) añade el almacén 'takes' (tomas grabadas, por canción) sin tocar las canciones guardadas.
+function songStore(mode,fn,store='songs'){
   return new Promise((ok,ko)=>{
-    const open=indexedDB.open(SONG_DB,1);
-    open.onupgradeneeded=()=>open.result.createObjectStore('songs',{keyPath:'id'});
+    const open=indexedDB.open(SONG_DB,2);
+    open.onupgradeneeded=()=>{const db=open.result;
+      if(!db.objectStoreNames.contains('songs'))db.createObjectStore('songs',{keyPath:'id'});
+      if(!db.objectStoreNames.contains('takes'))db.createObjectStore('takes',{keyPath:'id'}).createIndex('song','songId')};
     open.onerror=()=>ko(open.error);
     open.onsuccess=()=>{
-      const db=open.result,tx=db.transaction('songs',mode),req=fn(tx.objectStore('songs'));
+      const db=open.result,tx=db.transaction(store,mode),req=fn(tx.objectStore(store));
       tx.oncomplete=()=>{db.close();ok(req?.result)};
       tx.onerror=tx.onabort=()=>{db.close();ko(tx.error)};
     };
@@ -2593,7 +2622,13 @@ function songStore(mode,fn){
 }
 const listSongs=()=>songStore('readonly',st=>st.getAll());
 const putSong=song=>songStore('readwrite',st=>st.put(song));
-const removeSong=id=>songStore('readwrite',st=>st.delete(id));
+const listTakes=songId=>songStore('readonly',st=>st.index('song').getAll(songId),'takes');
+const putTake=t=>songStore('readwrite',st=>st.put(t),'takes');
+const delTake=id=>songStore('readwrite',st=>st.delete(id),'takes');
+const removeSong=async id=>{
+  await songStore('readwrite',st=>st.delete(id));
+  await songStore('readwrite',st=>{const r=st.index('song').openKeyCursor(IDBKeyRange.only(id));r.onsuccess=()=>{const c=r.result;if(c){st.delete(c.primaryKey);c.continue()}}},'takes');
+};
 const fmtClock=sec=>{sec=Math.max(0,Math.floor(sec||0));return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`};
 const fmtMB=b=>`${Math.round(b/1048576)} MB`;
 
@@ -2625,7 +2660,7 @@ async function renderSongList(){
   $$('[data-song]').forEach(r=>r.onclick=e=>{if(!e.target.closest('[data-del-song]'))openPlayer(r.dataset.song)});
   $$('[data-del-song]').forEach(b=>b.onclick=async()=>{
     const s=songs.find(x=>x.id===b.dataset.delSong);
-    if(!confirm(`¿Borrar “${s.name}” y sus pistas separadas?`))return;
+    if(!confirm(`¿Borrar “${s.name}” con sus pistas y tomas?`))return;
     if(player?.song.id===s.id)stopPlayer();
     await removeSong(s.id);renderSongList();toast('Canción borrada');
   });
@@ -2786,6 +2821,8 @@ async function openPlayer(id){
   player.audio.onended=()=>{if(player?.rec?.stage==='rec')return recStop();if(player?.rec)return;const l=player?.loop;if(l?.b!=null){seekSong(l.a);player.audio.play().catch(()=>{});loopLap()}};
   player.audio.onplay=player.audio.onpause=()=>{if(!player.audio.paused)player.unlocked=true;practiceTick();paintPlayBtn();syncMini();syncPlaybackNotice()};
   remix();renderPlayer();renderHome();renderPlay();
+  const p=player;listTakes(id).then(a=>{if(player!==p||!a.length)return;
+    p.takes=[...p.takes,...a.sort((x,y)=>y.n-x.n).map(t=>({...t,url:URL.createObjectURL(t.blob)}))];p.takeN=Math.max(p.takeN,...a.map(t=>t.n));renderRecBox()}).catch(()=>{});
 }
 
 // ---------- Cuenta atrás: un compás (4 clics) al tempo de práctica y la canción entra en el siguiente tiempo ----------
@@ -2913,7 +2950,11 @@ async function recStart(){
   mr.onstop=()=>{
     stream.getTracks().forEach(t=>t.stop());
     const blob=new Blob(chunks,{type:mr.mimeType||mime||'audio/webm'});
-    if(blob.size&&player===p)p.takes.unshift({id:uuid(),n:++p.takeN,blob,url:URL.createObjectURL(blob),start:rec.start,dur:Math.max(0,(rec.end??songPos())-rec.start),target:p.target,semi:p.semi});
+    if(blob.size&&player===p){
+      const t={id:uuid(),songId:p.song.id,n:++p.takeN,blob,start:rec.start,dur:Math.max(0,(rec.end??songPos())-rec.start),target:p.target,semi:p.semi,date:new Date().toISOString()};
+      p.takes.unshift({...t,url:URL.createObjectURL(blob)});
+      putTake(t).catch(()=>toast('No se pudo guardar la toma en el móvil (¿sin espacio?)'));
+    }
     if(p.rec===rec)p.rec=null;
     if(player===p)renderRecBox();
   };
@@ -2955,12 +2996,12 @@ function renderRecBox(){
       ${on?'<button type="button" class="icon-btn" data-take-stop aria-label="Parar">■</button>':`<button type="button" class="icon-btn" data-take-song="${t.id}" aria-label="Escuchar con la canción" title="Con la canción">▶♫</button><button type="button" class="icon-btn" data-take-solo="${t.id}" aria-label="Escuchar solo la toma" title="Solo la toma">▶</button>`}
       <button type="button" class="icon-btn" data-take-save="${t.id}" aria-label="Guardar la toma">⤓</button><button type="button" class="icon-btn" data-take-del="${t.id}" aria-label="Borrar la toma">✕</button></div>`}).join('')}
       <div class="tuner-cal mt2"><span class="grow note">Sincronía (si te oyes tarde, súbela)</span><button type="button" data-lat="-10" aria-label="Menos">−</button><b class="tuner-a4" style="text-align:center">${recLatency} ms</b><button type="button" data-lat="10" aria-label="Más">+</button></div>
-      <div class="note mt2">Las tomas se borran al cerrar la canción; guarda las que quieras con ⤓. Con auriculares se oye mejor.</div></div>`:'');
+      <div class="note mt2">Las tomas se guardan con la canción hasta que las borres con ✕; ⤓ las saca del móvil. Con auriculares se oye mejor.</div></div>`:'');
   $('#recBtn').onclick=()=>r?.stage==='rec'||r?.stage==='count'?recStop():recStart();
   $$('[data-take-song]').forEach(b=>b.onclick=()=>takePlay(b.dataset.takeSong,true));
   $$('[data-take-solo]').forEach(b=>b.onclick=()=>takePlay(b.dataset.takeSolo,false));
   $$('[data-take-stop]').forEach(b=>b.onclick=takeStop);
-  $$('[data-take-del]').forEach(b=>b.onclick=()=>{const t=p.takes.find(x=>x.id===b.dataset.takeDel);if(p.rec?.id===t.id)takeStop();URL.revokeObjectURL(t.url);p.takes=p.takes.filter(x=>x!==t);renderRecBox()});
+  $$('[data-take-del]').forEach(b=>b.onclick=()=>{const t=p.takes.find(x=>x.id===b.dataset.takeDel);if(p.rec?.id===t.id)takeStop();URL.revokeObjectURL(t.url);p.takes=p.takes.filter(x=>x!==t);delTake(t.id).catch(()=>{});renderRecBox()});
   $$('[data-take-save]').forEach(b=>b.onclick=async()=>{const t=p.takes.find(x=>x.id===b.dataset.takeSave);
     const r2=await shareOrDownload(new File([t.blob],`${safeFileName(p.song.name)} - toma ${t.n}.${recExt(t.blob.type)}`,{type:t.blob.type}));if(r2==='error')toast('No se pudo guardar')});
   $$('[data-lat]').forEach(b=>b.onclick=()=>{recLatency=Math.max(-500,Math.min(500,recLatency+ +b.dataset.lat));try{localStorage.setItem(REC_LAT_KEY,recLatency)}catch{}renderRecBox()});
