@@ -53,7 +53,8 @@
 .key-title{font-family:var(--serif)}
 .subtabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:-6px 0 16px}.subtabs button{border:0;background:none;color:var(--muted);padding:8px 0 11px;font-weight:700;font-size:16px;position:relative}.subtabs button.active{color:var(--text)}.subtabs button.active:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--accent);border-radius:3px 3px 0 0}
 /* 1.8.11: piezas comunes (texto de ayuda .note, tamaños t-*, márgenes mt/mb de 4 en 4 px) */
-body{font-weight:500}.note{color:var(--muted)!important;font-size:12px!important;line-height:1.45}.t-xs{font-size:11px!important}.t-s{font-size:12px!important}.t-m{font-size:14px!important}.mt0{margin-top:0px!important}.mb0{margin-bottom:0px!important}.mt1{margin-top:4px!important}.mb1{margin-bottom:4px!important}.mt2{margin-top:8px!important}.mb2{margin-bottom:8px!important}.mt3{margin-top:12px!important}.mb3{margin-bottom:12px!important}.mt4{margin-top:16px!important}.mb4{margin-bottom:16px!important}.mx1{margin-left:4px!important;margin-right:4px!important}.center{text-align:center}.title.sub{font-size:24px;margin:0 0 12px}.title{font-weight:800;letter-spacing:-.6px}.section-title{font-weight:800;letter-spacing:-.2px}.today-big,.today-streak b,.welcome h2{font-weight:800}
+/* 1.8.12: tocar rápido (Tap, + y −) no hace zoom en iPhone; cifras de ancho fijo para que los relojes no bailen */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}html,button,input,select,label{touch-action:manipulation}body{font-weight:500;font-variant-numeric:tabular-nums}.note{color:var(--muted)!important;font-size:12px!important;line-height:1.45}.t-xs{font-size:11px!important}.t-s{font-size:12px!important}.t-m{font-size:14px!important}.mt0{margin-top:0px!important}.mb0{margin-bottom:0px!important}.mt1{margin-top:4px!important}.mb1{margin-bottom:4px!important}.mt2{margin-top:8px!important}.mb2{margin-bottom:8px!important}.mt3{margin-top:12px!important}.mb3{margin-bottom:12px!important}.mt4{margin-top:16px!important}.mb4{margin-bottom:16px!important}.mx1{margin-left:4px!important;margin-right:4px!important}.center{text-align:center}.title.sub{font-size:24px;margin:0 0 12px}.title{font-weight:800;letter-spacing:-.6px}.section-title{font-weight:800;letter-spacing:-.2px}.today-big,.today-streak b,.welcome h2{font-weight:800}
 </style>
 </head>
 <body>
@@ -2458,6 +2459,8 @@ function metroStep(i,bpm,beats,sub,accent){
   const pos=i%(beats*sub),kind=pos%sub?'sub':accent&&pos===0?'accent':'beat';
   return {kind,beat:Math.floor(pos/sub),dt:60/bpm/sub};
 }
+// Compases en silencio: suenan `gap` compases y callan otros `gap` (0 = siempre suena).
+const metroMuted=(i,beats,sub,gap)=>!!gap&&Math.floor(i/(beats*sub)/gap)%2===1;
 // Tap tempo: media de los últimos intervalos parecidos a la mediana (descarta dobles toques y pausas).
 function tapBpm(times){
   const kept=times.filter((t,i)=>i===0||t-times[i-1]>=200); // un toque a menos de 200 ms del anterior es un rebote
@@ -2468,8 +2471,8 @@ function tapBpm(times){
 }
 // METRO-END
 const METRO_KEY=PREVIEW?'practica_preview_metronome':'practica_metronome_v1';
-let metroPrefs={bpm:100,beats:4,sub:1,accent:true};
-try{const p=JSON.parse(localStorage.getItem(METRO_KEY)||'{}');metroPrefs={bpm:Math.min(300,Math.max(30,Math.round(+p.bpm)||100)),beats:Math.min(12,Math.max(1,Math.round(+p.beats)||4)),sub:[1,2,3,4].includes(+p.sub)?+p.sub:1,accent:p.accent!==false}}catch{}
+let metroPrefs={bpm:100,beats:4,sub:1,accent:true,gap:0};
+try{const p=JSON.parse(localStorage.getItem(METRO_KEY)||'{}');metroPrefs={bpm:Math.min(300,Math.max(30,Math.round(+p.bpm)||100)),beats:Math.min(12,Math.max(1,Math.round(+p.beats)||4)),sub:[1,2,3,4].includes(+p.sub)?+p.sub:1,accent:p.accent!==false,gap:[1,2,4].includes(+p.gap)?+p.gap:0}}catch{}
 const saveMetroPrefs=()=>{try{localStorage.setItem(METRO_KEY,JSON.stringify(metroPrefs))}catch{}};
 let metro=null,metroTaps=[],sessionFromMetro=false;
 const metroPractice=new Map(); // segundos sonando por BPM, como en el reproductor
@@ -2498,6 +2501,8 @@ function renderMetro(){
       <div class="chip-row mt0">${[2,3,4,5,6,7].map(b=>`<button type="button" class="chip-btn${p.beats===b?' on':''}" data-beats="${b}">${b} tiempos</button>`).join('')}</div>
       <div class="chip-row">${[1,2,3,4].map(s=>`<button type="button" class="chip-btn${p.sub===s?' on':''}" data-sub="${s}">${SUB_NAMES[s]}</button>`).join('')}</div>
       <div class="cat-row" style="border-bottom:0;padding:12px 0 0"><div class="grow">Acento en el 1</div><button type="button" class="chip-btn${p.accent?' on':''}" id="metroAccent" aria-pressed="${p.accent}">${p.accent?'Sí':'No'}</button></div>
+      <div class="note mt3">Compases en silencio: suenan unos y callan otros, para comprobar si aguantas el tempo</div>
+      <div class="chip-row mt1">${[[0,'No'],[1,'1 y 1'],[2,'2 y 2'],[4,'4 y 4']].map(([g,t])=>`<button type="button" class="chip-btn${p.gap===g?' on':''}" data-gap="${g}">${t}</button>`).join('')}</div>
     </div>
     <div class="card mt2">
       <div class="cat-row" style="border-bottom:0;padding-top:0"><div class="grow"><strong>Práctica</strong><div class="note mt1">Cuenta mientras suena, separado por BPM</div></div><strong id="metroTime" style="color:var(--accent);font-variant-numeric:tabular-nums">${fmtClock(metroSeconds())}</strong></div>
@@ -2512,6 +2517,7 @@ function renderMetro(){
   $$('[data-beats]').forEach(b=>b.onclick=()=>{p.beats=+b.dataset.beats;re()});
   $$('[data-sub]').forEach(b=>b.onclick=()=>{p.sub=+b.dataset.sub;re()});
   $('#metroAccent').onclick=()=>{p.accent=!p.accent;re()};
+  $$('[data-gap]').forEach(b=>b.onclick=()=>{p.gap=+b.dataset.gap;re()});
   $('#metroPlay').onclick=()=>{metro?metroStop():metroStart();renderMetro()};
   $('#metroLog').onclick=logPracticeFromMetro;
 }
@@ -2538,7 +2544,7 @@ function metroSchedule(){
   if(m.next<now-.05)m.next=now+.05; // tras una pausa del sistema no se recuperan clics atrasados
   while(m.next<now+.12){
     const s=metroStep(m.i,p.bpm,p.beats,p.sub,p.accent);
-    metroClick(ctx,m.next,s.kind);m.queue.push({t:m.next,beat:s.beat,kind:s.kind});
+    if(!metroMuted(m.i,p.beats,p.sub,p.gap))metroClick(ctx,m.next,s.kind);m.queue.push({t:m.next,beat:s.beat,kind:s.kind});
     m.next+=s.dt;m.i++;
   }
 }
@@ -3212,6 +3218,9 @@ $('#miniPlay').onclick=()=>{if(!player)return;askNoticePermission();player.audio
 $('#miniClose').onclick=()=>{if(!player)return;if(practiceSeconds()>=60&&!confirm(`Tienes ${practiceText()} de práctica sin guardar. ¿Cerrar la canción igualmente?`))return;stopPlayer()};
 resetForm();renderAll();showProgressView();syncAds();
 if(!sessions().length&&!localStorage.getItem(WELCOME_KEY))openWelcome();addEventListener('online',syncAds);addEventListener('offline',syncAds);
+// iPhone abre la app en blanco si no tiene imagen de arranque: la pintamos (fondo negro + icono) a la medida de esta
+// pantalla. Safari la lee al «Añadir a inicio», así que solo se hace en Safari (standalone===false), no en la app ya instalada.
+if(navigator.standalone===false){const img=new Image();img.onload=()=>{const d=devicePixelRatio||1,w=screen.width*d,h=screen.height*d,s=Math.round(w*.3),c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.fillStyle='#000';g.fillRect(0,0,w,h);g.drawImage(img,(w-s)/2,(h-s)/2,s,s);const l=document.createElement('link');l.rel='apple-touch-startup-image';l.href=c.toDataURL('image/png');document.head.append(l)};img.src='icons/icon-512.png'}
 if(window.visualViewport){
   window.visualViewport.addEventListener('resize',updateKeyboardOffset);
   window.visualViewport.addEventListener('scroll',updateKeyboardOffset);
