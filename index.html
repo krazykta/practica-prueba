@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" translate="no">
 <head>
 <meta charset="utf-8" />
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#090b0b" />
 <title>Práctica β</title>
@@ -1857,7 +1858,7 @@ function renderScales(){
       <button type="button" data-sbpm="-5" aria-label="Más lento">−</button><b class="tuner-a4" style="text-align:center">${st.playBpm} BPM</b><button type="button" data-sbpm="5" aria-label="Más rápido">+</button>
     </div>
     <div class="string-row mt2">${[[1,'Negras'],[2,'Corcheas'],[3,'Tresillos']].map(([k,l])=>`<button type="button" class="chip-btn${st.playSub===k?' on':''}" data-ssub="${k}" aria-pressed="${st.playSub===k}">${l}</button>`).join('')}</div>
-    <div class="string-row" style="margin-top:2px;align-items:center"><span class="note">Nota pedal</span>${[['','No'],['1','Tónica'],['15','Tónica y 5ª']].map(([k,l])=>`<button type="button" class="chip-btn${(drone?.mode||'')===k?' on':''}" data-drone="${k}" aria-pressed="${(drone?.mode||'')===k}">${l}</button>`).join('')}</div>
+    <div class="string-row" style="margin-top:2px;align-items:center;flex-wrap:wrap"><span class="note">Nota pedal</span>${[['','No'],['1','Tónica'],['15','Tónica y 5ª']].map(([k,l])=>`<button type="button" class="chip-btn${(drone?.mode||'')===k?' on':''}" data-drone="${k}" aria-pressed="${(drone?.mode||'')===k}">${l}</button>`).join('')}</div>
     <div class="section-title">Escala</div>
     <div class="field mb2"><select id="scaleType" aria-label="Tipo de escala">${SCALE_GROUPS.map(([g])=>`<optgroup label="${g}">${opts(SCALES.filter(s=>s.group===g))}</optgroup>`).join('')}${customScales.length?`<optgroup label="Mis escalas">${opts(customScales)}</optgroup>`:''}</select></div>
     ${scaleDraft?scaleEditorHtml():`<div class="block-actions" style="${custom?'':'grid-template-columns:1fr'}"><button type="button" class="secondary" id="newScale">+ Crear escala</button>${custom?`<button type="button" class="secondary" id="editScale">Editar</button><button type="button" class="danger" id="delScale" style="grid-column:1/-1">Borrar «${esc(def.name)}»</button>`:''}</div>`}
