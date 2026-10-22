@@ -1,4 +1,4 @@
-const CACHE = "practica-v1-8-22";
+const CACHE = "practica-v1-8-23";
 const ASSETS = [
   "./",
   "./index.html",
